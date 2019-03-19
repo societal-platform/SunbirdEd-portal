@@ -120,6 +120,23 @@ hr{
     background-color:#BDD49C !important;
     margin-top: -13rem !important;
 }
+.carousel-item {
+    /* Force to always be block */
+    display: block !important;
+    z-index: 1;
+    position: absolute;
+    transform: translateX(100%);
+    opacity: 0;
+    transition:all  0.2s;
+    visibility: hidden;
+  }
+  
+  .carousel-item .active {
+    position: relative;
+    transform: translateX(0);
+    visibility: visible ;
+    opacity: 1;
+  }
   @media screen and (max-width:978px ) and (min-width: 312px) {
     .img-fluid{
         height: fit-content !important;

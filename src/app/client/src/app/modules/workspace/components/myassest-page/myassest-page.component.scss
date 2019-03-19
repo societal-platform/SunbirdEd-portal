@@ -78,12 +78,12 @@ background-color: #585858;
  }
 
  #styletick {
-  border-radius: 50%; 
-    width: 48px;
-    height: 48px;
-    position: absolute;
-    top: 0;
-    right: 2px;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
  }
  i.fas.fa-database.fa-lg {
   padding: 1em 0.1em;
@@ -103,13 +103,22 @@ background-color: #585858;
   background-origin: 0;
 }
 .sprite {
-  width: 58px;
+  width: 63px;
+  height:63px;
   position: relative;
   right: 0;
   bottom: 0;
   background-image: url('../../../../../assets/images/Sprite-image.png');
-  /* background-size: 100%; */
-  /* border-radius: 50%; */
+  background-origin: 0;
+}
+
+.badgesprite{
+  width: 63px;
+  height:63px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-image: url('../../../../../assets/images/Sprite-image.png');
   background-origin: 0;
 }
 .knowledgeimg {

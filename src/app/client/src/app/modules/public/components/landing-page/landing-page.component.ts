@@ -14,8 +14,6 @@ export class LandingPageComponent implements OnInit {
   showNavigationIndicators = false;
   constructor( userService: UserService , config: NgbCarouselConfig) {
     this.userService = userService;
-    config.showNavigationArrows = true;
-      config.showNavigationIndicators = true;
   }
 
   ngOnInit() {

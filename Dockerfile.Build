@@ -9,7 +9,9 @@ WORKDIR /opt/player
 COPY * /opt/player/
 WORKDIR /opt/player/app
 RUN npm set progress=false
-RUN npm install  --unsafe-perm 
+Run npm cache -f clean
+RUN npm install  --unsafe-perm
+RUN npm install -g gulp
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
 RUN npm i -g npm@3.10.10

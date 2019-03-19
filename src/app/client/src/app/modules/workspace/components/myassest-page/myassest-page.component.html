@@ -21,25 +21,25 @@
           <div class="card-img-top" alt="..." ></div>
           <div class="card-img-overlay row">
               
-             <div class="col-sm-3 thick-green-border sprite knowledgeimg" *ngIf="content?.board === 'Knowledge'">
+             <div class="thick-green-border sprite knowledgeimg" *ngIf="content?.board === 'Knowledge'">
             </div>
-            <div class="col-sm-3 thick-green-border sprite hardwareimg" *ngIf="content?.board === 'hardware'">
+            <div class="thick-green-border sprite hardwareimg" *ngIf="content?.board === 'hardware'">
               <!-- <img src="images"> -->
             </div>
-            <div class="col-sm-3 thick-green-border sprite softwareimg" *ngIf="content?.board === 'Software'">
+            <div class="thick-green-border sprite softwareimg" *ngIf="content?.board === 'Software'">
             </div>
-            <div class="col-sm-3 thick-green-border sprite processimg" *ngIf="content?.board === 'Process'">
+            <div class="thick-green-border sprite processimg" *ngIf="content?.board === 'Process'">
             </div>
-            <div class="col-sm-3 thick-green-border sprite dataimg" *ngIf="content?.board === 'Data'">
+            <div class="thick-green-border sprite dataimg" *ngIf="content?.board === 'Data'">
             </div>
             <div class="col-sm-8 text-light pt-3">
-                <button *ngIf="content?.badgeAssertions" type="button" class="btn text-light float-right sprite badgeimg " id="styletick">
-                      
-                           </button> 
+               
               <h5 class="card-title">{{content?.name | titlecase}}</h5>
               <p class="card-text">version : {{content?.version}}.0</p>
             </div>
-              
+            <button *ngIf="content?.badgeAssertions" type="button" class="btn text-light float-right badgesprite badgeimg " id="styletick">
+                      
+            </button> 
           </div>
           <div class="card-body">
              <!-- <div> <i class="far fa-heart float-right"></i></div> -->

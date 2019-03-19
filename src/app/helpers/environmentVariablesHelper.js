@@ -218,7 +218,7 @@ let envVariables = {
   PORTAL_AUTH_SERVER_URL: env.sunbird_portal_auth_server_url || 'https://societal-sunbird.stackroute.com/auth',
   PORTAL_AUTH_SERVER_CLIENT: env.sunbird_portal_auth_server_client || 'portal',
   APPID: process.env.sunbird_environment + '.' + process.env.sunbird_instance + '.portal',
-  DEFAULT_CHANNEL: env.sunbird_default_channel,
+  DEFAULT_CHANNEL: env.sunbird_default_channel || 'societal-Channel',
   EKSTEP_ENV: env.ekstep_env || 'qa',
   PORTAL_PORT: env.sunbird_port || 3000,
   PORTAL_API_AUTH_TOKEN: env.sunbird_api_auth_token || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzOWQxMzgzNTQwODU0YWIwOTA3ZDZiOTQwYjAxYTc5OSJ9.gbcimZpIUDibe7Az0_ba1y4HzZLslsP2kudPu9bBi7k',
