@@ -116,6 +116,8 @@ hr{
     display: none !important;
 
 }
+.carousel-control-next-icon {
+  cursor: pointer; }
 .carousel-indicators li{
     background-color:#BDD49C !important;
     margin-top: -13rem !important;
@@ -137,6 +139,12 @@ hr{
     visibility: visible ;
     opacity: 1;
   }
+  .atagcolor {
+    color: darkblue;
+  }
+  .link {
+    cursor: pointer;
+}
   @media screen and (max-width:978px ) and (min-width: 312px) {
     .img-fluid{
         height: fit-content !important;

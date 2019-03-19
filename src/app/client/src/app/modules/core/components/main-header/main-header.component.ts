@@ -181,7 +181,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   }
   navigateToHome() {
     if (this.userService.loggedIn) {
-      this.router.navigate(['resources']);
+      this.router.navigate(['']);
     } else {
       this.router.navigate(['']);
     }
