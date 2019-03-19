@@ -328,7 +328,6 @@ this.badgeList = data.result.content;
     this.modalService
       .open(config)
       .onApprove(result => {
-        this.deleteAsset = false;
         this.showLoader = true;
         this.loaderMessage = {
           'loaderMessage': this.resourceService.messages.stmsg.m0034,
@@ -340,7 +339,6 @@ this.badgeList = data.result.content;
             if (this.allContent.length === 0) {
               this.ngOnInit();
             }
-            this.deleteAsset = false;
             this.toasterService.success('Asset deleted successfully');
           },
           (err: ServerResponse) => {

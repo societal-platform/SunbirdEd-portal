@@ -37,10 +37,14 @@ export class FrameworkPickerComponent implements OnInit, AfterViewInit, OnDestro
       return collector;
     }, { formated: [], unformatted: [] });
     this.formatSelectedTopics(this.formTopics.range, selectedTopics.unformatted, selectedTopics.formated);
-    this.selectedTopics =  selectedTopics.formated;
-    this.selectedNodes = {...selectedTopics.formated};
+    this.selectedTopics = selectedTopics.formated;
+    this.selectedNodes = { ...selectedTopics.formated };
     this.topicChanges.emit(this.selectedTopics);
-    this.placeHolder = this.selectedTopics.length + ' sector selected';
+    if (this.selectedTopics.length === 0) {
+      this.placeHolder = 'Select';
+    } else if (this.selectedTopics.length > 0) {
+      this.placeHolder = this.selectedTopics.length + ' selected';
+           }
   }
   private formatSelectedTopics(topics, unformatted, formated) {
     _.forEach(topics, (topic) => {
@@ -69,14 +73,14 @@ export class FrameworkPickerComponent implements OnInit, AfterViewInit, OnDestro
           identifier: node.id,
           name: node.name
         }));
-        this.placeHolder = this.selectedTopics.length + ' sector selected';
+        this.placeHolder = this.selectedTopics.length + ' selected';
         this.topicChanges.emit(this.selectedTopics);
       },
       nodeName: 'topicSelectors',
       minSearchQueryLength: 1
     });
     setTimeout(() =>
-    document.getElementById('topicSelectors').classList.add(this.topicPickerClass), 200);
+      document.getElementById('topicSelectors').classList.add(this.topicPickerClass), 200);
   }
   private formatTopics(topics, subTopic = false): Array<TopicTreeNode> {
     return _.map(topics, (topic) => ({

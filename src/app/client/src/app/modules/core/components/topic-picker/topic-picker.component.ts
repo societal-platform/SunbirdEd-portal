@@ -40,7 +40,11 @@ export class TopicPickerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedTopics =  selectedTopics.formated;
     this.selectedNodes = {...selectedTopics.formated};
     this.topicChange.emit(this.selectedTopics);
-    this.placeHolder = this.selectedTopics.length + ' SPFramework selected';
+    if (this.selectedTopics.length === 0) {
+      this.placeHolder = 'Select';
+    } else  if (this.selectedTopics.length > 0) {
+    this.placeHolder = this.selectedTopics.length + ' selected';
+            }
   }
   private formatSelectedTopics(topics, unformatted, formated) {
     _.forEach(topics, (topic) => {
@@ -69,7 +73,7 @@ export class TopicPickerComponent implements OnInit, AfterViewInit, OnDestroy {
           identifier: node.id,
           name: node.name
         }));
-        this.placeHolder = this.selectedTopics.length + ' SPFramework selected';
+        this.placeHolder = this.selectedTopics.length + ' selected';
         this.topicChange.emit(this.selectedTopics);
       },
       nodeName: 'topicSelector',

@@ -110,6 +110,8 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
   public contentID: string;
 
   public formUpdateData: any;
+  uploadSuccess = false;
+  showMessage = false;
   /**
 	* telemetryImpression
 	*/
@@ -280,8 +282,9 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
       requestData.createdFor = this.userProfile.organisationIds,
       requestData.contentType = this.configService.appConfig.contentCreateTypeForEditors[this.contentType],
       requestData.framework = this.framework;
-      requestData.version = Number(requestData.version);
+      requestData.version = parseFloat(requestData.version);
       delete requestData.status;
+      requestData['artifactUrl'] = data.link;
     if (this.contentType === 'studymaterial') {
       requestData.mimeType = 'text/x-url';
     } else {
@@ -297,7 +300,17 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
     }
     return requestData;
   }
-
+  checkFields() {
+    const  data = _.pickBy(this.formData.formInputData);
+      if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators && !!data.version && data.gradeLevel) {
+        console.log('hii');
+        this.uploadSuccess = true;
+        this.updateContent();
+      } else {
+        this.showMessage = true;
+        this.toasterService.error('Asset creation failed please provide required fields');
+      }
+    }
   updateContent() {
     console.log('in update content', this.generateData(_.pickBy(this.formData.formInputData)));
     const requestData = {
@@ -315,15 +328,17 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
     //   this.toasterService.error(this.resourceService.messages.fmsg.m0078);
 
     // });
-
+    if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
     this.editorService.update(requestData, this.activatedRoute.snapshot.params.contentId).subscribe(res => {
         console.log('res', res);
-        this.toasterService.error('Asset updated Successfully');
+        this.toasterService.success('Asset updated Successfully');
         this.goToCreate();
     }, err => {
       this.toasterService.error(this.resourceService.messages.fmsg.m0078);
 
-    });
+    }); } else {
+
+    }
 
 
   //   if (this.contentType === 'studymaterial') {
