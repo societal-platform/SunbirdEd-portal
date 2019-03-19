@@ -223,6 +223,8 @@ export class MyassestPageComponent  extends WorkSpace implements OnInit  {
 
   //   }
   // });
+  // this.fecthAllContent(limit: number, pageNumber: number, bothParams);
+
   this.userId = this.userService.userid;
     this.lessonRole = this.config.rolesConfig.workSpaceRole.lessonRole;
 

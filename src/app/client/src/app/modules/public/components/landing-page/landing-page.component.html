@@ -342,17 +342,18 @@
                     </p>
                     <p class="text-c">
                         - Search and Discover Assets: You can discover assets - Knowledge, Process, Software, Hardware,
-                        Data - that you would like to leverage for your Mission. Go to &nbsp;&nbsp;<a href="#">Shared
+                        Data - that you would like to leverage for your Mission. Go to &nbsp;&nbsp;<a  class="atagcolor link" href="#">Shared
                             Assets</a>
                     </p>
                     <p class="text-c">
                         - Add an Asset: You can add information about an asset that you'd like to share with others in
-                        the ecosystem. You can also edit, delete and publish your assets. Go to&nbsp;&nbsp;<a
-                            href="#">My Assets</a>
+                        the ecosystem. You can also edit, delete and publish your assets. Go to&nbsp;&nbsp;  
+                        <a class="atagcolor link" *ngIf='permissionService.permissionAvailable' appPermission
+                        [permission]='workSpaceRole'  routerLink="/myassets" > My Assets</a>
                     </p>
                     <p class="text-c">
                         - Bookmark Favorite Assets: You can bookmark your favorite assets and create various lists of
-                        assets. Go to &nbsp;&nbsp; <a href="#">My Favorites asset</a>
+                        assets. Go to &nbsp;&nbsp; <a class="atagcolor link" href="#">My Favorites asset</a>
                     </p>
                     <p class="text-c">
                         If you want to give any feedback, then please write to us at info@societalplatform.org

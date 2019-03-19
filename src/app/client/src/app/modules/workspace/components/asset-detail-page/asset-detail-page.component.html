@@ -51,7 +51,7 @@
                     </span>
                 </p>
                 <p class="card-text" *ngIf="assetDetail?.description">Description : {{assetDetail?.description}}</p>
-                <p class="card-text" *ngIf="assetDetail?.link">Link: <a href="assetDetail?.link">{{assetDetail?.link}}</a></p>
+                <p class="card-text" *ngIf="assetDetail?.link">Link: <a href="https://{{assetDetail?.link}}">{{assetDetail?.link}}</a></p>
                 <div *ngFor="let role of user">
                         <div *ngIf="role === 'TEACHER_BADGE_ISSUER'">
                                 <p class="card-text" *ngIf="assetDetail?.status === 'Live'"> Assign Badges: 
