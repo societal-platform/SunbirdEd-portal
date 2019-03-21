@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '@sunbird/core';
 import {
   LandingPageComponent, PublicContentPlayerComponent,
-  PublicCollectionPlayerComponent
+  PublicCollectionPlayerComponent, ExploreDetailPageComponent
 } from './components';
 import { SuiModule } from 'ng2-semantic-ui';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
@@ -48,7 +48,7 @@ import { ExploreThinkingComponent } from './components/explore-thinking/explore-
   declarations: [LandingPageComponent, GetComponent, DialCodeComponent,
     PublicFooterComponent, PublicContentPlayerComponent, PublicCollectionPlayerComponent, ContactUsComponent,
     CommonLicenseComponent, PeopleInvlovedComponent, AboutUSComponent, BlogComponent,
-     ExploreAssetComponent, FrameworkComponent, CoreComponent, ExploreThinkingComponent],
+     ExploreAssetComponent, FrameworkComponent, CoreComponent, ExploreThinkingComponent, ExploreDetailPageComponent],
   providers: [PublicPlayerService, DeviceDetectorService, LandingpageGuard]
 })
 export class PublicModule { }

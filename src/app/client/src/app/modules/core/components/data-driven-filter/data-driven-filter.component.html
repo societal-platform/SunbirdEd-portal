@@ -1,13 +1,13 @@
-<div class="data-driven-filter mt-5" *ngIf="showFilters">
+<div class="data-driven-filter mt-30" *ngIf="showFilters">
       <!-- <sui-accordion [closeOthers]="false">
         <sui-accordion-panel [isOpen]="accordionDefaultOpen" [isDisabled]="true"> -->
-          <div *ngIf="isShowFilterLabel" title class="cursor-text filter-title">
+          <!-- <div *ngIf="isShowFilterLabel" title class="cursor-text filter-title">
             <span (click)="accordionDefaultOpen = !accordionDefaultOpen" class="cursor-pointer">
               <i alt="Filter" class="icon filter"></i>
               {{resourceService.frmelmnts?.lbl?.filters}}
               <i class="dropdown icon vertical-align-middle" appTelemetryInteract [telemetryInteractEdata]="filterIntractEdata"></i>
             </span>
-          </div>
+          </div> -->
           <div content>
             <div *ngIf="filtersDetails && formInputData && showSearchedParam" class="twelve wide column content mb-15">
               <span *ngFor="let field of filtersDetails">
@@ -35,11 +35,11 @@
             <div *ngIf="refresh">
               <form *ngIf="filtersDetails" class="ui form">
                     <div class="ui grid">
-                        <div *ngFor="let field of filtersDetails" class="four wide column">
+                        <div *ngFor="let field of filtersDetails" class="three wide column pt-0">
                           <div *ngIf="(field.inputType==='select' || field.inputType === 'multi-select') && field.code !== 'channel' && field.code==='board'" class="field large">
                             <label>{{field.label}}</label>
                             <sui-multi-select (ngModelChange)="setFilterInteractData()" id={{field.code}} name={{field.code}}
-                              defaultSelectionText={{field.label}} zeroSelectionText="select" class="selection filterFieldSearch"
+                            defaultSelectionText={{field.name}} zeroSelectionText="Select" class="selection filterFieldSearch" 
                               [(ngModel)]="formInputData[field.code]" [options]="options" [hasLabels]="false" #multiSelect>
                               <sui-select-option *ngFor="let option of field.range" [value]="option.name"></sui-select-option>
                             </sui-multi-select>
@@ -71,7 +71,7 @@
                               </div>  -->
                       </div>
              
-                <div class="row d-flex justify-content-center">
+                <div class="d-flex justify-content-center pt-20">
                     <div class="tablet four wide computer text-align-right top aligned column filter-button">
                         <a class="searchfilterbutton ui tiny  button" (click)="applyFilters()" appTelemetryInteract
                           [telemetryInteractEdata]="submitIntractEdata">{{resourceService.frmelmnts?.btn?.apply}}</a>

@@ -1,9 +1,8 @@
 <div class="ui segment br-0 p-0 prominent-filter" *ngIf="showFilters">
   <div class="ui container">
     <div class="ui grid stackable">
-      <div class="twelve wide column" *ngIf="refresh">
-        <div class="ui accordion">
-          <div class="width-100 mt-15">
+      <div class="nine wide column" *ngIf="refresh">
+          <!-- <div class="width-100 mt-15">
             <label class="prominent-filter-heading">
               {{resourceService.frmelmnts?.lbl?.explorecontentfrom}}
             </label>
@@ -13,14 +12,15 @@
               title="{{collapse==true?'Expand':'Collapse'}}" popupInverted
               >
             </i>
-          </div>
-          <div class="ui active width-100" [suiCollapse]="collapse">
+          </div> -->
+          <div class="ui active width-100">
             <form class="ui form">
               <div class="ui grid stackable top aligned my-0">
-                <div class="twelve wide tablet ten wide computer column mobile-p-0">
+                
+                <div class="twelve wide tablet nine wide computer column mobile-p-0">
                   <div class="ui grid" *ngIf="formFieldProperties">
                     <ng-container *ngIf="formFieldProperties.length <= 4">
-                      <div class="six wide mobile three wide tablet three wide computer column" *ngFor="let field of formFieldProperties">
+                      <div class="six wide mobile three wide tablet four wide computer column" *ngFor="let field of formFieldProperties">
                         <div class="field">
                           <label class="mb-10">{{field.label}}</label>
                           <ng-container *ngIf="field.inputType==='select' || field.inputType==='multi-select'">
@@ -29,6 +29,9 @@
                           <ng-container *ngIf="field.code==='topic'">
                             <app-topic-picker [selectedTopics]="formInputData[field.code]" [formTopic]="field" (topicChange)="handleTopicChange($event)"></app-topic-picker>
                           </ng-container>
+                          <ng-container *ngIf="field.code==='gradeLevel'">
+                              <app-framework-picker [selectedTopics]="formInputData[field.code]" [formTopics]="field" (topicChanges)="handleGradeLevelChange($event)"></app-framework-picker>
+                            </ng-container>
                         </div>
                       </div>
                     </ng-container>
@@ -42,24 +45,31 @@
                           <ng-container *ngIf="field.code==='topic'">
                             <app-topic-picker [selectedTopics]="formInputData[field.code]" [formTopic]="field" (topicChange)="handleTopicChange($event)"></app-topic-picker>
                           </ng-container>
+                      
                         </div>
                       </div>
                     </ng-container>
                   </div>
                 </div>
+             
+                
                 <div class="twelve wide tablet two wide computer right aligned top aligned column filter-button">
                   <label class="computer-only mb-5">&nbsp;</label>
-                  <a class="searchfilterbutton ui blue tiny button" (click)="applyFilters()" appTelemetryInteract [telemetryInteractEdata]="submitIntractEdata">
-                    {{resourceService.frmelmnts?.btn?.submit}}
+                  <a class="searchfilterbutton ui tiny button" (click)="applyFilters()" appTelemetryInteract [telemetryInteractEdata]="submitIntractEdata">
+                    Apply
                   </a>
-                  <a class="ml-10 searchfilterbutton ui primary tiny basic button" (click)="resetFilters()">
+                  <a class="ml-10 searchfilterbutton ui secondary tiny basic button" (click)="resetFilters()">
                     {{resourceService.frmelmnts?.btn?.reset}}
                   </a>
                 </div>
+              
               </div>
             </form>
           </div>
-        </div>
+       
+      </div>
+      <div class="three wide column mt-lg-5">
+          <app-search class="flex-as-center width-100"></app-search>
       </div>
     </div>
   </div>

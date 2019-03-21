@@ -12,10 +12,13 @@
                         interpolate:'{searchString}':this.queryParams.key}}
                     </p>
                 </div>
+                <h5 appTelemetryInteract [telemetryInteractEdata]="closeIntractEdata" class="ui right floated basic icon circular button " [routerLink]="['/explore']">
+                    <i class="ui remove icon "></i>
+                </h5>
             </div>
         </div>
         <div class="twelve wide column" in-view-container (inview)="inView($event)" [throttle]="[1000]" [trigger]="contentList" *ngIf="!showLoader && contentList.length">
-            <div class="ui stackable four column grid dynamic-section-card">
+            <div class="ui stackable row dynamic-section-card">
                 <div in-view-item [id]="i" [data]="content" class="column pt-5 pb-5 pl-10" *ngFor="let content of contentList;let i = index;">
                     <app-card appTelemetryInteract [telemetryInteractEdata]="cardIntractEdata" [telemetryInteractObject]="{id:content.metaData.identifier,type:content.metaData.contentType || 'content',ver:'1.0'}"
                             (clickEvent)="playContent($event)" [data]="content"></app-card>

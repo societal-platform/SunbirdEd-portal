@@ -2,9 +2,10 @@
 
 <app-prominent-filter [pageId]="'resource-page'" *ngIf="initFilters" [filterEnv]="filterType"  [ignoreQuery]="['key']" 
     [accordionDefaultOpen]=true [isShowFilterLabel]=true [showSearchedParam]=true [isShowFilterLabel]=true [hashTagId]="hashTagId" (prominentFilter)="getFilters($event)"></app-prominent-filter>
-
+   
     <div class="ui container">
   <div class="ui grid stackable my-0">
+     
     <!--<div class="twelve wide column">
       <div class="ui grid top aligned">
         <div class="twelve wide column">

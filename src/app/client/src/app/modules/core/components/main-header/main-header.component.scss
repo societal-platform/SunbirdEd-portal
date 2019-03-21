@@ -172,8 +172,8 @@ background: #007b5e;
 
 ::ng-deep {
   .ui.fluid.action.input.primary-search-input {
-    height: 35px;
-    border: 1px solid #60d4eb;
+    height: 39px;
+    border: 1px solid grey;
     opacity: 1;
     border-radius: 5px;
   }
@@ -182,7 +182,7 @@ background: #007b5e;
 @media only screen and (min-width: 767px) {
   ::ng-deep {
     .ui.fluid.action.input.primary-search-input {
-       height: 29px;
+       height: 39px;
     }
   }
 }

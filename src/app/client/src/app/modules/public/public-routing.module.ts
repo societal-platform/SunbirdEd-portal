@@ -5,7 +5,8 @@ import { DialCodeComponent } from './components/dial-code/dial-code.component';
 import { PublicFooterComponent } from './components/public-footer/public-footer.component';
 import {
   LandingPageComponent, PublicContentPlayerComponent,
-  PublicCollectionPlayerComponent
+  PublicCollectionPlayerComponent,
+  ExploreDetailPageComponent
 } from './components';
 import { LandingpageGuard } from './services';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
@@ -44,7 +45,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'play/content/:contentId', component: PublicContentPlayerComponent, data: {
+    path: 'play/content/:contentId', component: ExploreDetailPageComponent, data: {
       telemetry: {
         env: 'public', pageid: 'play-content', type: 'view', subtype: 'paginate'
       }

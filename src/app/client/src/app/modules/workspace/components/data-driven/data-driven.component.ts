@@ -188,6 +188,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
     if (this.modal && this.modal.deny) {
       this.modal.deny();
     }
+    // this.goToCreate();
   }
   /**
   * fetchFrameworkMetaData is gives form config data
@@ -255,6 +256,8 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 * Redirects to workspace create section
 */
   goToCreate() {
+    console.log('create after ');
+
     this.router.navigate(['myassets']);
   }
 
@@ -290,7 +293,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
     return requestData;
   }
   checkFields() {
-  const  data = _.pickBy(this.formData.formInputData);
+    const data = _.pickBy(this.formData.formInputData);
     if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators && !!data.version && data.gradeLevel) {
       console.log('hii');
       this.uploadSuccess = true;
@@ -312,16 +315,15 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
       this.editorService.create(requestData).subscribe(res => {
         console.log('res', res);
         this.toasterService.success('Asset created successfully');
-        this.goToCreate();
         this.createLockAndNavigateToEditor({ identifier: res.result.content_id });
       }, err => {
         this.toasterService.error('asset creation failed');
       });
     } else {
+      this.toasterService.error('asset creation failed');
+    }
+    this.goToCreate();
 
-        this.toasterService.error('asset creation failed');
-      }
-    this.sendForReview();
   }
 
   createLockAndNavigateToEditor(content) {
@@ -351,4 +353,6 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
   redirect() {
     this.router.navigate(['/myassets/create']);
   }
+
+
 }

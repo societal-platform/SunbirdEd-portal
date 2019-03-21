@@ -73,7 +73,7 @@ export class ConceptPickerComponent implements OnInit {
         name: 'sector',
         picked: this.contentConcepts,
         onSubmit: (nodes) => {
-          $('.tree-pickers').val(nodes.length + 'selected');
+          $('.tree-pickers').val(nodes.length + ' selected');
           const contentConcepts = [];
           _.forEach(nodes, (obj) => {
             contentConcepts.push({

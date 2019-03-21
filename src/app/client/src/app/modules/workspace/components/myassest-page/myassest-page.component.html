@@ -2,7 +2,6 @@
 <app-all-my-content-filter ></app-all-my-content-filter>
 
 <div class="container">
-  <hr>
   <div class="row">
     <div class="col" *ngIf='permissionService.permissionAvailable' appPermission [permission]='lessonRole'>
       <button type="button" class="btn btn-secondary float-right" routerLink="create"><i class="fas fa-plus"></i> New
@@ -23,8 +22,7 @@
               
              <div class="thick-green-border sprite knowledgeimg" *ngIf="content?.board === 'Knowledge'">
             </div>
-            <div class="thick-green-border sprite hardwareimg" *ngIf="content?.board === 'hardware'">
-              <!-- <img src="images"> -->
+            <div class="thick-green-border sprite hardwareimg" *ngIf="content?.board === 'Hardware'">
             </div>
             <div class="thick-green-border sprite softwareimg" *ngIf="content?.board === 'Software'">
             </div>
@@ -44,7 +42,7 @@
           <div class="card-body">
              <!-- <div> <i class="far fa-heart float-right"></i></div> -->
              
-            <p class="card-text">{{content?.description}}</p>
+            <p class="card-text">{{content?.description | titlecase}}</p>
             <div class="d-flex justify-content-center">
               <button type="button" class="btn text-secondary" id="style"
                 (click)="deleteConfirmModal(content.identifier); $event.stopPropagation()">

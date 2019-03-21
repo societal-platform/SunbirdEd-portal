@@ -86,8 +86,7 @@
                                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                             <a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab" href="#" *ngIf='permissionService.permissionAvailable' appPermission
                                             [permission]='workSpaceRole'  role="tab" aria-controls="nav-home" (click)="navigateToHome()" aria-selected="true">Home</a>
-                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#" *ngIf='permissionService.permissionAvailable' appPermission
-                                            [permission]='workSpaceRole'  role="tab" aria-controls="nav-profile" aria-selected="false">Shared Assets</a>
+                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"         role="tab" aria-controls="nav-profile" aria-selected="false" appTelemetryInteract [telemetryInteractEdata]="libraryMenuIntractEdata" [class.active]="router.isActive('/search/Library') || router.isActive('/resources')" routerLink="/resources">Shared Assets</a>
                                             <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" *ngIf='permissionService.permissionAvailable' appPermission
                                              [permission]='workSpaceRole'  routerLink="/myassets" [class.active]="router.isActive('/myassets')" role="tab" aria-controls="nav-contact" aria-selected="false"> My Assets</a>
                                             <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#" *ngIf='permissionService.permissionAvailable' appPermission

@@ -116,6 +116,7 @@ export class ResourceComponent implements OnInit, OnDestroy {
         this.showLoader = false;
         this.carouselData = this.prepareCarouselData(_.get(data, 'sections'));
         this.cdr.detectChanges();
+        console.log('carousal data', this.carouselData);
       }, err => {
         this.showLoader = false;
         this.carouselData = [];
