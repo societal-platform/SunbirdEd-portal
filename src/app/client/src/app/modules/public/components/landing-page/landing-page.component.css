@@ -36,6 +36,7 @@
     /* background-image: url('../../../../../assets/images/banner_bg.jpg'); */
   }
   .img-fluid{
+    background-image: url('../../../../../assets/images/banner_bg.jpg');
       height: 41rem !important;
   }
   .green1 {
