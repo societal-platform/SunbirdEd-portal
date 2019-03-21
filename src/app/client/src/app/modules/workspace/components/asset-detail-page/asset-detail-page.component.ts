@@ -60,6 +60,8 @@ export class AssetDetailPageComponent implements OnInit {
   };
   public resourceService: ResourceService;
   private toasterService: ToasterService;
+  orgId: any;
+  role: any;
   constructor(activated: ActivatedRoute, public modalServices: SuiModalService , public modalService: SuiModalService,
     badgeService: BadgesService,  toasterService: ToasterService, resourceService: ResourceService, userService: UserService,
     config: ConfigService, contentServe: ContentService , rout: Router) {
@@ -86,13 +88,24 @@ export class AssetDetailPageComponent implements OnInit {
       this.assetDetail = data.result.content;
     });
     console.log('this', this.assetDetail);
-
+    this.userService.userData$.subscribe(
+      (user: IUserData) => {
+        this.user = user.userProfile.userRoles;
+        this.orgId = user.userProfile.rootOrgId;
+      console.log('user info', this.orgId);
+      this.user.forEach(element => {
+        if (element === 'TEACHER_BADGE_ISSUER') {
+          this.role = element;
+          console.log('role', element);
+        }
+      });
+    });
     const request = {
       request: {
         filters: {
           issuerList: [],
-          rootOrgId: '0127121193133670400',
-          roles: ['TEACHER_BADGE_ISSUER'],
+          rootOrgId: this.orgId,
+          roles: [this.role],
           type: 'content'
         }
       }
@@ -101,11 +114,7 @@ export class AssetDetailPageComponent implements OnInit {
       console.log('data for badge', data);
       this.badgeList = data.result.badges;
     });
-    this.userService.userData$.subscribe(
-      (user: IUserData) => {
-        this.user = user.userProfile.userRoles;
-      console.log('user info', this.user);
-    });
+
   }
   assignBadge(issuerId, badgeId) {
     console.log('ids', issuerId, badgeId);

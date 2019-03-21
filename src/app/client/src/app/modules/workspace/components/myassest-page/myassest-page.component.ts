@@ -15,6 +15,7 @@ import { IImpressionEventInput } from '@sunbird/telemetry';
 import { SuiModalService, TemplateModalConfig, ModalTemplate } from 'ng2-semantic-ui';
 import { ICard } from '../../../shared/interfaces/card';
 import { BadgesService } from '../../../core/services/badges/badges.service';
+import { IUserData } from '@sunbird/shared';
 
 
 @Component({
@@ -177,6 +178,9 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   deleteAsset = false;
   publishAsset = false;
   badgeList: any;
+  user: any;
+  orgId: any;
+  role: any;
 
   /**
     * Constructor to create injected service(s) object
@@ -253,13 +257,24 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
         this.query = this.queryParams['query'];
         this.fecthAllContent(this.config.appConfig.WORKSPACE.PAGE_LIMIT, this.pageNumber, bothParams);
       });
-
+    this.userService.userData$.subscribe(
+      (user: IUserData) => {
+        this.user = user.userProfile.userRoles;
+        this.orgId = user.userProfile.rootOrgId;
+        console.log('user info', this.user);
+        this.user.forEach(element => {
+          if (element === 'TEACHER_BADGE_ISSUER') {
+            this.role = element;
+            console.log('role', element);
+          }
+        });
+      });
     const request = {
       request: {
         filters: {
           issuerList: [],
-          rootOrgId: '0127121193133670400',
-          roles: ['TEACHER_BADGE_ISSUER'],
+          rootOrgId: this.orgId,
+          roles: [this.role],
           type: 'content'
         }
       }

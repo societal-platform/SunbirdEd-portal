@@ -28,7 +28,7 @@ import { ExploreAssetComponent } from './components/explore-asset/explore-asset.
 import { FrameworkComponent } from './components/framework/framework.component';
 import { CoreComponent } from './components/core/core.component';
 import { ExploreThinkingComponent } from './components/explore-thinking/explore-thinking.component';
-
+import { AdduserComponent } from './components/adduser/adduser.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -48,7 +48,7 @@ import { ExploreThinkingComponent } from './components/explore-thinking/explore-
   declarations: [LandingPageComponent, GetComponent, DialCodeComponent,
     PublicFooterComponent, PublicContentPlayerComponent, PublicCollectionPlayerComponent, ContactUsComponent,
     CommonLicenseComponent, PeopleInvlovedComponent, AboutUSComponent, BlogComponent,
-     ExploreAssetComponent, FrameworkComponent, CoreComponent, ExploreThinkingComponent, ExploreDetailPageComponent],
+     ExploreAssetComponent, FrameworkComponent, CoreComponent, ExploreThinkingComponent, ExploreDetailPageComponent, AdduserComponent],
   providers: [PublicPlayerService, DeviceDetectorService, LandingpageGuard]
 })
 export class PublicModule { }

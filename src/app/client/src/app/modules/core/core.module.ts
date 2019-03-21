@@ -24,6 +24,7 @@ import { WebExtensionModule } from '@project-sunbird/web-extensions';
 import { TelemetryModule } from '@sunbird/telemetry';
 import { FramworkSelectorComponent } from './components/framwork-selector/framwork-selector.component';
 import { FrameworkPickerComponent } from './components/framework-picker/framework-picker.component';
+import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +35,8 @@ import { FrameworkPickerComponent } from './components/framework-picker/framewor
     ReactiveFormsModule,
     WebExtensionModule,
     TelemetryModule,
-    AvatarModule
+    AvatarModule,
+    NgbModule.forRoot()
   ],
   declarations: [MainHeaderComponent, MainFooterComponent, MainMenuComponent, SearchComponent, PermissionDirective,
     BodyScrollDirective, ConceptPickerComponent, DataDrivenFilterComponent, BreadcrumbsComponent, SortByComponent,
