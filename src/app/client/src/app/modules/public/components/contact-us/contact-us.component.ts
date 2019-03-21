@@ -28,7 +28,7 @@ userData: any;
 userName: any;
 userEmail: any;
 orgName: any;
-
+// contactform = document.getElementById('contactform');
 private _success = new Subject<string>();
 
 staticAlertClosed = false;
@@ -45,8 +45,8 @@ successMessage: string;
     });
   }
 
-  gotoContact(formdata) {
-    console.log('form data', formdata);
+  gotoContact() {
+    // console.log('form data', formdata);
     const data = $('#contactform').serializeArray();
     console.log('form', data);
     this.sendNotification(data);
