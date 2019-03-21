@@ -2,7 +2,8 @@
 
 
 .card {
-  width: 27vw;
+  width: 47rem;
+  border: none !important;
 }
 
 input[type=number]::-webkit-inner-spin-button,
