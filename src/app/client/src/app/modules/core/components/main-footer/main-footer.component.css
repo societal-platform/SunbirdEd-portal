@@ -37,7 +37,7 @@ font-family: 'Roboto', sans-serif;
 }
 hr{
     border: none !important;
-    border-left: 1px solid hsla(143, -6%, 25%,100) !important;
+    border-left: 1px solid gray !important;
     height: 3rem !important;
     width: 1px !important;
 }

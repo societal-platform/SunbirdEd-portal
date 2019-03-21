@@ -22,8 +22,10 @@
     font-size: 17px;
     font-family: 'Muli', sans-serif;
   }
-  .img-fluid{
-    height: 41rem;
+  .cimage{
+    background-image: url('../../../../../assets/images/slide-04.png');
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   @media screen and (max-width:820px ) and (min-width: 312px) {
     .text{

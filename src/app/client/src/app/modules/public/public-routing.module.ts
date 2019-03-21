@@ -17,6 +17,7 @@ import { ExploreAssetComponent } from './components/explore-asset/explore-asset.
 import { CoreComponent } from './components/core/core.component';
 import { ExploreThinkingComponent } from './components/explore-thinking/explore-thinking.component';
 import { FrameworkComponent } from './components/framework/framework.component';
+import { AdduserComponent } from './components/adduser/adduser.component';
 
 const routes: Routes = [
   {
@@ -101,6 +102,9 @@ const routes: Routes = [
   }
   , {
     path: 'framework', component: FrameworkComponent
+  },
+  {
+    path: 'addUser', component: AdduserComponent
   }
 ];
 @NgModule({
