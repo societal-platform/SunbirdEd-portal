@@ -57,11 +57,14 @@ export class ConceptPickerComponent implements OnInit {
    * call tree picker
    */
   initConceptBrowser() {
-    console.log('this', this.selectedConcepts);
     this.selectedConcepts = this.selectedConcepts || [];
     this.contentConcepts = _.map(this.selectedConcepts, 'identifier');
-    console.log('thi.cone', this.contentConcepts);
-    this.pickerMessage = this.contentConcepts.length + 'selected';
+    if (this.contentConcepts.length === 0) {
+      this.pickerMessage = 'Select';
+    } else if ( this.contentConcepts.length > 0 ) {
+      this.pickerMessage = this.contentConcepts.length + '  selected';
+
+    }
     $('.tree-pickers').val(this.pickerMessage);
     setTimeout(() => {
       console.log('selected data : ', this.contentConcepts);

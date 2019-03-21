@@ -1,7 +1,7 @@
 
 <app-all-my-content-filter ></app-all-my-content-filter>
 
-<div class="container mt-5">
+<div class="container">
   <hr>
   <div class="row">
     <div class="col" *ngIf='permissionService.permissionAvailable' appPermission [permission]='lessonRole'>
@@ -12,7 +12,7 @@
   <div *ngIf="noResult && !showLoader">
       <app-no-result [data]="noResultMessage"></app-no-result>
     </div>
-  <div class="row">
+  <div class="row" *ngIf="allContent.length > 0 && !showLoader && !noResult">
     <div in-view-item *ngFor="let content of allContent;let i = index;" [id]="i" [data]="content"
       class="col-md-4 py-3 pl-10">
       <!-- <app-myasset-card [data]="content" (clickEvent)="contentClick($event)"></app-myasset-card> -->
@@ -52,7 +52,7 @@
               </button>
 
               <div *ngIf="content?.status==='Draft'">
-                <button type="button" class="btn ml-4 text-light" id="pub" (click)="publishConfirmModal(content.identifier); $event.stopPropagation()"><i class="fas fa-upload"></i>&nbsp; PUBLISH</button>
+                <button type="button" class="btn ml-4 text-secondary" id="pub" (click)="publishConfirmModal(content.identifier); $event.stopPropagation()"><i class="fas fa-upload"></i>&nbsp; PUBLISH</button>
               </div>
               <!-- <div *ngIf="content?.status==='Live'">
                   <button type="button" class="btn ml-4 text-light" id="badge">VERIFY</button>

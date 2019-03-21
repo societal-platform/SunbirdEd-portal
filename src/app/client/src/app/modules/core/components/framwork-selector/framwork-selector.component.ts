@@ -60,7 +60,12 @@ export class FramworkSelectorComponent implements OnInit {
   initConceptBrowser() {
     this.selectedConcept = this.selectedConcept || [];
     this.contentConcepts = _.map(this.selectedConcept, 'identifier');
-    this.pickerMessage = this.contentConcepts.length + 'selected';
+    if (this.contentConcepts.length === 0) {
+      this.pickerMessage = 'Select';
+    } else if ( this.contentConcepts.length > 0 ) {
+      this.pickerMessage = this.contentConcepts.length + '  selected';
+
+    }
     $('.tree-picker-selector').val(this.pickerMessage);
     setTimeout(() => {
       $('.tree-picker-selector').treePicker({

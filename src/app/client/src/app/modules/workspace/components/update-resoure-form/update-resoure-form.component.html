@@ -5,19 +5,43 @@
     <hr *ngIf="i===4">
     <hr *ngIf="i===5">
 
-    <div *ngIf="field.inputType==='text'" class="required field" [ngClass]="{ 'disabled':!field.editable}">
-      
-      <div class="field">
-          <label>
-              {{field.name}}
-            </label>
-            <input name={{field.code}} type={{field.inputType}} [(ngModel)]="formInputData[field.code]" id="style"
+    <div *ngIf="field.inputType==='text' && field.code!='creators' && field.code!='region'" class="required field"
+      [ngClass]="{ 'disabled':!field.editable}">
+
+      <div class="field required">
+        <label>
+          {{field.name}}
+        </label>
+        <input name={{field.code}} type={{field.inputType}} [(ngModel)]="formInputData[field.code]" id="style"
           placeholder={{field.placeholder}}>
 
       </div>
     </div>
+    <div *ngIf="field.inputType==='text' && field.code==='creators'" class="required field"
+    [ngClass]="{ 'disabled':!field.editable}">
 
-    <div *ngIf="field.inputType==='number'" class="field" [ngClass]="{ 'disabled':!field.editable}">
+    <div class="field required">
+      <label>
+        {{field.name}}
+      </label>
+      <input name={{field.code}} type={{field.inputType}} [(ngModel)]="formInputData[field.code]" id="style"
+        placeholder={{field.placeholder}}>
+
+    </div>
+  </div>
+  <div *ngIf="field.inputType==='text' && field.code==='region'" class="required field"
+  [ngClass]="{ 'disabled':!field.editable}">
+
+  <div class="field">
+    <label>
+      {{field.name}}
+    </label>
+    <input name={{field.code}} type={{field.inputType}} [(ngModel)]="formInputData[field.code]" id="style"
+      placeholder={{field.placeholder}}>
+
+  </div>
+</div>
+    <div *ngIf="field.inputType==='number'" class="required field" [ngClass]="{ 'disabled':!field.editable}">
       <label>
         {{field.name}}
       </label>
@@ -36,7 +60,7 @@
       </div>
     </div>
 
-    <div *ngIf="field.inputType==='keywordsuggestion'" class="field" [ngClass]="{ 'disabled':!field.editable}">
+    <div *ngIf="field.inputType==='keywordsuggestion'" class="field required" [ngClass]="{ 'disabled':!field.editable}">
       <label>
         {{field.name}}
       </label>
@@ -81,9 +105,10 @@
       </sui-select>
     </div>
   </div>
-  <div *ngIf="field.code==='gradeLevel'" class="field" [ngClass]="{ 'disabled':!field.editable}">
-    <form class="conceptSelector ui form">
+  <div *ngIf="field.code==='gradeLevel'" class="field required" [ngClass]="{ 'disabled':!field.editable}">
       <label>{{field.name}}</label>
+    <form class="conceptSelector ui form">
+      
       <app-concept-picker *ngIf="formInputData[field.code]" [selectedConcepts]="formInputData[field.code]" [categoryName]="field.name"
         [category]="categoryList[field.code]" [conceptPickerClass]="'content-creation-concept-picker'"
         (Concepts)="concepts($event)"></app-concept-picker>
@@ -91,8 +116,9 @@
   </div>
 
   <div *ngIf="field.code==='topic'" class="field" [ngClass]="{ 'disabled':!field.editable}">
-    <form class="concept ui form">
       <label>{{field.name}}</label>
+    <form class="concept ui form">
+     
       <app-framwork-selector *ngIf="formInputData[field.code]" [selectedConcept]="formInputData[field.code]" [categoryName]="field.name"
         [category]="categoryList[field.code]" [conceptPicker]="'content-creation-concept-picker'"
         (Framework)="conceptspFramework($event)"></app-framwork-selector>
