@@ -53,6 +53,7 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
         this.setTelemetryData();
     }
     ngOnInit() {
+        console.log('config', this.configService);
         this.userService.userData$.subscribe(userData => {
             if (userData && !userData.err) {
                 this.frameworkData = _.get(userData.userProfile, 'framework');
@@ -93,7 +94,7 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
         let filters = _.pickBy(this.queryParams, (value: Array<string> | string) => value && value.length);
         filters = _.omit(filters, ['key', 'sort_by', 'sortType', 'appliedFilters']);
         const softConstraintData = {
-            filters: {channel: ['0127121193133670400', '0127212927140577280'],
+            filters: {channel: this.hashTagId,
             board: [this.dataDrivenFilters.board]},
             softConstraints: _.get(this.activatedRoute.snapshot, 'data.softConstraints'),
             mode: 'soft'
@@ -113,8 +114,8 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
         };
         option.filters.contentType = filters.contentType ||
         ['Resource'];
-        option.filters.channel = ['0127121193133670400', '0127212927140577280'];
-        option.filters.organisation = ['shikshalokam', 'societal'];
+        option.filters.channel = this.configService.appConfig.Library.orgId;
+        option.filters.organisation = this.configService.appConfig.Library.orgName;
 
         if (_.get(manipulatedData, 'filters')) {
             option['softConstraints'] = _.get(manipulatedData, 'softConstraints');

@@ -131,14 +131,53 @@ background-color: #585858;
   background-position: -12px -610px;
 }
 .softwareimg {
-  background-position: -12px -368px;
+  background-position: -14px -368px;
 }
 .badgeimg{
   background-position: -12px 900px;
 }
 .card-title {
   text-transform: capitalize !important;
+  min-height: 35px;
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  font-weight: 600;
+  font-size: 15px;
+  color: white;
+  margin-bottom: 10px;
+  line-clamp: 3;
+  line-height: 1.5rem;
+  /* autoprefixer: off */
+
+-webkit-box-orient: vertical;
+
+/* autoprefixer: on */
+  
 }
 .cardsdist{
   margin:1.2em;
+}
+.card-text1{
+  min-height: 46px;
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  font-weight: 600;
+  font-size: 15px;
+  color: #686F7A;
+  margin-bottom: 18px;
+  line-clamp: 2;
+  line-height: 2rem;
+
+  /* autoprefixer: off */
+
+-webkit-box-orient: vertical;
+
+/* autoprefixer: on */
+  
 }

@@ -256,9 +256,10 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 * Redirects to workspace create section
 */
   goToCreate() {
-    console.log('create after ');
+    setTimeout(() => {
+      this.router.navigate(['myassets']);
+    }, 1500);
 
-    this.router.navigate(['myassets']);
   }
 
   /**
@@ -275,8 +276,8 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
       requestData.createdFor = this.userProfile.organisationIds,
       requestData.contentType = this.configService.appConfig.contentCreateTypeForEditors[this.contentType],
       requestData.framework = this.framework;
-    requestData.version = parseFloat(requestData.version);
-    requestData['artifactUrl'] = data.link;
+      requestData.version = parseFloat(requestData.version);
+      requestData['artifactUrl'] = data.link;
     if (this.contentType === 'studymaterial') {
       requestData.mimeType = 'text/x-url';
     } else {
@@ -293,29 +294,25 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
     return requestData;
   }
   checkFields() {
+
     const data = _.pickBy(this.formData.formInputData);
     if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators && !!data.version && data.gradeLevel) {
       console.log('hii');
       this.uploadSuccess = true;
       this.createContent();
     } else {
-      this.showMessage = true;
       this.toasterService.error('Asset creation failed please provide required fields');
     }
   }
   createContent() {
-    console.log('form data ', this.formData.formInputData);
-
     const requestData = {
       content: this.generateData(_.pickBy(this.formData.formInputData))
     };
 
-    console.log('form data', this.formData.formInputData);
     if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
       this.editorService.create(requestData).subscribe(res => {
-        console.log('res', res);
         this.toasterService.success('Asset created successfully');
-        this.createLockAndNavigateToEditor({ identifier: res.result.content_id });
+        // this.createLockAndNavigateToEditor({ identifier: res.result.content_id });
       }, err => {
         this.toasterService.error('asset creation failed');
       });
@@ -323,18 +320,11 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
       this.toasterService.error('asset creation failed');
     }
     this.goToCreate();
-
   }
 
   createLockAndNavigateToEditor(content) {
     const state = 'draft';
     const framework = this.framework;
-    // if (this.contentType === 'studymaterial') {
-    //   this.router.navigate(['/workspace/content/edit/content/', content.identifier, state, framework, 'Draft']);
-    // } else {
-    //   const type = this.configService.appConfig.contentCreateTypeForEditors[this.contentType];
-    //   this.router.navigate(['/workspace/content/edit/collection', content.identifier, type, state, framework, 'Draft']);
-    // }
   }
 
   /**

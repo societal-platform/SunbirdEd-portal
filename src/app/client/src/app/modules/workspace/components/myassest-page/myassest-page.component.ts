@@ -224,15 +224,6 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   }
 
   ngOnInit() {
-    console.log('on init');
-    //   this.userService.userData$.subscribe(userdata => {
-    //   if (userdata && !userdata.err) {
-    //     this.userId = userdata.userProfile.userId;
-
-    //   }
-    // });
-    // this.fecthAllContent(limit: number, pageNumber: number, bothParams);
-
     this.userId = this.userService.userid;
     this.lessonRole = this.config.rolesConfig.workSpaceRole.lessonRole;
 
@@ -256,17 +247,15 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
         this.queryParams = bothParams.queryParams;
         this.query = this.queryParams['query'];
         this.fecthAllContent(this.config.appConfig.WORKSPACE.PAGE_LIMIT, this.pageNumber, bothParams);
+
       });
     this.userService.userData$.subscribe(
       (user: IUserData) => {
         this.user = user.userProfile.userRoles;
         this.orgId = user.userProfile.rootOrgId;
-        console.log('user info', this.user);
         this.user.forEach(element => {
           if (element === 'TEACHER_BADGE_ISSUER') {
-            this.role = element;
-            console.log('role', element);
-          }
+            this.role = element;          }
         });
       });
     const request = {
@@ -280,7 +269,6 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
       }
     };
     this.badgeService.getAllBadgeList(request).subscribe((data) => {
-      console.log('data for badge', data);
       this.badgeList = data.result.content;
     });
   }

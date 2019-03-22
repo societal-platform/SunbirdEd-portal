@@ -86,7 +86,6 @@ export class ExploreDetailPageComponent implements OnInit {
       console.log('read content', data);
       this.assetDetail = data.result.content;
     });
-    console.log('this', this.assetDetail);
 
     const request = {
       request: {

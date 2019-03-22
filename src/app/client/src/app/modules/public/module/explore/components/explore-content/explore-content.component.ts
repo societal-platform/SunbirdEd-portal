@@ -110,8 +110,8 @@ export class ExploreContentComponent implements OnInit, OnDestroy {
             facets: this.facets,
             params: this.configService.appConfig.ExplorePage.contentApiQueryParams
         };
-        option.filters.channel = ['0127121193133670400', '0127212927140577280'],
-        option.filters.organisation = ['shikshalokam', 'societal'];
+        option.filters.channel = this.configService.appConfig.ExplorePage.orgId,
+        option.filters.organisation = this.configService.appConfig.ExplorePage.orgName;
         option.filters.contentType = filters.contentType ||
         ['Resource'];
 

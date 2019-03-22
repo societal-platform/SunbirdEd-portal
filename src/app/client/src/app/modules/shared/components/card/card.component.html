@@ -18,7 +18,7 @@
         <div class="col-sm-8 text-light pt-3">
            
           <h5 class="card-title">{{data?.name | titlecase}}</h5>
-          <p class="card-text1">version : {{data?.version}}.0</p>
+          <p class="card-text1 text-light">version : {{data?.version}}.0</p>
           
         </div>
         <button *ngIf="data?.ribbon?.left?.image" type="button" class="btn text-light float-right badgesprite badgeimg " id="styletick">
@@ -36,7 +36,7 @@
         <span class="creator">Since : {{data?.year}}</span>
       </div>
       <hr>
-      <p class="card-text">{{data?.description | titlecase}}</p>
+      <div class="card-text text-secondary fs-1-16">{{data?.description | titlecase}}</div>
         <!-- <div class="creator ellipsis float-right">
            creator {{data.orgDetails?.orgName}}
           </div> -->
