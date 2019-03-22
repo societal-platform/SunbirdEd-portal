@@ -196,18 +196,15 @@ orgName: any;
       this.message = element.value;
    }
     });
-    this.userData = 'Organization:&nbsp;' + this.org + '<br>' + 'email Id:&nbsp; ' + this.email;
+    this.userData = 'Name: ' + this.name + '<br>' + 'Email Id: ' + this.email + '<br>' +
+    'Organization Name: ' + this.org + '<br>' + 'Message: ' + this.message;
 
     const body = {
       request: {
 
-        subject: this.email + this.dataService.dataConfig.subject,
+        subject: 'feedback for SPace',
 
-        body: this.dataService.dataConfig.body + '<br>' + '&nbsp;&nbsp;&nbsp;' + this.message + '<br>' + this.userData,
-
-        orgName: this.org,
-
-        orgImgUrl: this.dataService.dataConfig.orgImgUrl,
+        body: this.dataService.dataConfig.feedbackBody + '<br>' + this.userData,
 
         emailTemplateType: this.dataService.dataConfig.template,
 

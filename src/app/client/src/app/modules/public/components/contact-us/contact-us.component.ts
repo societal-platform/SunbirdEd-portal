@@ -15,6 +15,7 @@ export class ContactUsComponent implements OnInit {
   alert = false;
   public userServie: UserService;
   user: any;
+  country: any;
   constructor(public configService: ConfigService,  public publicDataService: PublicDataService,
    public dataService: ConfigureService, public tosterservice: ToasterService, public router: Router,
    userService: UserService) {
@@ -66,20 +67,20 @@ successMessage: string;
    if (element.name === 'message') {
       this.message = element.value;
    }
+   if (element.name === 'country') {
+    this.country = element.value;
+ }
     });
-    this.userData = 'name:&nbsp;' + this.name + '<br>' + 'Organization:&nbsp;' + this.org + '<br>' + 'email Id:&nbsp; ' + this.email;
+    this.userData = 'Name: ' + this.name + '<br>' + 'Email Id: ' + this.email + '<br>' +
+    'Organization Name: ' + this.org + '<br>' + 'Country: ' + this.country + '<br>' + 'Message: ' + this.message;
    const body = {
     request: {
 
-      subject: this.name + this.dataService.dataConfig.subject,
+      subject: this.dataService.dataConfig.contactsubject,
 
-      body: this.dataService.dataConfig.body + '<br>' + '&nbsp;&nbsp;&nbsp;' + this.message + '<br>' + this.userData,
+      body: this.dataService.dataConfig.body + '<br>' + this.userData,
 
-      orgName: this.org,
-
-      orgImgUrl: this.dataService.dataConfig.orgImgUrl,
-
-      emailTemplateType: this.dataService.dataConfig.template,
+      emailTemplateType: this.dataService.dataConfig.contacttemplate,
 
       fromEmail: this.dataService.dataConfig.fromEmail,
 
