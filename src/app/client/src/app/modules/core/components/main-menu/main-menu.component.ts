@@ -3,7 +3,7 @@ import {
   ToasterService, ServerResponse
 } from '@sunbird/shared';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService, PermissionService } from '../../services';
+import { UserService, PermissionService,  LearnerService } from '../../services';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { IInteractEventObject, IInteractEventEdata } from '@sunbird/telemetry';
 import { CacheService } from 'ng2-cache-service';
@@ -83,7 +83,7 @@ orgName: any;
   * constructor
   */
   constructor(resourceService: ResourceService, userService: UserService, router: Router,
-    public modalServices: SuiModalService, toasterService: ToasterService,
+    public modalServices: SuiModalService, toasterService: ToasterService,public learn: LearnerService,
     permissionService: PermissionService, config: ConfigService, private cacheService: CacheService,
      public publicDataService: PublicDataService,
     public dataService: ConfigureService, private modalService: NgbModal) {
@@ -222,7 +222,7 @@ orgName: any;
           url: `${this.config.urlConFig.URLS.FEEDBACK.EMAIL}`,
           data: body
         };
-        this.publicDataService.post(req).subscribe( (data: ServerResponse) => {
+        this.learn.post(req).subscribe( (data: ServerResponse) => {
           this.alert = !this.alert;
           this.toasterService.success('Thanks for your valuable feedback.');
     return data;

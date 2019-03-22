@@ -42,6 +42,7 @@ export class DataService {
    * Constructor
    * @param {HttpClient} http HttpClient reference
    */
+   
   constructor(http: HttpClient) {
     this.http = http;
   }
@@ -76,6 +77,8 @@ export class DataService {
       headers: requestParam.header ? this.getHeader(requestParam.header) : this.getHeader(),
       params: requestParam.param
     };
+    // const l =this.getHeader();
+    // console.log('post headers', this.getHeader(requestParam.header),l );
     return this.http.post(this.baseUrl + requestParam.url, requestParam.data, httpOptions).pipe(
       mergeMap((data: ServerResponse) => {
         if (data.responseCode !== 'OK') {
@@ -133,7 +136,7 @@ export class DataService {
       // 'X-Consumer-ID': 'X-Consumer-ID',
       'X-Source': 'web',
       'ts': moment().format(),
-      'X-msgid': UUID.UUID()
+      'X-msgid': UUID.UUID(),
     };
     try {
       this.deviceId = (<HTMLInputElement>document.getElementById('deviceId')).value;
@@ -151,6 +154,7 @@ export class DataService {
     if (this.appId) {
       default_headers['X-App-Id'] = this.appId;
     }
+    console.log('request', default_headers);
     if (headers) {
       return { ...default_headers, ...headers };
     } else {

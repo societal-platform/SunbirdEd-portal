@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  ConfigService, ServerResponse, ToasterService, IUserData} from '@sunbird/shared';
-import { PublicDataService, UserService } from '@sunbird/core';
+import { PublicDataService, UserService,  LearnerService} from '@sunbird/core';
 import {ConfigureService } from '../../services/configure/configure.service';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
@@ -17,7 +17,7 @@ export class ContactUsComponent implements OnInit {
   user: any;
   constructor(public configService: ConfigService,  public publicDataService: PublicDataService,
    public dataService: ConfigureService, public tosterservice: ToasterService, public router: Router,
-   userService: UserService) {
+   userService: UserService, public learn: LearnerService) {
      this.userServie = userService;
    }
 email: any;
@@ -92,8 +92,9 @@ successMessage: string;
         url: `${this.configService.urlConFig.URLS.FEEDBACK.EMAIL}`,
         data: body
       };
-      this.publicDataService.post(req).subscribe( (data: ServerResponse) => {
+      this.learn.post(req).subscribe( (data: ServerResponse) => {
         this.alert = !this.alert;
+        console.log('datain server',data);
         this.tosterservice.success('Thanks for Contacting Us. We will get back to you very soon.');
   return data;
       });

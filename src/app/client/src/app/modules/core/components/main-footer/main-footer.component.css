@@ -41,6 +41,9 @@ hr{
     height: 3rem !important;
     width: 1px !important;
 }
+.r{
+    position: relative;
+}
 .link {
     cursor: pointer;
 }
