@@ -264,7 +264,13 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
     });
     this.cdr.detectChanges();
   }
-
+  public handleGradeLevelChange(topicsSelected) {
+    this.formInputData['gradeLevel'] = [];
+    _.forEach(topicsSelected, (value, index) => {
+      this.formInputData['gradeLevel'].push(value.name);
+    });
+    this.cdr.detectChanges();
+  }
   private hardRefreshFilter() {
     this.refresh = false;
     this.cdr.detectChanges();

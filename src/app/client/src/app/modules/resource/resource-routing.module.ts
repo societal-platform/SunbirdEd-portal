@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FlagContentComponent } from '@sunbird/core';
 import { NoteListComponent } from '@sunbird/notes';
 import {ViewAllComponent} from '@sunbird/shared-feature';
+import { SharedDetailPageComponent } from './components/shared-detail-page/shared-detail-page.component';
 const telemetryEnv = 'library';
 const routes: Routes = [
   {
@@ -41,29 +42,32 @@ const routes: Routes = [
       breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Library', url: '' }],
       telemetry: { env: telemetryEnv, pageid: 'collection-player-unlisted', type: 'play' }
     }
-  }, {
-    path: 'play/content/:contentId', component: ContentPlayerComponent,
+  },
+  {
+    path: 'play/content/:contentId', component: SharedDetailPageComponent,
     data: {
       telemetry: {
         env: telemetryEnv, pageid: 'content-player', type: 'play'
       }, breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Library', url: '/resources' }]
-    },
-    children: [
-      { path: 'flag', component: FlagContentComponent }
-    ]
-  }, {
+    }
+  },
+   {
     path: 'play/content/:contentId/note', component: NoteListComponent, data: {
       telemetry: {
         env: telemetryEnv, pageid: 'content-note-read', type: 'list', object: { type: 'library', ver: '1.0' }
       }
     }
-  }, {
+  },
+  {
     path: 'play/content/:contentId/:contentStatus', component: ContentPlayerComponent,
     data: {
       breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Library', url: '' }],
       telemetry: { env: telemetryEnv, pageid: 'content-player-unlisted', type: 'play' }
     }
-  }
+  },
+  // {
+  //   path: 'detail/:contentId', component: AssetDetailPageComponent
+  // },
 ];
 
 @NgModule({

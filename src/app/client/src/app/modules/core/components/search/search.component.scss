@@ -8,17 +8,19 @@
 }
 
 .ui.icon.button {
-    background: #edf4f9;
+    background: gray;
     padding: 1px 4px 7px 7px;
     .primary-search-icon {
       font-size: 1.2em;       
     }
 }
-
+.ui.small.input {
+    width: 220px !important;
+}
 ::ng-deep {
     .ui.fluid.action.input.primary-search-input {
-        height: 35px;
-        border: 1px solid #60D4EB;
+        height: 39px;
+        border: 1px solid grey;
         opacity: 1;
         border-radius: 5px;
     }    
@@ -27,7 +29,7 @@
 @media only screen and (min-width: 767px) {
     ::ng-deep {
         .ui.fluid.action.input.primary-search-input {
-            height: 29px;
+            height: 39px;
         }    
     }
 }

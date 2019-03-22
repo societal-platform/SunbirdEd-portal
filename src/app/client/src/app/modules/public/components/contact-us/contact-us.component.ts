@@ -94,7 +94,7 @@ successMessage: string;
       };
       this.learn.post(req).subscribe( (data: ServerResponse) => {
         this.alert = !this.alert;
-        console.log('datain server',data);
+        console.log('datain server', data);
         this.tosterservice.success('Thanks for Contacting Us. We will get back to you very soon.');
   return data;
       });

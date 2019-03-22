@@ -7,11 +7,11 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.075);
 }
 .app-landing-page {
-  background-image: url("../../../../../../../dist/assets/images/banner_bg.jpg");
+  background-image: url('../../../../../assets/images/banner_bg.jpg');
   background-size: cover;
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: 6.9rem;
   left: 0;
   right: 0;
 }

@@ -706,12 +706,9 @@ h5.ui.header {
   font-size: 1rem;
 }
 .searchicon.ui.icon.input input.upForReviewSearchBox {
-  width:  420px;
+  width:  220px;
   background: #fdfdfd;
-  border-right: none;
-  border-top: none;
-  border-left: none;
-  border: 2px solid rgba(51, 51, 51, 0.33);
+  border: 1px solid rgba(51, 51, 51, 0.33);
 }
 .ann-fileupload-list {
   overflow-x: hidden;

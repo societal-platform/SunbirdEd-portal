@@ -213,7 +213,9 @@
     "dynamicFields": {
       "ribbon.right.name": "resourceType",
       "ribbon.left.image": "badgeAssertions[0].badgeClassImage"
-    }
+    },
+    "orgId":["0127121193133670400", "0127212927140577280"],
+    "orgName":["shikshalokam", "societal"]
   },
   "PublicPlayer": {
     "contentApiQueryParams": {
@@ -256,7 +258,9 @@
     "dynamicFields": {
       "ribbon.right.name": "resourceType",
       "ribbon.left.image": "badgeAssertions[0].badgeClassImage"
-    }
+    },
+    "orgId":["0127121193133670400", "0127212927140577280"],
+    "orgName":["shikshalokam", "societal"]
   },
   "CoursePage": {
     "slickSize": 10,

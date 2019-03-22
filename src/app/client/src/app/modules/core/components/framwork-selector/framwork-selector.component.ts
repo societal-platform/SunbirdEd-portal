@@ -70,7 +70,7 @@ export class FramworkSelectorComponent implements OnInit {
     setTimeout(() => {
       $('.tree-picker-selector').treePicker({
         data: this.conceptData,
-        name: this.categoryName,
+        name: 'Framework',
         picked: this.contentConcepts,
         onSubmit: (nodes) => {
           $('.tree-picker-selector').val(nodes.length + ' selected');

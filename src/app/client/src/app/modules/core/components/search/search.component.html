@@ -13,10 +13,10 @@
     </div>
 </div> -->
 
-<div class="ui fluid small ui action input primary-search-input" id="search-input-container" [ngClass]="{ 'disabled': !showInput }">
+<div class="ui small ui action input primary-search-input" id="search-input-container">
     <input type="text" id="keyword" name="filter_search" title="Search" placeholder="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{selectedOption}}"
-    class="searchinput" [(ngModel)]="key" (keyup.enter)="onEnter(key)" [disabled]="!showInput" />
+    class="searchinput" [(ngModel)]="key" (keyup.enter)="onEnter(key)"/>
     <button class="ui icon button">
-        <i class="search large blue icon primary-search-icon" [ngClass]="{ 'disableIcon': !showInput }" (click)="onEnter(key)"></i>
+        <i class="search large text-light icon primary-search-icon"  (click)="onEnter(key)"></i>
     </button>
 </div>

@@ -42,7 +42,7 @@ export class DataService {
    * Constructor
    * @param {HttpClient} http HttpClient reference
    */
-   
+
   constructor(http: HttpClient) {
     this.http = http;
   }

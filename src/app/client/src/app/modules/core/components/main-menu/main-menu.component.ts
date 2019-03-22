@@ -83,7 +83,7 @@ orgName: any;
   * constructor
   */
   constructor(resourceService: ResourceService, userService: UserService, router: Router,
-    public modalServices: SuiModalService, toasterService: ToasterService,public learn: LearnerService,
+    public modalServices: SuiModalService, toasterService: ToasterService, public learn: LearnerService,
     permissionService: PermissionService, config: ConfigService, private cacheService: CacheService,
      public publicDataService: PublicDataService,
     public dataService: ConfigureService, private modalService: NgbModal) {

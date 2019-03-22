@@ -85,7 +85,7 @@
         </label>
         <sui-select id={{field.code}} name={{field.code}} class="selection" [(ngModel)]="formInputData[field.code]"
           (ngModelChange)="updateForm({index:i, field:field, value:formInputData[field.code]})"
-          zeroSelectionText="select">
+          zeroSelectionText="select" [placeholder]="'Select'" >
           <sui-select-option *ngFor="let option of categoryList[field.code]" [value]="option.name"></sui-select-option>
         </sui-select>
       </div>
@@ -104,7 +104,7 @@
     <div *ngIf="field.code==='year'" class="field" [ngClass]="{ 'disabled':!field.editable}">
       <label>{{field.name}}</label>
       <div class="field">
-        <sui-select id={{field.code}} name={{field.code}} class="selection" [(ngModel)]="formInputData[field.code]">
+        <sui-select id={{field.code}} name={{field.code}} class="selection" [(ngModel)]="formInputData[field.code]" [placeholder]="'Select'">
           <sui-select-option *ngFor="let option of years" [value]="option"> </sui-select-option>
         </sui-select>
       </div>

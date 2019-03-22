@@ -45,7 +45,7 @@ import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
   exports: [MainHeaderComponent, MainFooterComponent, PermissionDirective, BodyScrollDirective, ConceptPickerComponent,
     DataDrivenFilterComponent, SortByComponent, BreadcrumbsComponent, FlagContentComponent,
     ContentPlayerMetadataComponent, TelemetryModule, LanguageDropdownComponent, ProminentFilterComponent,
-    TopicPickerComponent, FramworkSelectorComponent]
+    TopicPickerComponent, FramworkSelectorComponent, FrameworkPickerComponent, SearchComponent]
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders {
