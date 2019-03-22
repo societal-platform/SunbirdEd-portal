@@ -35,10 +35,10 @@
 }
 .ui.text.menu[_ngcontent-c7] .item.active[_ngcontent-c7] {
   font-size: 1rem !important;
-    color: #FFFFFF !important;
+    color: #585858 !important;
   }
   .item{
-    color: #FFFFFF !important;
+    color: #585858 !important;
   }
 .sign-in {
   color: $link-color;
@@ -68,7 +68,20 @@
     justify-content: center !important;
 }
 .head{
-  font-family: Arial Regular;
+  font-family: 'Muli', sans-serif;
   font-size: 26px;
   margin-bottom: 0rem;
+}
+.btn-info {
+  background-color: #a8abe3 !important;
+  border: none;
+  border-radius: 5px;
+  height: 40px;
+  font-family: "Muli",sans-serif;
+  font-size: 15px;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: none;
+  cursor: pointer;
 }

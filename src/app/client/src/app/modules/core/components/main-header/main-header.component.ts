@@ -84,11 +84,11 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   };
   avtarDesktopStyle = {
     backgroundColor: 'transparent',
-    color: '#AAAAAA',
+    color: '#585858',
     fontFamily: 'inherit',
     fontSize: '17px',
     lineHeight: '38px',
-    border: '1px solid #e8e8e8',
+    border: '1px solid #585858',
     borderRadius: '50%',
     height: '38px',
     width: '38px'
