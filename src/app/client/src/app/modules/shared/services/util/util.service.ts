@@ -22,6 +22,7 @@ export class UtilService {
   }
 
   processContent(data, staticData, dynamicFields, metaData) {
+    console.log('data, dynamic', data, staticData, dynamicFields, metaData);
     let fieldValue: any;
     const content = {
       name: data.name || data.courseName,
@@ -34,7 +35,12 @@ export class UtilService {
       gradeLevel: '',
       contentType: data.contentType,
       topic: this.getTopicSubTopic('topic', data.topic),
-      subTopic: this.getTopicSubTopic('subTopic', data.topic)
+      subTopic: this.getTopicSubTopic('subTopic', data.topic),
+      board: data.board,
+      version: data.version,
+      link: data.link,
+      region: data.region,
+      year: data.year
     };
 
     // this customization is done for enrolled courses

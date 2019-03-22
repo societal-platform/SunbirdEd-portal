@@ -3,10 +3,16 @@
 .ui.selection.dropdown {
     border: 1px solid #707070;
    background: #707070;
-   color: #cdcccc
+   color: #cdcccc;
+   border-radius: 5px;
+    height: 42px;
 }
 
 .text {
     color: white;
     text-transform: none !important;
+}
+.data-driven-filter {
+    font-family: 'Muli', sans-serif;
+
 }

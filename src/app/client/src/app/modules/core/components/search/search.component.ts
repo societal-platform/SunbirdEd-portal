@@ -91,6 +91,8 @@ export class SearchComponent implements OnInit {
       this.queryParam = { ...queryParams };
       this.key = this.queryParam['key'];
     });
+    if (this.userService.loggedIn) {
+
     this.userService.userData$.subscribe(userdata => {
       if (userdata && !userdata.err) {
         this.userProfile = userdata.userProfile;
@@ -104,7 +106,17 @@ export class SearchComponent implements OnInit {
           this.setFilters();
         });
     });
+  } else {
+    console.log('hii');
+    this.searchDropdownValues.push('Users');
+    this.setFilters();
+  //   this.route.events.pipe(
+  //     filter(e => e instanceof NavigationEnd)).subscribe((params: any) => {
+  //       this.setFilters();
+  //     });
+  }
     this.showSuiSelectDropdown = true;
+
   }
   /**
    * on changing dropdown option
@@ -126,9 +138,15 @@ export class SearchComponent implements OnInit {
     } else {
       delete this.queryParam['key'];
     }
-    this.route.navigate([this.search[this.selectedOption], 1], {
-      queryParams: this.queryParam
-    });
+ if (this.userService.loggedIn) {
+  this.route.navigate([this.search[this.selectedOption], 1], {
+    queryParams: this.queryParam
+  });
+ } else  {
+   this.route.navigate(['explore', 1], {
+    queryParams: this.queryParam
+  });
+ }
   }
 
   setFilters() {

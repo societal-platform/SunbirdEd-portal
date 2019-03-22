@@ -236,6 +236,7 @@ export class SearchService {
   */
   contentSearch(requestParam: SearchParam, addDefaultContentTypesInRequest: boolean = true):
     Observable<ServerResponse> {
+      console.log('request param', requestParam);
     const option = {
       url: this.config.urlConFig.URLS.CONTENT.SEARCH,
       param: { ...requestParam.params },
@@ -248,7 +249,7 @@ export class SearchService {
           exists: requestParam.exists,
           softConstraints: requestParam.softConstraints,
           mode: requestParam.mode,
-          facets: requestParam.facets && requestParam.facets
+          facets: requestParam.facets && requestParam.facets,
         }
       }
     };
@@ -258,9 +259,6 @@ export class SearchService {
 
     if (!option.data.request.filters.contentType && addDefaultContentTypesInRequest) {
       option.data.request.filters.contentType = [
-        'Collection',
-        'TextBook',
-        'LessonPlan',
         'Resource'
       ];
     }

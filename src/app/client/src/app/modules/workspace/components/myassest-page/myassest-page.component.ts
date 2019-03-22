@@ -1,5 +1,5 @@
-import {combineLatest as observableCombineLatest,  Observable } from 'rxjs';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { combineLatest as observableCombineLatest, Observable, Subject, Subscription } from 'rxjs';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkSpace } from '../../classes/workspace';
 import { SearchService, UserService, ISort, FrameworkService, PermissionService, ContentService } from '@sunbird/core';
@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 import { IImpressionEventInput } from '@sunbird/telemetry';
 import { SuiModalService, TemplateModalConfig, ModalTemplate } from 'ng2-semantic-ui';
 import { ICard } from '../../../shared/interfaces/card';
-import {BadgesService} from '../../../core/services/badges/badges.service';
+import { BadgesService } from '../../../core/services/badges/badges.service';
 import { IUserData } from '@sunbird/shared';
 
 
@@ -23,7 +23,7 @@ import { IUserData } from '@sunbird/shared';
   templateUrl: './myassest-page.component.html',
   styleUrls: ['./myassest-page.component.scss']
 })
-export class MyassestPageComponent  extends WorkSpace implements OnInit  {
+export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestroy {
   @ViewChild('modalTemplate')
   // @ViewChild('modalTemplate2')
   public modalTemplate: ModalTemplate<{ data: string }, string, string>;
@@ -31,6 +31,7 @@ export class MyassestPageComponent  extends WorkSpace implements OnInit  {
   /**
      * state for content editior
     */
+
   state: string;
 
   /**
@@ -163,8 +164,10 @@ export class MyassestPageComponent  extends WorkSpace implements OnInit  {
   telemetryImpression: IImpressionEventInput;
   /**
   * To call resource service which helps to use language constant
+  *
   */
- badgeService: BadgesService;
+  orgDetailsUnsubscribe: Subscription;
+  badgeService: BadgesService;
   public frameworkService: FrameworkService;
   public resourceService: ResourceService;
   public permissionService: PermissionService;
@@ -172,8 +175,8 @@ export class MyassestPageComponent  extends WorkSpace implements OnInit  {
   lessonRole: any;
   userId: string;
   reasons = [];
-   deleteAsset = false;
-   publishAsset = false;
+  deleteAsset = false;
+  publishAsset = false;
   badgeList: any;
   user: any;
   orgId: any;
@@ -198,7 +201,7 @@ export class MyassestPageComponent  extends WorkSpace implements OnInit  {
     permissionService: PermissionService,
     toasterService: ToasterService, resourceService: ResourceService,
     config: ConfigService, public modalService: SuiModalService,
-    public modalServices: SuiModalService , frameworkService: FrameworkService,
+    public modalServices: SuiModalService, frameworkService: FrameworkService,
     contentService: ContentService) {
     super(searchService, workSpaceService, userService);
     this.paginationService = paginationService;
@@ -221,15 +224,7 @@ export class MyassestPageComponent  extends WorkSpace implements OnInit  {
   }
 
   ngOnInit() {
-  //   this.userService.userData$.subscribe(userdata => {
-  //   if (userdata && !userdata.err) {
-  //     this.userId = userdata.userProfile.userId;
-
-  //   }
-  // });
-  // this.fecthAllContent(limit: number, pageNumber: number, bothParams);
-
-  this.userId = this.userService.userid;
+    this.userId = this.userService.userid;
     this.lessonRole = this.config.rolesConfig.workSpaceRole.lessonRole;
 
     this.filterType = this.config.appConfig.allmycontent.filterType;
@@ -252,17 +247,15 @@ export class MyassestPageComponent  extends WorkSpace implements OnInit  {
         this.queryParams = bothParams.queryParams;
         this.query = this.queryParams['query'];
         this.fecthAllContent(this.config.appConfig.WORKSPACE.PAGE_LIMIT, this.pageNumber, bothParams);
+
       });
-      this.userService.userData$.subscribe(
-        (user: IUserData) => {
-          this.user = user.userProfile.userRoles;
-          this.orgId = user.userProfile.rootOrgId;
-        console.log('user info', this.user);
+    this.userService.userData$.subscribe(
+      (user: IUserData) => {
+        this.user = user.userProfile.userRoles;
+        this.orgId = user.userProfile.rootOrgId;
         this.user.forEach(element => {
           if (element === 'TEACHER_BADGE_ISSUER') {
-            this.role = element;
-            console.log('role', element);
-          }
+            this.role = element;          }
         });
       });
     const request = {
@@ -271,17 +264,22 @@ export class MyassestPageComponent  extends WorkSpace implements OnInit  {
           issuerList: [],
           rootOrgId: this.orgId,
           roles: [this.role],
-          type: 'content'}}};
-      this.badgeService.getAllBadgeList(request).subscribe( (data) => {
-console.log('data for badge', data);
-this.badgeList = data.result.content;
-});
+          type: 'content'
+        }
+      }
+    };
+    this.badgeService.getAllBadgeList(request).subscribe((data) => {
+      this.badgeList = data.result.content;
+    });
   }
+
+
+
   /**
   * This method sets the make an api call to get all UpForReviewContent with page No and offset
   */
   fecthAllContent(limit: number, pageNumber: number, bothParams) {
-
+    console.log('fetch all');
     this.showLoader = true;
     if (bothParams.queryParams.sort_by) {
       const sort_by = bothParams.queryParams.sort_by;
@@ -311,34 +309,35 @@ this.badgeList = data.result.content;
       query: _.toString(bothParams.queryParams.query),
       sort_by: this.sort
     };
-    this.searchContentWithLockStatus(searchParams).subscribe(
-      (data: ServerResponse) => {
-        console.log('data', data);
-        if (data.result.count && data.result.content.length > 0) {
-          this.allContent = data.result.content;
-          this.totalCount = data.result.count;
-          this.pager = this.paginationService.getPager(data.result.count, pageNumber, limit);
+    this.orgDetailsUnsubscribe = this.searchContentWithLockStatus(searchParams)
+      .subscribe(
+        (data: ServerResponse) => {
+          console.log('data', data);
+          if (data.result.count && data.result.content.length > 0) {
+            this.allContent = data.result.content;
+            this.totalCount = data.result.count;
+            this.pager = this.paginationService.getPager(data.result.count, pageNumber, limit);
+            this.showLoader = false;
+            this.noResult = false;
+          } else {
+            this.showError = false;
+            this.noResult = true;
+            this.showLoader = false;
+            this.noResultMessage = {
+              'messageText': this.resourceService.messages.stmsg.m0125
+            };
+          }
+        },
+        (err: ServerResponse) => {
           this.showLoader = false;
           this.noResult = false;
-        } else {
-          this.showError = false;
-          this.noResult = true;
-          this.showLoader = false;
-          this.noResultMessage = {
-            'messageText': this.resourceService.messages.stmsg.m0125
-          };
+          this.showError = true;
+          this.toasterService.error(this.resourceService.messages.fmsg.m0081);
         }
-      },
-      (err: ServerResponse) => {
-        this.showLoader = false;
-        this.noResult = false;
-        this.showError = true;
-        this.toasterService.error(this.resourceService.messages.fmsg.m0081);
-      }
-    );
+      );
   }
   public deleteConfirmModal(contentIds) {
-   this.deleteAsset = true;
+    this.deleteAsset = true;
     const config = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config.isClosable = true;
     config.size = 'mini';
@@ -396,33 +395,33 @@ this.badgeList = data.result.content;
         // );
         this.publishAsset = false;
         this.reasons = ['Content plays correctly',
-        'Can see the content clearly on Desktop and App',
-        'No Hate speech, Abuse, Violence, Profanity',
-        'No Sexual content, Nudity or Vulgarity',
-        'Relevant Keywords',
-        'Appropriate tags such as Resource Type, Concepts',
-        'Correct Board, Grade, Subject, Medium',
-        'Appropriate Title, Description',
-        'No Discrimination or Defamation',
-        'Is suitable for children',
-        'Audio (if any) is clear and easy to understand',
-        'No Spelling mistakes in the text',
-        'Language is simple to understand'];
-          const requestBody = {
-            request: {
-              content: {
-                publishChecklist: this.reasons,
-                lastPublishedBy: this.userId
-              }
+          'Can see the content clearly on Desktop and App',
+          'No Hate speech, Abuse, Violence, Profanity',
+          'No Sexual content, Nudity or Vulgarity',
+          'Relevant Keywords',
+          'Appropriate tags such as Resource Type, Concepts',
+          'Correct Board, Grade, Subject, Medium',
+          'Appropriate Title, Description',
+          'No Discrimination or Defamation',
+          'Is suitable for children',
+          'Audio (if any) is clear and easy to understand',
+          'No Spelling mistakes in the text',
+          'Language is simple to understand'];
+        const requestBody = {
+          request: {
+            content: {
+              publishChecklist: this.reasons,
+              lastPublishedBy: this.userId
             }
-          };
-          const option = {
-            url: `${this.config.urlConFig.URLS.CONTENT.PUBLISH}/${contentIds}`,
-            data: requestBody
-          };
-          this.contentService.post(option).subscribe(
-            (data: ServerResponse) => {
-              this.showLoader = false;
+          }
+        };
+        const option = {
+          url: `${this.config.urlConFig.URLS.CONTENT.PUBLISH}/${contentIds}`,
+          data: requestBody
+        };
+        this.contentService.post(option).subscribe(
+          (data: ServerResponse) => {
+            this.showLoader = false;
 
             this.toasterService.success(this.resourceService.messages.smsg.m0004);
 
@@ -458,8 +457,8 @@ this.badgeList = data.result.content;
 
   contentClick(content) {
     if (_.size(content.lockInfo)) {
-        this.lockPopupData = content;
-        this.showLockedContentModal = true;
+      this.lockPopupData = content;
+      this.showLockedContentModal = true;
     } else {
       const status = content.status.toLowerCase();
       if (status === 'processing') {
@@ -473,7 +472,7 @@ this.badgeList = data.result.content;
     }
   }
 
-  public onCloseLockInfoPopup () {
+  public onCloseLockInfoPopup() {
     this.showLockedContentModal = false;
   }
 
@@ -499,5 +498,11 @@ this.badgeList = data.result.content;
       return requestData.indexOf(content.identifier) === -1;
     });
   }
+  ngOnDestroy() {
+    console.log('destroy');
+    if (this.orgDetailsUnsubscribe) {
+      this.orgDetailsUnsubscribe.unsubscribe();
+    }
 
+  }
 }

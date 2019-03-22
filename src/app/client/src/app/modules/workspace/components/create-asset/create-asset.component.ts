@@ -265,7 +265,9 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
 * Redirects to workspace create section
 */
   goToCreate() {
-    this.router.navigate(['/myassets']);
+    setTimeout(() => {
+      this.router.navigate(['myassets']);
+    }, 1500);
   }
 
   /**
@@ -308,66 +310,31 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
         this.updateContent();
       } else {
         this.showMessage = true;
-        this.toasterService.error('Asset creation failed please provide required fields');
+        this.toasterService.error('Asset updation failed please provide required fields');
       }
     }
   updateContent() {
     console.log('in update content', this.generateData(_.pickBy(this.formData.formInputData)));
     const requestData = {
       content: this.generateData(_.pickBy(this.formData.formInputData)),
-      // url: `${this.configService.urlConFig.URLS.CONTENT.UPDATE}/${this.activatedRoute.snapshot.params.contentId}`,
-
     };
     console.log('form data', this.formData.formInputData , requestData);
-
-    // this.contentService.patch(requestData).subscribe(data =>{
-    //   console.log('read content', data)
-    //   this.formUpdateData = data.result.content;
-    //   console.log(this.formUpdateData);
-    // }, err =>{
-    //   this.toasterService.error(this.resourceService.messages.fmsg.m0078);
-
-    // });
     if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
     this.editorService.update(requestData, this.activatedRoute.snapshot.params.contentId).subscribe(res => {
         console.log('res', res);
         this.toasterService.success('Asset updated Successfully');
         this.goToCreate();
     }, err => {
-      this.toasterService.error(this.resourceService.messages.fmsg.m0078);
+      this.toasterService.error('Asset updation failed please try after some time');
 
     }); } else {
-
+      this.toasterService.error('Asset updation failed please try after some time');
     }
-
-
-  //   if (this.contentType === 'studymaterial') {
-  //     this.editorService.create(requestData).subscribe(res => {
-  //       console.log('res', res);
-  //       this.createLockAndNavigateToEditor({identifier: res.result.content_id});
-  //     }, err => {
-  //       this.toasterService.error(this.resourceService.messages.fmsg.m0078);
-  //     });
-  //   } else {
-  //     this.editorService.create(requestData).subscribe(res => {
-  //       this.createLockAndNavigateToEditor({identifier: res.result.content_id});
-  //     }, err => {
-  //       this.toasterService.error(this.resourceService.messages.fmsg.m0010);
-  //     });
-  //   }
-  //   this.sendForReview();
-  //  }
   }
 
   createLockAndNavigateToEditor (content) {
     const state = 'draft';
     const framework = this.framework;
-    // if (this.contentType === 'studymaterial') {
-    //   this.router.navigate(['/workspace/content/edit/content/', content.identifier, state, framework, 'Draft']);
-    // } else {
-    //   const type = this.configService.appConfig.contentCreateTypeForEditors[this.contentType];
-    //   this.router.navigate(['/workspace/content/edit/collection', content.identifier, type, state, framework, 'Draft']);
-    // }
   }
 
   /**
