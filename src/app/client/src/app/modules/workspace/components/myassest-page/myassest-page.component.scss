@@ -53,8 +53,10 @@ background-color: #585858;
   margin-top: -32px;
  }
  #pub {
-   background-color:gainsboro;
+  background-color: #a8abe3 !important;
    border-radius: 4rem;
+   font-family: "Muli",sans-serif;
+   color: white ;
 
  }
  .card {
@@ -181,4 +183,18 @@ background-color: #585858;
 
 /* autoprefixer: on */
   
+}
+
+.btn-sec {
+  background-color: #a8abe3 !important;
+  border: none;
+  border-radius: 5px;
+  height: 40px;
+  font-family: "Muli",sans-serif;
+  font-size: 15px;
+  width: 135px;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: none;
+  cursor: pointer;
 }

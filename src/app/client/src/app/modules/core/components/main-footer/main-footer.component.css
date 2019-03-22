@@ -1,36 +1,36 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 .ft-copyright {
-    background-color: #585858;
+    background-color: white;
     border-top: 1px solid white;
     display: flex;
 }
 .text-pp-crt,
 	.text-pp-crt-rg {
-		color: #FFFFFF;
+		color: #585858;
     }
     .developer {
 		text-align: center;
     }
     
     .footer1{
-        background-color: #585858;
+        background-color:white;
         /* padding: 4.57rem 0; */
         font-size: 14px;
     }
 .font{
 font-size: 12px;
-font-family: 'Roboto', sans-serif;
+font-family: 'Muli', sans-serif;
 }
 .font1{
 font-size: 12px;
-font-family: 'Roboto', sans-serif;
+font-family: 'Muli', sans-serif;
 }
 .logo{
     font-size: 27px;
 }
 .text-pp{
     font-size: 16px;
-    color: #FFFFFF;
+    color: #585858;
 }
 .image{
     height: 44px !important;
