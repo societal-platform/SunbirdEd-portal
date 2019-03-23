@@ -35,6 +35,9 @@ font-family: 'Roboto', sans-serif;
 .image{
     height: 44px !important;
 }
+.text{
+    font-family:'Muli' !important; 
+  }
 hr{
     border: none !important;
     border-left: 1px solid gray !important;

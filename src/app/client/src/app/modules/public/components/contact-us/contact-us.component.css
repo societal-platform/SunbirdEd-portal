@@ -27,7 +27,7 @@
   font-size: 26px;
 }
 .cimage{
-  background-image: url('../../../../../assets/images/slide-04.png');
+  /* background-image: url('../../../../../assets/images/slide-04.png'); */
   background-size: cover;
   background-repeat: no-repeat;
 }
