@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col" *ngIf='permissionService.permissionAvailable' appPermission [permission]='lessonRole'>
-      <button type="button" class="btn btn-secondary float-right" routerLink="create"><i class="fas fa-plus"></i> New
+      <button type="button" class="btn btn-sec text-light float-right" routerLink="create"><i class="fas fa-plus"></i> New
         Asset</button>
     </div>
   </div>
@@ -50,7 +50,7 @@
               </button>
 
               <div *ngIf="content?.status==='Draft'">
-                <button type="button" class="btn ml-4 text-secondary" id="pub" (click)="publishConfirmModal(content.identifier); $event.stopPropagation()"><i class="fas fa-upload"></i>&nbsp; PUBLISH</button>
+                <button type="button" class="btn ml-4" id="pub" (click)="publishConfirmModal(content.identifier); $event.stopPropagation()"><i class="fas fa-upload"></i>&nbsp; PUBLISH</button>
               </div>
               <!-- <div *ngIf="content?.status==='Live'">
                   <button type="button" class="btn ml-4 text-light" id="badge">VERIFY</button>

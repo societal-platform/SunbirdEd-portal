@@ -32,8 +32,8 @@
         <div class="details">
         <span class="creator">Created By : {{data.orgDetails?.orgName | titlecase}}</span>
         <span class="creator">Link : {{data?.link}}</span>
-        <span class="creator">Where : {{data?.region | titlecase}}</span>
-        <span class="creator">Since : {{data?.year}}</span>
+        <span class="creator" *ngIf="data?.region ">Where : {{data?.region | titlecase}}</span>
+        <span class="creator" *ngIf="data?.year">Since : {{data?.year}}</span>
       </div>
       <hr>
       <div class="card-text text-secondary fs-1-16">{{data?.description | titlecase}}</div>

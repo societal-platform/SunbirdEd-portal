@@ -11,7 +11,7 @@
 			<ng-template #content let-d="dismiss">
 					<div class="modal-header">
 							<div class="text-center py-2">
-									<p class="head"> Give us your valuable feedback</p>
+									<p class="head">Any suggestions? Please share</p>
 							</div>
 						<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
 							<span aria-hidden="true">&times;</span>
@@ -31,13 +31,13 @@
 																				<input type="text" class="form-control" id="email" name="email" [value]="userEmail"  placeholder="Email Id" required>																		</div>
 																</div>   
 															</div>
-															<div class="col">
+															<!-- <div class="col">
 																	<div class="form-group">
 																			<div class="input-group mb-2">
 																					<input type="text" class="form-control" id="org" name="org" [value]="orgName"  placeholder="Organization" required>
 																				</div>
 																	</div>
-															</div>
+															</div> -->
 																																					 
 														</div>
 															<div class="form-group">
@@ -56,7 +56,8 @@
 				</ng-template>
 	</div>
 	<a class="item">
-		<img src="{{'assets/images/notification.png'}}" class="notification-icon">
+		<!-- <img src="{{'assets/images/notification.png'}}" class="notification-icon"> -->
+		<i class="fas fa-bell fs-1-5"></i>
 	</a>
 </div>
 <div class="mobile only">
