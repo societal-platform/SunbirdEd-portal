@@ -341,7 +341,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     const config = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config.isClosable = true;
     config.size = 'mini';
-    config.context={data:'delete'};
+    config.context = {data: 'delete'};
     this.modalService
       .open(config)
       .onApprove(result => {
@@ -371,7 +371,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     const config2 = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config2.isClosable = true;
     config2.size = 'mini';
-    config2.context= {data: 'publish'}
+    config2.context = {data: 'publish'};
     this.modalServices
       .open(config2)
       .onApprove(result => {
