@@ -4,6 +4,12 @@
     border-top: 1px solid white;
     display: flex;
 }
+footer{
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid #e4e4e4
+
+}
 .text-pp-crt,
 	.text-pp-crt-rg {
 		color: #585858;
@@ -43,4 +49,34 @@ hr{
 }
 .link {
     cursor: pointer;
+}
+.footer__title {
+    font-family: "Muli",serif;
+    color: #707070;
+    margin-bottom: 15px;
+    font-size: 20px;
+    line-height: 1.2em;
+}
+.footer__link:hover:hover, .footer a:hover:hover {
+    color: #7ebde4;
+}
+.footer__link--twitter, .footer a--twitter {
+    display: block;
+    margin-top: 20px;
+}
+a:hover, a:active {
+    outline: 0;
+}
+.ft-1 a {
+    text-decoration: none;
+    font-size:1.3em;
+    color: #707070 !important;
+    cursor: pointer;
+}
+.footer__right__content {
+    color: #bababa;
+    font-weight: 400;
+    margin-bottom: 15px;
+    font-size: 13px;
+    line-height: 1.53846em;
 }

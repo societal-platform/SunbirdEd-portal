@@ -1,7 +1,7 @@
 body {
   position: relative;
   background: $bg-body !important;
-  font-family: inherit;
+  font-family: 'Muli', sans-serif;
   letter-spacing: 0.2px;
   height: auto;
 }
@@ -60,4 +60,33 @@ h1, h2, h3, h4, h5,
 }
 *{
   outline: none
+}
+.btn-purple {
+  background-color: #a8abe3 !important;
+  border-radius:4px !important;
+  border: none;
+  color:#fff !important;
+  border-radius: 5px;
+  height: 40px;
+  font-family: "Muli",sans-serif;
+  font-size: 15px;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: none;
+  cursor: pointer;
+}
+.btn-lightgrey {
+  background-color: #e4e4e4 !important;
+  border-radius:4px !important;
+  border: none;
+  border-radius: 5px;
+  height: 40px;
+  font-family: "Muli",sans-serif;
+  font-size: 15px;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: none;
+  cursor: pointer;
 }
