@@ -96,26 +96,17 @@
 
   </div>
  
-<ng-template let-context let-modal="modal" #modalTemplate *ngIf="!deleteAsset">
-  <div class="header"> Delete Asset</div>
+<ng-template let-context let-modal="modal" #modalTemplate>
+  <div class="header"> {{ context.data }}</div>
   <div class="content">
-    <p>Are you sure to delete this asset?</p>
+    <p>Are you sure to {{ context.data }} this asset?</p>
   </div>
   <div class="actions">
     <button class="ui btn btn-lightgrey" (click)="modal.deny('denied')">No</button>
     <button class="ui btn btn-purple" (click)="modal.approve('approved')" autofocus>Yes</button>
   </div>
 </ng-template>
-<ng-template let-context let-modal="modal" #modalTemplate *ngIf="!publishAsset">
-    <div class="header"> Publish Asset</div>
-    <div class="content">
-      <p>Are you sure to publish this asset?</p>
-    </div>
-    <div class="actions">
-      <button class="ui red button" (click)="modal.deny('denied')">No</button>
-      <button class="ui primary button" (click)="modal.approve('approved')" autofocus>Yes</button>
-    </div>
-  </ng-template>
+
 
 <app-contentlock-info-popup [content]="lockPopupData" (closeEvent)="onCloseLockInfoPopup($event)"
   *ngIf="showLockedContentModal"></app-contentlock-info-popup>
