@@ -341,6 +341,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     const config = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config.isClosable = true;
     config.size = 'mini';
+    config.context={data:'delete'};
     this.modalService
       .open(config)
       .onApprove(result => {
@@ -367,33 +368,17 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
       });
   }
   public publishConfirmModal(contentIds) {
-    this.publishAsset = true;
-    const config = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
-    config.isClosable = true;
-    config.size = 'mini';
-    this.modalService
-      .open(config)
+    const config2 = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
+    config2.isClosable = true;
+    config2.size = 'mini';
+    config2.context= {data: 'publish'}
+    this.modalServices
+      .open(config2)
       .onApprove(result => {
         this.showLoader = true;
         this.loaderMessage = {
           'loaderMessage': this.resourceService.messages.stmsg.m0034,
         };
-
-        // this.delete(contentIds).subscribe(
-        //   (data: ServerResponse) => {
-        //     this.showLoader = false;
-        //     this.allContent = this.removeAllMyContent(this.allContent, contentIds);
-        //     if (this.allContent.length === 0) {
-        //       this.ngOnInit();
-        //     }
-        //     this.toasterService.success(this.resourceService.messages.smsg.m0006);
-        //   },
-        //   (err: ServerResponse) => {
-        //     this.showLoader = false;
-        //     this.toasterService.error(this.resourceService.messages.fmsg.m0022);
-        //   }
-        // );
-        this.publishAsset = false;
         this.reasons = ['Content plays correctly',
           'Can see the content clearly on Desktop and App',
           'No Hate speech, Abuse, Violence, Profanity',
