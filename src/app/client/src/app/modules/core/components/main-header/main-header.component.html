@@ -94,7 +94,7 @@
                                             [permission]='workSpaceRole' role="tab" aria-controls="nav-about" aria-selected="false">My Favorites</a> -->
 
                                             <a class="nav-item nav-link p-15 text" id="nav-about-tab" data-toggle="tab" routerLink="/addUser" *ngIf='permissionService.permissionAvailable' appPermission
-                                            [permission]='workSpaceRole' role="tab" aria-controls="nav-about" [class.active]="router.isActive('/addUser')" aria-selected="false">Add User</a>
+                                            [permission]='adminDashboard' role="tab" aria-controls="nav-about" [class.active]="router.isActive('/addUser')" aria-selected="false">Add User</a>
                                         </div>
                                     </nav>
                                     </div>

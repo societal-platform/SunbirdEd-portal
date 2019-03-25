@@ -96,19 +96,19 @@
     margin: auto;
     display: block;
     font-size: 17px;
-    font-family: Arial Regular;
+    font-family: 'Muli', sans-serif;
     margin-bottom: 1rem !important;
 }
 .fa-1{
 font-size: 32px;
 font-weight: bold;
-font-family: Arial Bold;
+font-family: 'Muli', sans-serif , Bold;
 margin-bottom: 0 !important
 }
 .text-1{
     font-size: 24px;
     font-style: italic;
-    font-family: Arial Italic;
+    font-family: 'Muli', sans-serif;
 }
 .text-2{
     font-size: 25px;    

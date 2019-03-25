@@ -80,6 +80,8 @@ successMessage: string;
 
       body: this.dataService.dataConfig.body + '<br>' + this.userData,
 
+      orgImgUrl: this.dataService.dataConfig.orgImgUrl,
+
       emailTemplateType: this.dataService.dataConfig.contacttemplate,
 
       fromEmail: this.dataService.dataConfig.fromEmail,

@@ -167,6 +167,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       (user: IUserData) => {
         if (user && !user.err) {
           this.userProfile = user.userProfile;
+          console.log('userprofile', this.userProfile);
         }
       });
     this.setInteractEventData();

@@ -196,21 +196,23 @@ orgName: any;
       this.message = element.value;
    }
     });
-    this.userData = 'Name: ' + this.name + '<br>' + 'Email Id: ' + this.email + '<br>' +
-    'Organization Name: ' + this.org + '<br>' + 'Message: ' + this.message;
+    this.userData = 'Name: ' + this.userName + '<br>' + 'Email Id: ' + this.email + '<br>' +
+    'Organization Name: ' + this.orgName + '<br>' + 'Message: ' + this.message;
 
     const body = {
       request: {
 
-        subject: 'feedback for SPace',
+        subject: this.dataService.dataConfig.subject,
 
-        body: this.dataService.dataConfig.feedbackBody + '<br>' + this.userData,
+        body: this.dataService.dataConfig.body + '<br>' + this.userData,
+
+        orgImgUrl: this.dataService.dataConfig.orgImgUrl,
 
         emailTemplateType: this.dataService.dataConfig.template,
 
         fromEmail: this.dataService.dataConfig.fromEmail,
 
-        recipientEmails: [this.dataService.dataConfig.email]
+        recipientEmails: this.dataService.dataConfig.email
 
     }
      };
