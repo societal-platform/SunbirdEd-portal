@@ -267,7 +267,7 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
   goToCreate() {
     setTimeout(() => {
       this.router.navigate(['myassets']);
-    }, 1500);
+    }, 1600);
   }
 
   /**
