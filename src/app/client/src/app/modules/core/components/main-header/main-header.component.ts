@@ -171,7 +171,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
         }
       });
     this.setInteractEventData();
-        this.selectToGo();
+        // this.selectToGo();
 
   }
 
@@ -274,17 +274,17 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['contactUs']);
     }
 }
-selectToGo() {
-  console.log('this.userProfile.userRoles', this.userProfile);
-  for ( let i = this.userProfile; i < this.userProfile; i++  ) {
-    if (i === 'TEACHER_BADGE_ISSUER' && i === 'ORG_ADMIN') {
-      this.router.navigate(['/resources']);
-    }
-    if (i === 'CONTENT_CREATOR') {
-      this.router.navigate(['/myassets']);
-    }
-  }
+// selectToGo() {
+//   console.log('this.userProfile.userRoles', this.userProfile);
+//   for ( let i = this.userProfile; i < this.userProfile; i++  ) {
+//     if (i === 'TEACHER_BADGE_ISSUER' && i === 'ORG_ADMIN') {
+//       this.router.navigate(['/resources']);
+//     }
+//     if (i === 'CONTENT_CREATOR') {
+//       this.router.navigate(['/myassets']);
+//     }
+//   }
 
-})
+// }
 }
-}
+

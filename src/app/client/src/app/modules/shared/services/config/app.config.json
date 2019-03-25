@@ -215,7 +215,7 @@
       "ribbon.left.image": "badgeAssertions[0].badgeClassImage"
     },
     "orgId":["0127227887366471688"],
-    "orgName":["Societal"]
+    "orgName":["sunbird-client-societal"]
   },
   "PublicPlayer": {
     "contentApiQueryParams": {
@@ -260,7 +260,7 @@
       "ribbon.left.image": "badgeAssertions[0].badgeClassImage"
     },
     "orgId":["0127227887366471688"],
-    "orgName":["societal"]
+    "orgName":["sunbird-client-societal"]
   },
   "CoursePage": {
     "slickSize": 10,
