@@ -27,7 +27,7 @@ export class MainFooterComponent implements OnInit {
   }
 
   ngOnInit() {
-if(this.userService.loggedIn) {
+if (this.userService.loggedIn) {
 this.padding = true;
 }
   }
