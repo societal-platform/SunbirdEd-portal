@@ -70,7 +70,7 @@
 
 </div>
 
-<div class="ui grid container">
+<!-- <div class="ui grid container">
   <div class="two wide column"></div>
   <div class="ten wide column">
     <div class="pb-10"
@@ -88,7 +88,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="container mt-20" *ngIf="showLoader ">
  
@@ -97,7 +97,7 @@
   </div>
  
 <ng-template let-context let-modal="modal" #modalTemplate>
-  <div class="header"> {{ context.data }}</div>
+  <div class="header"> {{ context.data | titlecase}}</div>
   <div class="content">
     <p>Are you sure to {{ context.data }} this asset?</p>
   </div>

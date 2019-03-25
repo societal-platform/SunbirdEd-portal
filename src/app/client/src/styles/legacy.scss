@@ -708,7 +708,13 @@ h5.ui.header {
 .searchicon.ui.icon.input input.upForReviewSearchBox {
   width:  220px;
   background: #fdfdfd;
+  border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    border-right-color: transparent!important;
   border: 1px solid rgba(51, 51, 51, 0.33);
+  border-radius: .28571429rem;
+    height: 3rem;
+
 }
 .ann-fileupload-list {
   overflow-x: hidden;
