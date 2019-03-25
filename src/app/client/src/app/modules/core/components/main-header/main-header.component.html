@@ -67,17 +67,17 @@
                 <a href="/resources" class="sunblogin item font-weight-bold primary-color pl-5 ml-auto pr-0">
                     {{resourceService.frmelmnts?.btn?.signin}}
                 </a> --> 
-                <a (click)="navigateToHome()" class="item text" id="a" >Home</a>
-                <a  class="item text" id="a" (click)="gotoContact('about')">About Us</a>
+                <a (click)="navigateToHome()" class="item" id="a" >Home</a>
+                <a  class="item" id="a" (click)="gotoContact('contact')">Contact</a>
                 <!-- <a  class="item" id="a" (click)="gotoContact('blog')">Blog</a> -->
                 <!-- <button class="ui green1 button" routerLink="[/resources]" id="a">{{resourceService.frmelmnts?.btn?.signin}}</button> -->
-                <a href="/myassets" class="sunblogin item font-weight-bold text ml-auto " id="ab">
+                <a href="/myassets" class="sunblogin item font-weight-bold   ml-auto btn btn-purple" id="ab">
                     {{resourceService.frmelmnts?.btn?.signin}}
                 </a>
             </div>
         </ng-template>
     </div>
-    <div class="navbar-bg p-20" *ngIf="userService.loggedIn" style="background-color:#585858">
+    <div class="navbar-bg p-20" *ngIf="userService.loggedIn" style="background-color:#BABABA">
         <div class="ui mobile-view container d-flex flex-ai-center mx-0 fz">
               
                             <div class="row">

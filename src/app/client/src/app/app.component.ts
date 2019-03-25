@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   /**
    * user to load app after fetching user/org details.
    */
-  public initApp = false;
+  public initApp = true;
   /**
    * stores organization details for Anonymous user.
    */

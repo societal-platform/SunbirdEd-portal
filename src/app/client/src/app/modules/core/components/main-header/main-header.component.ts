@@ -267,8 +267,8 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       console.log('inside about', value);
     this.router.navigate(['aboutUs']);
     }
-    if ( value === 'blog') {
-    this.router.navigate(['blog']);
+    if ( value === 'contact') {
+    this.router.navigate(['contactUs']);
     }
 }
 }

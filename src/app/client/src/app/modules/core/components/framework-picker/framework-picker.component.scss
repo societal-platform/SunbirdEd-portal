@@ -1,16 +1,16 @@
 
 input {
-    border: 1px solid gray !important;
-    background: grey !important;
-    color: white !important
+    background: #f6f6f6 !important;
+    color: #d6c8c8 !important
 }
 
 .treepicker-parent input {
-    background: #707070 !important;
+    background: #f6f6f6 !important;
 }
 
 #treePicker {
     border-radius: 4px;
-  color: white !important;
+    border:1px solid #e4e4e4;
+  color:#707070 !important;
     cursor: pointer !important;
 }

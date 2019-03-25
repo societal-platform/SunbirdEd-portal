@@ -65,7 +65,7 @@ export class SharedDetailPageComponent implements OnInit {
     config: ConfigService, contentServe: ContentService , rout: Router) {
     this.activatedRoute = activated;
     this.activatedRoute.url.subscribe(url => {
-      this.contentId = url[1].path;
+      this.contentId = url[2].path;
     });
     this.configService = config;
     this.contentService = contentServe;

@@ -2,9 +2,9 @@
 	<!-- <a class="item" appTelemetryInteract [telemetryInteractEdata]="homeMenuIntractEdata" [class.active]="router.isActive('/search/All') || router.isActive('/home')" routerLink="/home">
 		{{resourceService?.frmelmnts?.tab?.home}}
 	</a> -->
-	<a class="item link text" appTelemetryInteract [telemetryInteractEdata]="libraryMenuIntractEdata" routerLink="/aboutUs">
+	<a class="item link" appTelemetryInteract [telemetryInteractEdata]="libraryMenuIntractEdata" routerLink="/ContactUs">
 		<!-- {{resourceService?.frmelmnts?.tab?.resources}} -->
-		About Us
+		Contact
 	</a>
 	<a class="item text" (click)="openSm(content)">Feedback</a>
 	<div>
@@ -13,9 +13,6 @@
 							<div class="text-center py-2">
 									<p class="head">Any suggestions? Please share</p>
 							</div>
-						<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-							<span aria-hidden="true">&times;</span>
-						</button>
 					</div>
 				
 							<form action="contact.php" method="post" id="feedbackform" role="form">
@@ -43,9 +40,8 @@
 															<div class="form-group">
 																	<textarea class="form-control" id="message" name="message" placeholder="Message" rows="3"></textarea>
 																</div>
-											
-															<input type="submit" value="CLOSE"  (click)="d('Cross click')"  class="btn btn-info text-center rounded-0 float-lg-right py-2">
-															<input type="submit" value="SEND"  (click)="gotoContact();d('Cross click');"  class="btn btn-info float-lg-right mr-10 text-center rounded-0 py-2">
+																<input type="submit" value="SEND"  (click)="gotoContact();d('Cross click');"  class="btn btn-purple float-lg-right mr-10 text-center py-2">											
+															<input type="submit" value="CLOSE"  (click)="d('Cross click')"  class="btn btn-lightgrey text-center mr-10 float-lg-right py-2">
 		
 											</div>
 				
