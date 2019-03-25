@@ -258,7 +258,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
   goToCreate() {
     setTimeout(() => {
       this.router.navigate(['myassets']);
-    }, 1500);
+    }, 1600);
 
   }
 
