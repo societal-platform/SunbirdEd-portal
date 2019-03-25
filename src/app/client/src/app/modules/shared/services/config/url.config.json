@@ -97,6 +97,8 @@
       "GET_BATCHS": "course/v1/batch/list"
     },
     "ADMIN": {
+      "GET_ORG": "org/v1/read",
+      "REMOVE_USER": "org/v1/member/remove",
       "USER_SEARCH": "user/v1/search",
       "ORG_SEARCH": "org/v1/search",
       "BULK": {

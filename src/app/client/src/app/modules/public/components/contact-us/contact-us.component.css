@@ -45,3 +45,15 @@
 color:black !important;
 background-color: blue !important;
 }
+.center {
+  padding-left: 16.5rem;
+}
+.color{
+  background-color: #f6f6f6;
+}
+.btn{
+  width: 8rem !important;
+}
+.message{
+  width: 10rem;
+}

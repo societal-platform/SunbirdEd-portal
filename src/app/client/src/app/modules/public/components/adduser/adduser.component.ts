@@ -59,6 +59,7 @@ export class AdduserComponent implements OnInit {
     this.singleUser = !this.singleUser;
   }
   submit() {
+    console.log('in submit');
     const valid = this.validate();
     if (valid) {
       const option = {
@@ -69,8 +70,10 @@ export class AdduserComponent implements OnInit {
           }
         }
       };
+      console.log('option', option);
       this.publicdataservice.post(option).subscribe(
         data => {
+          console.log('ps', data);
           const channel = data.result.response.channel;
           const option1 = {
             request: {

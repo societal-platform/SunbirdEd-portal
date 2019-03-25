@@ -31,34 +31,11 @@
   <h1 class="text-ac h1 mt-xl-n5">Collaborating Assets for Development</h1>
   <section>
     <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="row">
-            <h4 class="h4 pb-15">Get in touch</h4>
-          </div>
-          <div class="row">
-            <p class="p pb-15">
-              Feel Free to get in touch with us. We are always open to discussiong new projects, creative ideas or
-              opportunities to be part of your visions. It is a long established fact that a reader will be distracted
-              by the readable content of a page when looking at its layout.
-            </p>
-          </div>
-          <div class="row">
-            <h4 class="h4 pb-15">Need help ?</h4>
-          </div>
-          <div class="row">
-            <p class="p1 link"><i class="fas fa-envelope"></i>&nbsp;&nbsp;&nbsp;support@societalplatformspace.com</p>
-          </div>
-          <div class="row">
-            <p class="p1 pb-15 link"><i class="fas fa-phone-volume"></i>&nbsp;&nbsp;&nbsp;+91- 9899888800</p>
-          </div>
-
-        </div>
-        <div class="col">
-            <div class="container">
+   
+           
               
-              <div class="row">
-                <div class="col-12 col-md-8 col-lg-6 pb-5">
+              
+                <div class="center pb-5">
             
             
                                 <!--Form with header-->
@@ -75,42 +52,42 @@
             
                                             <!--Body-->
 
-                                            <div class="row">
+                                            <div class="row pb-3">
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <div class="input-group mb-2">
-                                                            <input type="text" class="form-control" id="name" name="name" placeholder="Name" *ngIf="!this.userServie.loggedIn" required>
-                                                            <input type="text" class="form-control" id="name" name="name" placeholder="Name" *ngIf="this.userServie.loggedIn" [value]="userName" required>
+                                                            <input type="text color" class="form-control" id="name" name="name" placeholder="Name" *ngIf="!this.userServie.loggedIn" required>
+                                                            <input type="text color" class="form-control" id="name" name="name" placeholder="Name" *ngIf="this.userServie.loggedIn" [value]="userName" required>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <div class="input-group mb-2">
-                                                            <input type="text" class="form-control" id="email" name="email" *ngIf="!this.userServie.loggedIn" placeholder="Email Id" required>
-                                                            <input type="text" class="form-control" id="email" name="email" [value]="userEmail" *ngIf="this.userServie.loggedIn" placeholder="Email Id" required>
+                                                            <input type="text color" class="form-control" id="email" name="email" *ngIf="!this.userServie.loggedIn" placeholder="Email Id" required>
+                                                            <input type="text color" class="form-control" id="email" name="email" [value]="userEmail" *ngIf="this.userServie.loggedIn" placeholder="Email Id" required>
                                                         </div>
                                                     </div>                                                </div>
                                               </div>
 
-                                              <div class="row">
+                                              <div class="row pb-4">
                                                   <div class="col">
                                                       <div class="form-group">
                                                           <div class="input-group mb-2">
-                                                              <input type="text" class="form-control" id="org" name="org" *ngIf="!this.userServie.loggedIn" placeholder="Organization" required>
-                                                              <input type="text" class="form-control" id="org" name="org" [value]="orgName" *ngIf="this.userServie.loggedIn" placeholder="Organization" required>
+                                                              <input type="text color" class="form-control" id="org" name="org" *ngIf="!this.userServie.loggedIn" placeholder="Organization" required>
+                                                              <input type="text color" class="form-control" id="org" name="org" [value]="orgName" *ngIf="this.userServie.loggedIn" placeholder="Organization" required>
                                                           </div>
                                                       </div>
                                                   </div>
                                                   <div class="col">
                                                       <div class="form-group">
                                                           <div class="input-group mb-2">
-                                                             <input type="text" class="form-control" id="country" name="country" placeholder="Country" required>
+                                                             <input type="text color" class="form-control" id="country" name="country" placeholder="Country" required>
                                                           </div>
                                                       </div>                                               </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" id="message" name="message" placeholder="Message" rows="3"></textarea>
+                                                <div class="form-group pb-3">
+                                                    <textarea class="form-control color" id="message" name="message" placeholder="Message" rows="3"></textarea>
                                                   </div>
                                             <div class="text-center">
                                                 <input type="submit" value="SEND" (click)="gotoContact()" class="btn btn-info text-center  btn-purple ">
@@ -125,10 +102,9 @@
             
             
                             </div>
-              </div>
-            </div>
-        </div>
-      </div>
+            
+         
+       
     </div>
   </section>
 </div>

@@ -29,6 +29,7 @@ import { FrameworkComponent } from './components/framework/framework.component';
 import { CoreComponent } from './components/core/core.component';
 import { ExploreThinkingComponent } from './components/explore-thinking/explore-thinking.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
+import { ViewuserComponent } from './components/viewuser/viewuser.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -43,9 +44,8 @@ import { AdduserComponent } from './components/adduser/adduser.component';
     NgInviewModule,
     DeviceDetectorModule,
     BadgingModule,
-
   ],
-  declarations: [LandingPageComponent, GetComponent, DialCodeComponent,
+  declarations: [LandingPageComponent, GetComponent, DialCodeComponent, ViewuserComponent,
     PublicFooterComponent, PublicContentPlayerComponent, PublicCollectionPlayerComponent, ContactUsComponent,
     CommonLicenseComponent, PeopleInvlovedComponent, AboutUSComponent, BlogComponent,
      ExploreAssetComponent, FrameworkComponent, CoreComponent, ExploreThinkingComponent, ExploreDetailPageComponent, AdduserComponent],

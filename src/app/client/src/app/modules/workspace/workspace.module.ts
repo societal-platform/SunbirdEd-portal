@@ -26,6 +26,7 @@ import { CreateAssetComponent } from './components/create-asset/create-asset.com
 import { UpdateResoureFormComponent } from './components/update-resoure-form/update-resoure-form.component';
 import { MyassestPageComponent } from './components/myassest-page/myassest-page.component';
 import { AssetDetailPageComponent } from './components/asset-detail-page/asset-detail-page.component';
+
 @NgModule({
   imports: [
     CommonModule,
