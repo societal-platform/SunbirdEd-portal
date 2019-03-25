@@ -167,9 +167,12 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       (user: IUserData) => {
         if (user && !user.err) {
           this.userProfile = user.userProfile;
+          console.log('userprofile', this.userProfile);
         }
       });
     this.setInteractEventData();
+        this.selectToGo();
+
   }
 
   getCacheLanguage() {
@@ -270,5 +273,18 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     if ( value === 'contact') {
     this.router.navigate(['contactUs']);
     }
+}
+selectToGo() {
+  console.log('this.userProfile.userRoles',this.userProfile)
+  for( let i = this.userProfile; i < this.userProfile; i++  ){
+    if(i === 'TEACHER_BADGE_ISSUER' && i === 'ORG_ADMIN'){
+      this.router.navigate(['/resources']);
+    }
+    if(i === 'CONTENT_CREATOR'){
+      this.router.navigate(['/myassets']);
+    }
+  }
+  
+});
 }
 }

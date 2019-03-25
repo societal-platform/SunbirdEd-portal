@@ -45,6 +45,10 @@ font-family: 'Muli', sans-serif;
 .image{
     height: 44px !important;
 }
+.text{
+    font-family:'Muli' !important; 
+    color: black;
+  }
 hr{
     border: none !important;
     border-left: 1px solid gray !important;

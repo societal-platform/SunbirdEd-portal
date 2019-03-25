@@ -20,9 +20,10 @@
                                 </div> 
                             </div> 
                 </ng-template>
+                
                 <ng-template ngbSlide>
-                        <div class="thumbnail text-center">
-                                <div class="img-fluid"></div>
+                    <div class="thumbnail text-center">
+                            <div class="img-fluid"></div>
 
                                 <!-- <img src="../../.../../../../../assets/images/banner_bg.jpg" alt="" class="img-fluid"> -->
                                 <div class="caption">
@@ -41,10 +42,10 @@
                 </ng-template>
                
                 <ng-template ngbSlide>
-                        <div class="thumbnail text-center">
-                                <div class="img-fluid"></div>
+                        <div class="thumbnail text-center ">
+                                <!-- <div class="img-fluid"></div> -->
 
-                                <!-- <img src="../../.../../../../../assets/images/banner_bg.jpg" alt="" class="img-fluid"> -->
+                                <img src="../../.../../../../../assets/images/banner_bg.jpg" alt="" class="img-fluid">
                                 <div class="caption">
                                     <div class="container">
                                         <!-- <p class="fa">Welcome to</p> -->
@@ -59,8 +60,8 @@
                             </div>
                 </ng-template>
                 <ng-template ngbSlide>
-                        <div class="thumbnail text-center">
-                                <div class="img-fluid"></div>
+                    <div class="thumbnail text-center">
+                            <div class="img-fluid"></div>
 
                                 <!-- <img src="../../.../../../../../assets/images/banner_bg.jpg" alt="" class="img-fluid"> -->
                                 <div class="caption">
@@ -76,7 +77,8 @@
                                     </div>
                                 </div>
                             </div>
-                </ng-template>
+                        
+            </ng-template>
               </ngb-carousel>
 </div>
 
@@ -86,10 +88,10 @@
         <div class="thumbnail text-center">
                 <!-- <div class="img-fluid"></div> -->
 
-            <img src="../../.../../../../../assets/images/banner_bg.jpg" alt="" class="img-fluid">
+            <!-- <img src="../../.../../../../../assets/images/banner_bg.jpg" alt="" class="img-fluid"> -->
             <div class="caption-1">
                 <div class="container">
-                    <p class="fa-1"> Welcome to Societal Platform SPace!</p>
+                    <p class="fa-1 pt-lg-4"> Welcome to Societal Platform SPace!</p>
                     <p class="text-1">
                         Societal Platform Asset Collaboration Environment
                     </p><br>
@@ -107,13 +109,9 @@
                         <a class="atagcolor link" *ngIf='permissionService.permissionAvailable' appPermission
                         [permission]='workSpaceRole'  routerLink="/myassets" > My Assets</a>
                     </p>
+                    
                     <p class="text-c">
-                        - Bookmark Favorite Assets: You can bookmark your favorite assets and create various lists of
-                        assets. Go to &nbsp;&nbsp; 
-                        <!-- <a class="atagcolor link" href="#">My Favorites asset</a> -->
-                    </p>
-                    <p class="text-c">
-                        If you want to give any feedback, then please write to us at info@societalplatform.org
+                        If you want to give any feedback, then please write to us at <a class="link" href="https://space@societalplatform.org" >space@societalplatform.org</a>
                     </p>
                 </div>
 
