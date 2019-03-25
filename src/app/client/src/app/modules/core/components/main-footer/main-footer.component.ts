@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ResourceService } from '@sunbird/shared';
 import { Router } from '@angular/router';
+import { UserService } from '../../services';
 @Component({
   selector: 'app-footer',
   templateUrl: './main-footer.component.html',
@@ -19,12 +20,16 @@ export class MainFooterComponent implements OnInit {
   Hide or show footer
   */
   showFooter = true;
-
-  constructor(resourceService: ResourceService ,  public router: Router) {
+  padding;
+  constructor(resourceService: ResourceService ,  public router: Router,
+    public userService: UserService) {
     this.resourceService = resourceService;
   }
 
   ngOnInit() {
+if (this.userService.loggedIn) {
+this.padding = true;
+}
   }
   gotoContact(value) {
     console.log('inside function', value);
