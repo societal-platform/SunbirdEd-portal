@@ -1,6 +1,6 @@
 
 <div class="app-landing-page" *ngIf="!this.userService.loggedIn">
-        <ngb-carousel >
+        <ngb-carousel class="carousal">
                 <ng-template ngbSlide>
                         <div class="thumbnail text-center">
                             <div class="img-fluid"></div>
@@ -81,12 +81,12 @@
 </div>
 
 
-<div *ngIf="this.userService.loggedIn">
+<div *ngIf="this.userService.loggedIn" class="userloggedin">
     <div class="item active">
         <div class="thumbnail text-center">
                 <!-- <div class="img-fluid"></div> -->
 
-            <img src="../../.../../../../../assets/images/banner_bg.jpg" alt="" class="img-fluid">
+            <img src="../../.../../../../../assets/images/banner_bg.jpg" alt="" class="img-fluid"[class.img-fluid-login]="userlogged === true">
             <div class="caption-1">
                 <div class="container">
                     <p class="fa-1"> Welcome to Societal Platform SPace!</p>

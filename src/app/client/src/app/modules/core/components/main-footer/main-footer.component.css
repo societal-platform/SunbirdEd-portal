@@ -85,3 +85,60 @@ a:hover, a:active {
     line-height: 1.53846em;
 }
 
+@media screen and (max-width:424px ) and (min-width: 312px) {
+.footer1 {
+    margin-top: -4rem;
+    width: 92vw;
+    margin-left: 1rem !important;
+}
+}
+@media screen and(min-width: 425px ) and (max-width:767px) {
+    .footer1 {
+        margin-top: -4rem;
+        width: 77vw !important;
+        margin-left: 1rem !important;
+    }
+}
+@media screen and (min-width: 768px) and (max-width:980px) {
+    .footer1 {
+        margin-top: 1rem;
+        width: 99vw !important;
+        margin-left: 1.6rem !important;
+    }
+    .changePadding {
+        margin-top: 0rem;
+    }
+    }
+@media screen and (min-width:1024px) and (max-width: 1699px) {
+    .footer1 {
+        margin-top: 2rem !important;
+    }
+}
+ @media screen and (min-width: 1700px) and (max-width:1800px) {
+    .container{
+    max-width: 121rem;
+}
+.font {
+  font-size: 20px !important;
+}
+.footer__right__content {
+  font-size: 20px !important;
+}
+.footer__title {
+  font-size: 33px !important;
+}
+}
+@media screen and (min-width: 1801px) and (max-width:2560px) { 
+    .container{
+        max-width: 121rem;
+    }
+    .font {
+      font-size: 20px !important;
+    }
+    .footer__right__content {
+      font-size: 20px !important;
+    }
+    .footer__title {
+      font-size: 33px !important;
+    }
+}

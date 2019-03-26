@@ -13,7 +13,7 @@
         </div>
   </section> -->
 
-<div>
+<div class="contact">
   <div class="jumbotron jumbotron-fluid cimage" style="height:16rem">
     <div class="container">
         <div class="row mb-4">
@@ -31,36 +31,41 @@
      
  
   <section>
-    <div class="container">
+    <div class="container padding-bottom">
       <div class="row">
         <div class="col">
           <div class="row">
-            <h4 class="h4 pb-15">Get in touch</h4>
+            <h4 class="h4 pb-15 pl-2">Get in touch</h4>
           </div>
           <div class="row">
-            <p class="p pb-15">
+            <p class="p pb-15 pl-2 para">
               Feel Free to get in touch with us. We are always open to discussiong new projects, creative ideas or
               opportunities to be part of your visions. It is a long established fact that a reader will be distracted
               by the readable content of a page when looking at its layout.
             </p>
           </div>
-          <div class="row">
-            <h4 class="h4 pb-15">Need help ?</h4>
+          <div class="row need-help">
+            <h4 class="h4 pb-15 pl-2">Need help ?</h4>
           </div>
-          <div class="row">
-            <p class="p1 link"><i class="fas fa-envelope"></i>&nbsp;&nbsp;&nbsp;support@societalplatformspace.com</p>
+          <div class="row pb-2">
+          <div class="col">
+            <div class="p1 link"><i class="fas fa-envelope"></i>
           </div>
-          <div class="row">
-            <p class="p1 pb-15 link"><i class="fas fa-phone-volume"></i>&nbsp;&nbsp;&nbsp;+91- 9899888800</p>
+          <div class="col envelope">
+            <span>&nbsp;&nbsp;&nbsp;support@societalplatformspace.com</span>
+          </div></div>
           </div>
-          <div class="row">
+          <div class="row pl-3">
+            <p class="p1 pb-15 link pl-2"><i class="fas fa-phone-volume"></i><span>&nbsp;&nbsp;&nbsp;+91- 9899888800</span></p>
+          </div>
+          <div class="row pl-2">
             <h4 class="h4 pb-15">Follow Us</h4>
           </div>
           <div class="row pb-20">
             <div class="col-1 link">
               <i class="fa fa-twitter"></i>
             </div>
-            <div class="col-1">
+            <div class="col-1 ">
               <i class="fa fa-facebook link"></i>
             </div>
             <div class="col-1">
@@ -69,17 +74,17 @@
           </div>
 
         </div>
-        <div class="col">
+        <div class="col form">
             <div class="container">
               
               <div class="row">
-                <div class="col-12 col-md-8 col-lg-6 pb-5">
+                <div>
             
             
                                 <!--Form with header-->
             
                                 <form action="contact.php" method="post" id="contactform" name="contactform" role="form"  >
-                                    <div class="card rounded-0" style="width: 46rem; height: auto;">
+                                    <div class="card rounded-0 contact-form" style="width: 46rem; height: auto;">
                                         <div class="card-header p-0">
                                             <div class=" text-center py-2">
                                                 <p class="head"><i class="fas fa-pencil-alt"></i> Write to us to know more</p>
@@ -128,7 +133,7 @@
                                                     <textarea class="form-control" id="message" name="message" placeholder="Message" rows="3"></textarea>
                                                   </div>
                                             <div class="text-center">
-                                                <input type="submit" value="SEND" (click)="gotoContact()" class="btn btn-info text-center rounded-0 py-2">
+                                                <input type="submit" value="SEND" (click)="gotoContact()" class="btn btn-info text-center rounded-0 py-2 send-btn">
                                             </div>
                                         </div>
                                        

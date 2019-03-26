@@ -14,3 +14,14 @@
     cursor: pointer;
     color: white !important ;
 }
+
+@media screen and (min-width:312px) and (max-width:424px) {
+    .prominent-filter {
+        width: 100vw;
+    }
+}
+@media screen and (max-width:765px) and (min-width:425px) {
+    .prominent-filter {
+        width: 100vw;
+    }
+}

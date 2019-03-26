@@ -5,12 +5,13 @@ import { ConfigService } from '@sunbird/shared';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css'],
+  styleUrls: ['./landing-page.component.scss'],
   providers: [NgbCarouselConfig]
 })
 export class LandingPageComponent implements OnInit {
   workSpaceRole: Array<string>;
   public configService: ConfigService;
+  userlogged;
   images = [1, 2, 3].map(() => `../../.../../../../../assets/images/banner_bg.jpg${Math.random()}`);
   public userService: UserService;
   public permissionService: PermissionService;
@@ -25,7 +26,9 @@ export class LandingPageComponent implements OnInit {
   }
 
   ngOnInit() {
-
+if (this.userService.loggedIn) {
+  this.userlogged = true;
+}
    console.log('log in ', this.userService.loggedIn);
   }
 

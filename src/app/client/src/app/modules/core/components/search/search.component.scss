@@ -26,10 +26,21 @@
     }    
 }
 
-@media only screen and (min-width: 767px) {
+@media only screen and (min-width: 767px) and (max-width:1023px){
     ::ng-deep {
         .ui.fluid.action.input.primary-search-input {
             height: 39px;
         }    
     }
+    .primary-search-input {
+        left: -9rem !important;
+        top: 3rem;
+    }
+}
+@media only screen and (min-width: 1024px)
+{
+// .primary-search-input[_ngcontent-c17] {
+//     left: 1rem !important;
+//     top: 0rem;
+// }
 }
