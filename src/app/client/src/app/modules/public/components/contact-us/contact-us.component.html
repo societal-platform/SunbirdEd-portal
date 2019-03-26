@@ -41,10 +41,10 @@
                                 <!--Form with header-->
             
                                 <form action="contact.php" method="post" id="contactform" name="contactform" role="form"  >
-                                    <div class="card rounded-0" style="width: 46rem; height: auto;">
-                                        <div class="card-header p-0">
+                                    <div class="card rounded-0" id="card">
+                                        <div class=" p-0">
                                             <div class=" text-center py-2">
-                                                <p class="head"><i class="fas fa-pencil-alt"></i> Write to us to know more</p>
+                                                <p class="head"> Write to us to know more</p>
                                                
                                             </div>
                                         </div>
@@ -56,16 +56,16 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <div class="input-group mb-2">
-                                                            <input type="text color" class="form-control" id="name" name="name" placeholder="Name" *ngIf="!this.userServie.loggedIn" required>
-                                                            <input type="text color" class="form-control" id="name" name="name" placeholder="Name" *ngIf="this.userServie.loggedIn" [value]="userName" required>
+                                                            <input type="text" class="form-control color required" id="name" name="name" placeholder="Name*" *ngIf="!this.userServie.loggedIn" aria-required="true" aria-invalid="true">
+                                                            <input type="text color" class="form-control color" id="name" name="name" placeholder="Name*" *ngIf="this.userServie.loggedIn" [value]="userName" required>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <div class="input-group mb-2">
-                                                            <input type="text color" class="form-control" id="email" name="email" *ngIf="!this.userServie.loggedIn" placeholder="Email Id" required>
-                                                            <input type="text color" class="form-control" id="email" name="email" [value]="userEmail" *ngIf="this.userServie.loggedIn" placeholder="Email Id" required>
+                                                            <input type="text " class="form-control color" id="email" name="email" *ngIf="!this.userServie.loggedIn" placeholder="Email Id*" required>
+                                                            <input type="text " class="form-control color" id="email" name="email" [value]="userEmail" *ngIf="this.userServie.loggedIn" placeholder="Email Id*" required>
                                                         </div>
                                                     </div>                                                </div>
                                               </div>
@@ -74,20 +74,20 @@
                                                   <div class="col">
                                                       <div class="form-group">
                                                           <div class="input-group mb-2">
-                                                              <input type="text color" class="form-control" id="org" name="org" *ngIf="!this.userServie.loggedIn" placeholder="Organization" required>
-                                                              <input type="text color" class="form-control" id="org" name="org" [value]="orgName" *ngIf="this.userServie.loggedIn" placeholder="Organization" required>
+                                                              <input type="text " class="form-control color" id="org" name="org" *ngIf="!this.userServie.loggedIn" placeholder="Organization" required>
+                                                              <input type="text " class="form-control color" id="org" name="org" [value]="orgName" *ngIf="this.userServie.loggedIn" placeholder="Organization" required>
                                                           </div>
                                                       </div>
                                                   </div>
                                                   <div class="col">
                                                       <div class="form-group">
                                                           <div class="input-group mb-2">
-                                                             <input type="text color" class="form-control" id="country" name="country" placeholder="Country" required>
+                                                             <input type="text " class="form-control color" id="country" name="country" placeholder="Country" required>
                                                           </div>
                                                       </div>                                               </div>
                                                 </div>
                                                 <div class="form-group pb-3">
-                                                    <textarea class="form-control color" id="message" name="message" placeholder="Message" rows="3"></textarea>
+                                                    <textarea class="form-control color" cols="40" rows="10" id="message" name="message" placeholder="Message" rows="3"></textarea>
                                                   </div>
                                             <div class="text-center">
                                                 <input type="submit" value="SEND" (click)="gotoContact()" class="btn btn-info text-center  btn-purple ">

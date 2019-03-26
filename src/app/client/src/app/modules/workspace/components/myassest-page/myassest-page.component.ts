@@ -404,6 +404,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
           url: `${this.config.urlConFig.URLS.CONTENT.PUBLISH}/${contentIds}`,
           data: requestBody
         };
+        console.log('url',`${this.config.urlConFig.URLS.CONTENT.PUBLISH}/${contentIds}`);
         this.contentService.post(option).subscribe(
           (data: ServerResponse) => {
             this.showLoader = false;
