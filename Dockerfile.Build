@@ -11,6 +11,8 @@ COPY * /opt/player/
 WORKDIR /opt/player/app
 RUN npm set progress=false
 RUN npm cache -f clean
+RUN rm -rf node_modules
+RUN npm install
 RUN npm install  --unsafe-perm
 RUN npm install -g gulp
 RUN npm run deploy
