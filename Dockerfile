@@ -6,9 +6,12 @@ WORKDIR /home/sunbird
 ADD player-dist.tar.gz /home/sunbird/
 RUN chown -R sunbird:sunbird /home/sunbird
 USER sunbird
-WORKDIR /home/sunbird/app_dist
+#WORKDIR /home/sunbird/app_dist
+WORKDIR /home/sunbird
 # This is the short commit hash from which this image is built from
 # This label is assigned at time of image creation
 # LABEL commitHash
+# RUN sed -i '/jessie-updates/d' /etc/apt/sources.list
+# RUN apt-get update
 EXPOSE 3000
 CMD ["node", "server.js", "&"]
