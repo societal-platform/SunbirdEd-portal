@@ -12,7 +12,6 @@ WORKDIR /opt/player/app
 RUN npm set progress=false
 RUN npm cache -f clean
 RUN rm -rf node_modules package-lock.json
-RUN rm -rf node_modules/ && yarn install
 RUN npm install
 RUN npm install  --unsafe-perm
 RUN npm install -g gulp
