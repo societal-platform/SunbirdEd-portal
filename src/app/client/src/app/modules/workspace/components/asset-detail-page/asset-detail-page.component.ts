@@ -22,6 +22,7 @@ export interface IassessDetail {
   description: string;
   version: string;
   creators: string;
+  badgeAssertions: Array<any>;
 }
 @Component({
   selector: 'app-asset-detail-page',
@@ -56,7 +57,8 @@ export class AssetDetailPageComponent implements OnInit {
     keywords: [],
     description: '',
     version: '',
-    creators: ''
+    creators: '',
+    badgeAssertions: []
   };
   public resourceService: ResourceService;
   private toasterService: ToasterService;
