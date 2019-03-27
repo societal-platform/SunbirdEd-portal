@@ -12,7 +12,7 @@ name=$(e "${m}" "name")
 version=$(e "${m}" "version")
 
 #docker build -f ./Dockerfile.Build --build-arg commit_hash=${commit_hash} -t ${org}/${name}:${version}-build . 
-docker build --net=host -f ./Dockerfile.Build --build-arg commit_hash=${commit_hash} -t ${org}/${name}:${version}-build .
+docker build --network=host -f ./Dockerfile.Build --build-arg commit_hash=${commit_hash} -t ${org}/${name}:${version}-build .
 docker run --name=${name}-${version}-build ${org}/${name}:${version}-build
 containerid=$(docker ps -aqf "name=${name}-${version}-build")
 rm -rf ./dist
