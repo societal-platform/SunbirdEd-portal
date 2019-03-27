@@ -10,9 +10,8 @@ WORKDIR /opt/player
 COPY * /opt/player/
 WORKDIR /opt/player/app
 RUN npm set progress=false
-Run npm cache -f clean
-#RUN npm install  --unsafe-perm
-RUN npm install node-sass
+RUN npm cache -f clean
+RUN npm install  --unsafe-perm
 RUN npm install -g gulp
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
