@@ -10,6 +10,7 @@ import {
 import { AuthGuard } from '../core/guard/auth-gard.service';
 import { MyassestPageComponent } from './components/myassest-page/myassest-page.component';
 import { AssetDetailPageComponent } from './components/asset-detail-page/asset-detail-page.component';
+import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
 const telemetryEnv = 'workspace';
 const objectType = 'workspace';
 const routes: Routes = [
@@ -290,7 +291,13 @@ const routes: Routes = [
     }
   },
   {
-    path: 'detail/:contentId', component: AssetDetailPageComponent
+    path: 'detail/:contentId', component: AssetDetailPageComponent,
+    // children: [{
+    //   path: 'play', component: PdfViewerComponent,
+    // }]
+  },
+  {
+    path: 'detail/:contentId/play', component: PdfViewerComponent
   },
   {
     path: 'update/:contentId', component: CreateAssetComponent,
@@ -299,6 +306,9 @@ const routes: Routes = [
       breadcrumbs: [{ label: 'Home', url: '/home' },
       { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
     }
+  },
+  {
+    path: 'play', component: PdfViewerComponent,
   }
 ];
 

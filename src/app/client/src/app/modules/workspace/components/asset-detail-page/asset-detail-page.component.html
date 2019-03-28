@@ -32,8 +32,7 @@
             </div>
             <div class="row">
                 <div class="col-9">
-                        <p *ngIf="assetDetail?.board" class="card-text">AssetType : {{assetDetail?.board}} 
-                            </p>
+                        
                 </div>
                 <div class="col">
                         <div *ngIf="assetDetail?.badgeAssertions">
@@ -45,7 +44,8 @@
                 </div>
             </div>
             
-            
+            <p *ngIf="assetDetail?.board" class="card-text">AssetType : {{assetDetail?.board}} 
+            </p>
             <p class="card-text" *ngIf="assetDetail?.topic">Category : <span>
                     <li *ngFor="let hero of assetDetail?.topic; let first = first;let last = last">
                         {{ hero }}<span *ngIf="!last">,</span>
@@ -58,8 +58,11 @@
                 </span>
             </p>
             <p class="card-text" *ngIf="assetDetail?.description">Description : {{assetDetail?.description}}</p>
-            <p class="card-text" *ngIf="assetDetail?.link">Link: <a
+            <p class="card-text" *ngIf="assetDetail?.link && assetDetail?.mimeType === 'text/x-url'">Link: <a
                     href="https://{{assetDetail?.link}}">{{assetDetail?.link}} </a></p>
+
+            <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'"><button  routerLink="play">view</button></div>
+            
                     <div *ngIf="!assetDetail?.badgeAssertions">
                         <div *ngFor="let role of user">
                             <div *ngIf="role === 'TEACHER_BADGE_ISSUER'">
@@ -100,3 +103,5 @@
         </div>
     </div>
 </div>
+
+<router-outlet></router-outlet>

@@ -22,6 +22,8 @@ export interface IassessDetail {
   description: string;
   version: string;
   creators: string;
+  artifactUrl: string;
+  mimeType: string;
 }
 @Component({
   selector: 'app-asset-detail-page',
@@ -56,7 +58,9 @@ export class AssetDetailPageComponent implements OnInit {
     keywords: [],
     description: '',
     version: '',
-    creators: ''
+    creators: '',
+    artifactUrl: '',
+    mimeType: ''
   };
   public resourceService: ResourceService;
   private toasterService: ToasterService;
@@ -172,5 +176,8 @@ export class AssetDetailPageComponent implements OnInit {
        })
        .onDeny(result => {
        });
+   }
+   navigateToplay() {
+    this.route.navigate(['play']);
    }
 }

@@ -108,6 +108,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
   public showButton = false;
   public submit = false;
 
+  public link: string;
   /**
 	* telemetryImpression
 	*/
@@ -116,7 +117,9 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
   percentDone: number;
   uploadSuccess = false;
   showMessage = false;
-
+  contentId: string;
+  enabled: any;
+  fileList: any;
 
 
   constructor(
@@ -276,12 +279,14 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
       requestData.createdFor = this.userProfile.organisationIds,
       requestData.contentType = this.configService.appConfig.contentCreateTypeForEditors[this.contentType],
       requestData.framework = this.framework;
-      requestData.version = parseFloat(requestData.version);
-      requestData['artifactUrl'] = data.link;
-    if (this.contentType === 'studymaterial') {
+    requestData.version = parseFloat(requestData.version);
+
+    if (this.contentType === 'studymaterial' && data.link) {
       requestData.mimeType = 'text/x-url';
+      requestData['artifactUrl'] = data.link;
+      // requestData.mimeType = 'application/pdf'
     } else {
-      requestData.mimeType = this.configService.urlConFig.URLS.CONTENT_COLLECTION;
+      requestData.mimeType = 'application/pdf';
     }
     if (this.resourceType) {
       requestData.resourceType = this.resourceType;
@@ -293,16 +298,53 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
     }
     return requestData;
   }
-  checkFields() {
 
+
+
+  isDisabled(event) {
+    this.enabled = !this.enabled;
+  }
+  checkFields() {
+    this.formData.formInputData['link'] = this.link;
     const data = _.pickBy(this.formData.formInputData);
-    if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators && !!data.version && data.gradeLevel) {
+    if (!!data.name && !!data.description && !!data.board && !!data.keywords
+      && !!data.creators && !!data.version && !!data.gradeLevel && !!data.link) {
       console.log('hii');
       this.uploadSuccess = true;
       this.createContent();
     } else {
       this.toasterService.error('Asset creation failed please provide required fields');
     }
+  }
+  checkFieldofFile() {
+    const data = _.pickBy(this.formData.formInputData);
+    if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators && !!data.version && data.gradeLevel) {
+      this.uploadSuccess = true;
+      this.createContentFile();
+    } else {
+      this.toasterService.error('Asset creation failed please provide required fields');
+    }
+  }
+
+  createContentFile() {
+    const requestData = {
+      content: this.generateData(_.pickBy(this.formData.formInputData))
+    };
+
+    if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
+      this.editorService.create(requestData).subscribe(res => {
+        console.log('res', res);
+
+        this.contentId = res.result.content_id;
+        this.toasterService.success('Asset created successfully');
+        this.uploadFileEvent();
+      }, err => {
+        this.toasterService.error('asset creation failed');
+      });
+    } else {
+      this.toasterService.error('asset creation failed');
+    }
+
   }
   createContent() {
     const requestData = {
@@ -311,8 +353,10 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 
     if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
       this.editorService.create(requestData).subscribe(res => {
+        console.log('res', res);
+
+        this.contentId = res.result.content_id;
         this.toasterService.success('Asset created successfully');
-        // this.createLockAndNavigateToEditor({ identifier: res.result.content_id });
       }, err => {
         this.toasterService.error('asset creation failed');
       });
@@ -337,12 +381,69 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
     }
   }
 
-  sendForReview() {
-
-  }
   redirect() {
     this.router.navigate(['/myassets/create']);
   }
 
+  basicUploadFile(event) {
+     this.fileList = event.target.files[0];
+  }
+
+  uploadFileEvent() {
+    console.log('fileList', this.fileList);
+    const data = {
+      fileName: this.fileList.name
+    };
+    const request = {
+      content: data
+    };
+    console.log('request in upload file', request);
+    this.editorService.uploadUrl(request, this.contentId).subscribe(res => {
+      this.toasterService.success('uploaded successfully');
+      const pdfurl = res.result.pre_signed_url.substring(0, res.result.pre_signed_url.lastIndexOf('?'));
+      this.workSpaceService.uploadPreSigned(res.result.pre_signed_url, this.fileList).subscribe(ress => {
+        this.editorService.upload(pdfurl, this.contentId).subscribe(response => {
+          console.log('ress', response);
+
+        });
+        this.goToCreate();
+
+      }, err => {
+        this.toasterService.error('asset creation failed');
+      }
+
+      );
+
+      // this.editorService.upload()
+    }, err => {
+      this.toasterService.error('asset creation failed');
+    });
+
+  }
+
+  locking(id) {
+    const requestData = {};
+    const info = {
+      'identifier': id,
+      'mimetype': 'application/pdf',
+      'framework': this.framework,
+      'contentType': this.configService.appConfig.contentCreateTypeForEditors[this.contentType],
+    };
+
+
+    requestData['resourceId'] = id;
+    requestData['createdBy'] = this.userProfile.id;
+    requestData['resourceInfo'] = JSON.stringify(info);
+    requestData['creatorInfo'] = JSON.stringify({
+      'name': this.userProfile.firstName,
+      'id': this.userProfile.id
+    });
+    requestData['resourceType'] = 'Content';
+
+
+    this.workSpaceService.lockContent(requestData).subscribe(res => {
+      console.log('suc', res);
+    });
+  }
 
 }

@@ -244,7 +244,14 @@ export class WorkSpaceService {
     };
     return this.content.post(option);
   }
-
+  uploadPreSigned(inputParams, file) {
+    console.log('input', inputParams, file);
+    const option = {
+      url: inputParams,
+      fileList: file
+    };
+    return this.content.put(option);
+  }
   retireLock(inputParams): Observable<ServerResponse> {
     const option = {
       url: this.config.urlConFig.URLS.CONTENT.LOCK_RETIRE,

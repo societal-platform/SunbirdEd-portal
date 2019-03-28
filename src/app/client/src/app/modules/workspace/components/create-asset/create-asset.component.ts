@@ -116,7 +116,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
 	* telemetryImpression
 	*/
   telemetryImpression: IImpressionEventInput;
-
+  enabled = false;
 
   constructor(
     public searchService: SearchService,
@@ -239,6 +239,17 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
         this.toasterService.error(this.resourceService.messages.emsg.m0005);
       }
     });
+    const req = {
+      url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
+    };
+    this.contentService.get(req).subscribe(data => {
+      console.log('read content', data);
+      if (data.result.content.mimeType === 'application/pdf') {
+        this.enabled = true;
+      }
+      // this.formInputData['gradeLevel'] = this.mutateData(data.result.content.gradeLevel)
+      // this.formInputData['versionKey'] = data.result.content.versionKey;
+    });
   }
 
   /**
@@ -303,6 +314,7 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
     return requestData;
   }
   checkFields() {
+    console.log('formData', this.formData);
     const  data = _.pickBy(this.formData.formInputData);
       if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators && !!data.version && data.gradeLevel) {
         console.log('hii');

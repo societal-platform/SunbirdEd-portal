@@ -5,7 +5,7 @@
     <hr *ngIf="i===4">
     <hr *ngIf="i===5">
 
-    <div *ngIf="field.inputType==='text' && field.code!='creators' && field.code!='region'" class="required field"
+    <div *ngIf="field.inputType==='text' && field.code!='creators' && field.code!='region' && field.code!='link'" class="required field"
       [ngClass]="{ 'disabled':!field.editable}">
 
       <div class="field required">
@@ -17,6 +17,18 @@
 
       </div>
     </div>
+    <div *ngIf="field.inputType==='text' && field.code==='link' && formInputData[field.code]" class="required field"
+    [ngClass]="{ 'disabled':!field.editable}">
+
+    <div class="field required">
+      <label>
+        {{field.name}}
+      </label>
+      <input name={{field.code}} type={{field.inputType}} [(ngModel)]="formInputData[field.code]" id="style"
+        placeholder={{field.placeholder}}>
+
+    </div>
+  </div>
     <div *ngIf="field.inputType==='text' && field.code==='creators'" class="required field"
     [ngClass]="{ 'disabled':!field.editable}">
 
