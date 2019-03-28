@@ -8,14 +8,17 @@
 }
 
 .ui.icon.button {
-    background: gray;
+    background: white;
     padding: 1px 4px 7px 7px;
+    border: 1px solid rgba(34,36,38,.15);
     .primary-search-icon {
-      font-size: 1.2em;       
+      font-size: 1.2em;  
+      color: black;     
     }
 }
 .ui.small.input {
     width: 220px !important;
+    height: 3rem;
 }
 ::ng-deep {
     .ui.fluid.action.input.primary-search-input {

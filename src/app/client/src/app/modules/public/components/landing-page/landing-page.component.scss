@@ -6,9 +6,10 @@
    background-size: cover;
    position: absolute;
    top: 0;
+   bottom: 6.9rem;
    left: 0;
    right: 0;
-   height: 100vh;
+   margin-bottom: 6rem;
 }
 .landing-page-section {
     background-color: #ffffff;
@@ -66,7 +67,7 @@
     top: 9%;
     left: 0;
     width: 100%;
-    color: #FFFFFF;
+    color:black;
   } 
   .text {
     width: 54rem;
@@ -96,19 +97,19 @@
     margin: auto;
     display: block;
     font-size: 17px;
-    font-family: Arial Regular;
+    font-family: 'Muli', sans-serif;
     margin-bottom: 1rem !important;
 }
 .fa-1{
 font-size: 32px;
 font-weight: bold;
-font-family: Arial Bold;
+font-family: 'Muli', sans-serif , Bold;
 margin-bottom: 0 !important
 }
 .text-1{
     font-size: 24px;
     font-style: italic;
-    font-family: Arial Italic;
+    font-family: 'Muli', sans-serif;
 }
 .text-2{
     font-size: 25px;    
@@ -173,7 +174,7 @@ hr{
 
 }
 .fa-1 {
-  font-size:  20px;
+  font-size: 16px;
 }
 .caption {
   top: 4%;
@@ -204,6 +205,11 @@ hr{
 }
 .text-c {
   width: 21rem !important;
+  font-size: 13px;
+}
+.text-1 {
+  margin-bottom: -1rem;
+  font-size: 15px !important;
 }
 .userloggedin {
   width: 100vw !important;

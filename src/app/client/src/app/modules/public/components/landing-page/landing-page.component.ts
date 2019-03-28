@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, PermissionService } from '../../../core/services';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ConfigService } from '@sunbird/shared';
+import { ConfigService, IUserData } from '@sunbird/shared';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -17,6 +17,7 @@ export class LandingPageComponent implements OnInit {
   public permissionService: PermissionService;
   showNavigationArrows = false;
   showNavigationIndicators = false;
+  userRole: any;
   constructor( userService: UserService , config: NgbCarouselConfig, permissionService: PermissionService,
     configService: ConfigService) {
       this.configService = configService;
@@ -26,9 +27,14 @@ export class LandingPageComponent implements OnInit {
   }
 
   ngOnInit() {
-if (this.userService.loggedIn) {
-  this.userlogged = true;
-}
+   this.userService.userData$.subscribe(
+      (user: IUserData) => {
+        if (user && !user.err) {
+          this.userRole = user.userProfile.userRoles;
+          console.log('userprofile', this.userRole);
+        }
+      });
+// this.userRole = this.userService.userProfile.userRoles;
    console.log('log in ', this.userService.loggedIn);
   }
 

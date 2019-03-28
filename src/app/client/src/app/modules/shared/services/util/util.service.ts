@@ -32,6 +32,7 @@ export class UtilService {
       subject: data.subject,
       medium: data.medium,
       orgDetails: data.orgDetails || {},
+      creator: data.creators,
       gradeLevel: '',
       contentType: data.contentType,
       topic: this.getTopicSubTopic('topic', data.topic),

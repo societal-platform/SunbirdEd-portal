@@ -45,6 +45,10 @@ font-family: 'Muli', sans-serif;
 .image{
     height: 44px !important;
 }
+.text{
+    font-family:'Muli' !important; 
+    color: black;
+  }
 hr{
     border: none !important;
     border-left: 1px solid gray !important;
@@ -90,6 +94,9 @@ a:hover, a:active {
     margin-top: -4rem;
     width: 92vw;
     margin-left: 1rem !important;
+}
+.text-1 {
+    margin-bottom: -1rem;
 }
 }
 @media screen and(min-width: 425px ) and (max-width:767px) {

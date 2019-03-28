@@ -11,6 +11,7 @@
   "URLS": {
     "LEARNER_PREFIX": "/learner/",
     "CONTENT_PREFIX": "/content/",
+    "CONTENT_BASE":"/v1/",
     "PUBLIC_PREFIX": "/api/",
     "EXT_PLUGIN_PREFIX": "/plugin/",
     "ANNOUNCEMENT_PREFIX": "/announcement/v1",
@@ -60,7 +61,7 @@
       "UPDATE": "content/v1/update",
       "SEARCH": "content/v1/search",
       "CREATE": "content/v1/create",
-      "PUBLISH": "content/v1/publish",
+      "PUBLISH": "v1/content/publish",
       "UPLOAD_MEDIA": "content/v1/media/upload",
       "GET": "content/v1/read",
       "RETIRE": "content/v1/retire",
@@ -97,6 +98,8 @@
       "GET_BATCHS": "course/v1/batch/list"
     },
     "ADMIN": {
+      "GET_ORG": "org/v1/read",
+      "REMOVE_USER": "org/v1/member/remove",
       "USER_SEARCH": "user/v1/search",
       "ORG_SEARCH": "org/v1/search",
       "BULK": {

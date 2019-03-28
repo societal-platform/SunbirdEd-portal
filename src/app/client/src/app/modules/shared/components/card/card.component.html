@@ -15,7 +15,7 @@
         </div>
         <div class="thick-green-border sprite dataimg" *ngIf="data?.board === 'Data'">
         </div>
-        <div class="col-sm-8 text-light pt-3">
+        <div class="text-light pt-3 pl-20">
            
           <h5 class="card-title">{{data?.name | titlecase}}</h5>
           <p class="card-text1 text-light">version : {{data?.version}}.0</p>
@@ -30,7 +30,7 @@
          
        
         <div class="details">
-        <span class="creator">Created By : {{data.orgDetails?.orgName | titlecase}}</span>
+        <span class="creator">Created By : {{data?.creator | titlecase}}</span>
         <span class="creator">Link : {{data?.link}}</span>
         <span class="creator" *ngIf="data?.region ">Where : {{data?.region | titlecase}}</span>
         <span class="creator" *ngIf="data?.year">Since : {{data?.year}}</span>

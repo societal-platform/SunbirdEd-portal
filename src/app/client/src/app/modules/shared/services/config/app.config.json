@@ -214,8 +214,8 @@
       "ribbon.right.name": "resourceType",
       "ribbon.left.image": "badgeAssertions[0].badgeClassImage"
     },
-    "orgId":["0127121193133670400", "0127212927140577280"],
-    "orgName":["shikshalokam", "societal"]
+    "orgId":["0127227887366471688"],
+    "orgName":["sunbird-client-societal"]
   },
   "PublicPlayer": {
     "contentApiQueryParams": {
@@ -259,8 +259,8 @@
       "ribbon.right.name": "resourceType",
       "ribbon.left.image": "badgeAssertions[0].badgeClassImage"
     },
-    "orgId":["0127121193133670400", "0127212927140577280"],
-    "orgName":["shikshalokam", "societal"]
+    "orgId":["0127227887366471688"],
+    "orgName":["sunbird-client-societal"]
   },
   "CoursePage": {
     "slickSize": 10,

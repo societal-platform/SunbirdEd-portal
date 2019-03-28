@@ -22,6 +22,7 @@ export interface IassessDetail {
   description: string;
   version: string;
   creators: string;
+  badgeAssertions: Array<any>;
 }
 @Component({
   selector: 'app-asset-detail-page',
@@ -56,12 +57,14 @@ export class AssetDetailPageComponent implements OnInit {
     keywords: [],
     description: '',
     version: '',
-    creators: ''
+    creators: '',
+    badgeAssertions: []
   };
   public resourceService: ResourceService;
   private toasterService: ToasterService;
   orgId: any;
   role: any;
+  verified =  false;
   constructor(activated: ActivatedRoute, public modalServices: SuiModalService , public modalService: SuiModalService,
     badgeService: BadgesService,  toasterService: ToasterService, resourceService: ResourceService, userService: UserService,
     config: ConfigService, contentServe: ContentService , rout: Router) {
@@ -159,7 +162,9 @@ export class AssetDetailPageComponent implements OnInit {
         this.badgeService.createAssertion(req).subscribe((data) => {
           console.log('aser', data);
              this.showLoader = false;
+             this.verified = !true;
              this.toasterService.success('Badge Added successfully');
+             this.ngOnInit();
            },
            (err: ServerResponse) => {
              this.showLoader = false;

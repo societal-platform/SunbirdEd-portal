@@ -157,7 +157,12 @@ export class DefaultTemplateComponent implements OnInit, AfterViewInit {
     this.setFormConfig();
     this.userService.userData$.subscribe(
       (user: IUserData) => {
-        if (user && !user.err) {
+        console.log('use', user);
+        if (user && !user.err && user.userProfile.organisationNames.length > 1) {
+          this.userProfile = user.userProfile;
+          this.orgname = user.userProfile.organisationNames[1];
+          this.formInputData['creators'] = user.userProfile.organisationNames[1];
+        } else if (user && !user.err && user.userProfile.organisationNames.length === 1) {
           this.userProfile = user.userProfile;
           this.orgname = user.userProfile.organisationNames[0];
           this.formInputData['creators'] = user.userProfile.organisationNames[0];

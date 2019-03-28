@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import { CacheService } from 'ng2-cache-service';
 import { IInteractEventEdata } from '@sunbird/telemetry';
 import { first, mergeMap, map, tap , catchError, filter} from 'rxjs/operators';
+// import {Route} from '@angular/router'
 @Component({
   selector: 'app-prominent-filter',
   templateUrl: './prominent-filter.component.html',
@@ -74,6 +75,8 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
   frameworkDataSubscription: Subscription;
   isFiltered = true;
   submitIntractEdata: IInteractEventEdata;
+  label: Array<string>;
+
   /**
    *
     * Constructor to create injected service(s) object
@@ -93,7 +96,7 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
     toasterService: ToasterService,
     permissionService: PermissionService,
     private browserCacheTtlService: BrowserCacheTtlService,
-    private orgDetailsService: OrgDetailsService
+    private orgDetailsService: OrgDetailsService,
 
   ) {
     this.configService = configService;
@@ -105,6 +108,8 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
     this.permissionService = permissionService;
     this.formInputData = {};
     this.router.onSameUrlNavigation = 'reload';
+    this.label = this.configService.dropDownConfig.FILTER.WORKSPACE.label;
+
   }
 
   ngOnInit() {
@@ -116,6 +121,16 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
     }, (err) => {
       this.prominentFilter.emit([]);
     });
+    this.activatedRoute.queryParams
+      .subscribe(params => {
+        this.queryParams = { ...params };
+        _.forIn(params, (value, key) => {
+          if (typeof value === 'string' && key !== 'query') {
+            this.queryParams[key] = [value];
+          }
+        });
+        console.log('params', params);
+      });
   }
 
   getFormatedFilterDetails() {
@@ -228,11 +243,16 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
   isObject(val) { return typeof val === 'object'; }
 
   applyFilters() {
+
     if (_.isEqual(this.formInputData, this.queryParams)) {
       this.isFiltered = true;
+       console.log('query', this.queryParams);
+
     } else {
       this.isFiltered = false;
       const queryParams: any = {};
+
+
     _.forIn(this.formInputData, (eachInputs: Array<any | object>, key) => {
         const formatedValue = typeof eachInputs === 'string' ? eachInputs :
         _.compact(_.map(eachInputs, value => typeof value === 'string' ? value : _.get(value, 'identifier')));
@@ -243,6 +263,7 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
           queryParams[key] = this.populateChannelData(formatedValue);
         }
     });
+    console.log('query', this.queryParams);
     queryParams['appliedFilters'] = true;
     this.router.navigate([], { relativeTo: this.activatedRoute.parent, queryParams: queryParams });
     }
@@ -282,6 +303,13 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
     catchError(err => {
       return [];
     }));
+  }
+  removeFilterSelection(filterType, value) {
+    const itemIndex = this.queryParams[filterType].indexOf(value);
+    if (itemIndex !== -1) {
+      this.queryParams[filterType].splice(itemIndex, 1);
+    }
+    this.router.navigate(['resources'], { queryParams: this.queryParams  });
   }
   ngOnDestroy() {
     if (this.frameworkDataSubscription) {

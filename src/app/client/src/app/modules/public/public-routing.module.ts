@@ -19,6 +19,7 @@ import { CoreComponent } from './components/core/core.component';
 import { ExploreThinkingComponent } from './components/explore-thinking/explore-thinking.component';
 import { FrameworkComponent } from './components/framework/framework.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
+import { ViewuserComponent } from './components/viewuser/viewuser.component';
 
 const routes: Routes = [
   {
@@ -106,6 +107,9 @@ const routes: Routes = [
   },
   {
     path: 'addUser', component: AdduserComponent
+  },
+  {
+    path: 'viewuser', component: ViewuserComponent
   }
 ];
 @NgModule({

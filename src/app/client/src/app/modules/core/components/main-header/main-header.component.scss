@@ -22,6 +22,10 @@
     font-size: 1.3em;
   }
 }
+.text{
+  font-family:'Muli' !important; 
+  color: black !important;
+}
 .ui.basic.button.qr-code-btn.disabled {
   opacity: 0.7 !important;
 }
@@ -162,6 +166,7 @@ background: #007b5e;
   padding: 1px 7px 4px 7px;
   .primary-search-icon {
     font-size: 1.2em;
+    color: black
   }
 }
 

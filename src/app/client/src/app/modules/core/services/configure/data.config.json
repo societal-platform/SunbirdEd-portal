@@ -1,10 +1,10 @@
 {
-    "subject": ", Trying to contact you" ,
-    "body": "Hi admin ," ,
+    "subject": "feedback for SPace" ,
+    "body": "You have received some feedback. Here are the details:" ,
     "OrgImgUrl":  "https://societal-sunbird.stackroute.com/assets/images/sunbird_logo.png" ,
     "actionName": "Test Action",
     "actionUrl": "https://societal-sunbird.stackroute.com/",
-    "template": "acceptFlag",
-    "email": "kamaleeanbu@gmail.com",
+    "template": "feedback",
+    "email": ["kamaleeanbu@gmail.com","sumit.nautiyal@niit.com"],
     "fromEmail": "sumit.nautiyal@niit.com"
 }
