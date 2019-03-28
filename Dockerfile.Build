@@ -1,7 +1,6 @@
 #Dockerfile for the player setup
 FROM node:8.11.0
 MAINTAINER "Rajesh Rajendran <rajesh.r@optit.co>"
-RUN sed -i '/jessie-updates/d' /etc/apt/sources.list
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils \
 && apt-get install -y --force-yes \ 
  python python-dev autoconf g++ make nasm bzip2
@@ -10,11 +9,7 @@ WORKDIR /opt/player
 COPY * /opt/player/
 WORKDIR /opt/player/app
 RUN npm set progress=false
-RUN npm cache -f clean
-RUN rm -rf node_modules/
-RUN npm install
-RUN npm install  --unsafe-perm
-RUN npm install -g gulp
+RUN npm install  --unsafe-perm 
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
 RUN npm i -g npm@3.10.10
@@ -23,4 +18,4 @@ WORKDIR /opt/player/app
 # passing commit hash as build arg
 ARG commit_hash=0
 ENV commit_hash ${commit_hash}
-CMD ["/bin/bash","-x","../vcs-config.sh"]   
+CMD ["/bin/bash","-x","../vcs-config.sh"] 
