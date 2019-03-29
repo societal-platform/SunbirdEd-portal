@@ -64,7 +64,10 @@ background-color: #585858;
  .card-img-overlay {
    height: fit-content;
  }
- 
+ .details {
+  display: block;
+  height: 112px;
+ }
  .card {
    height: 50vh;
    width: 355.5px;

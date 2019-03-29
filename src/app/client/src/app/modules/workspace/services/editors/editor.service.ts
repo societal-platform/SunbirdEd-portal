@@ -1,4 +1,4 @@
-import { ContentService, PublicDataService, UserService } from '@sunbird/core';
+import { ContentService, PublicDataService, UserService , UploadContentService} from '@sunbird/core';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ConfigService, ServerResponse } from '@sunbird/shared';
@@ -27,16 +27,20 @@ export class EditorService {
      * reference of lerner service.
      */
     public publicDataService: PublicDataService;
+
+    public uploadService: UploadContentService;
     /**
      * constructor
      * @param {ConfigService} config ConfigService reference
      */
     constructor(configService: ConfigService, contentService: ContentService, publicDataService: PublicDataService,
-        public workspaceService: WorkSpaceService, public userService: UserService) {
+        public workspaceService: WorkSpaceService, public userService: UserService, public uploadservice: UploadContentService) {
         this.configService = configService;
         this.contentService = contentService;
         this.baseUrl = this.configService.urlConFig.URLS.CONTENT_PREFIX;
         this.publicDataService = publicDataService;
+        this.uploadService = uploadservice;
+
     }
 
     /**
@@ -53,6 +57,27 @@ export class EditorService {
         return this.contentService.post(option);
     }
 
+    uploadUrl(req, contentId: string): Observable<ServerResponse> {
+        const option = {
+            url: `${this.configService.urlConFig.URLS.CONTENT.UPLOADURL}/${contentId}`,
+            data: {
+                'request': req
+            }
+           };
+           console.log('option ', option);
+           return this.uploadService.post(option);
+    }
+    upload(req, contentId: string): Observable<ServerResponse> {
+        const formdata = new FormData();
+      formdata.append('fileUrl', req);
+      formdata.append('mimeType', 'application/pdf');
+        const option = {
+            url: `${this.configService.urlConFig.URLS.CONTENT.UPLOAD}/${contentId}`,
+            // formdata: formdata
+           };
+           console.log('option ', option);
+           return this.uploadService.posting(option, formdata);
+    }
 
    update(req, contentId: string): Observable<ServerResponse> {
        const option = {

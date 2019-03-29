@@ -30,7 +30,7 @@
             </div>
             <div class="thick-green-border  sprite dataimg" *ngIf="content?.board === 'Data'">
             </div>
-            <div class=" text-light pt-3 pl-20">
+            <div class="col-sm-8 text-light pt-3 pl-20">
                
               <h5 class="card-title">{{content?.name | titlecase}}</h5>
               <p class="card-text">version : {{content?.version}}.0</p>
@@ -55,7 +55,7 @@
               <!-- <div *ngIf="content?.status==='Live'">
                   <button type="button" class="btn ml-4 text-light" id="badge">VERIFY</button>
               </div> -->
-              <button type="button" class="btn text-secondary ml-4" id="style" [routerLink]="['update/'+content.identifier]"><i
+              <button type="button" class="btn text-secondary ml-4" id="style" (click)="navigateToEditPage(content?.identifier)"><i
                   class="fas fa-pencil-alt"></i></button>
 
             </div>

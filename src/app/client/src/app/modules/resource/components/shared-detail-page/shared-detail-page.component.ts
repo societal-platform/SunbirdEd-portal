@@ -23,6 +23,8 @@ export interface IassessDetail {
   version: string;
   creators: string;
   badgeAssertions: Array<any>;
+  artifactUrl: string;
+  mimeType: string;
 }
 
 @Component({
@@ -58,7 +60,9 @@ export class SharedDetailPageComponent implements OnInit {
     description: '',
     version: '',
     creators: '',
-    badgeAssertions: []
+    badgeAssertions: [],
+    artifactUrl: '',
+    mimeType: '',
   };
   public resourceService: ResourceService;
   private toasterService: ToasterService;

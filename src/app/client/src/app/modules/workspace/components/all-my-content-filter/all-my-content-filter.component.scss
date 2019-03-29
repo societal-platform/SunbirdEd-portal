@@ -17,7 +17,7 @@
      }
 
      .pad  {
-         padding-top: 2.4rem;
+         padding-top: 3.3rem;
      }
      .upForReviewSearchBox {
          border-radius: 4px !important;
@@ -48,5 +48,14 @@
         {
             margin-top: 0rem !important;
         }
+
+        
      }
+
+     .btn-light {
+        border-top-left-radius: 0!important;
+        border-bottom-left-radius: 0!important;
+        border: 1px solid rgba(34,36,38,.15);
+        border-radius: .28571429rem;
+    }
 

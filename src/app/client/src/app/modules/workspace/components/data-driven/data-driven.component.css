@@ -9,6 +9,11 @@ h4 {
     width: 950px !important;
     font-family: 'Muli', sans-serif;
 }
+#style {
+    border: 1px solid #e4e4e4;
+    color: #707070;
+    border-radius: 7px;
+}
 
 .btn-sec {
  background-color: #a8abe3 !important;
@@ -31,7 +36,6 @@ h4 {
 }
 .btn-outline {
     color: #a8abe3;
-    border-color: #a8abe3;
     padding: 9px 30px;
     border-color:  #a8abe3 !important;
   border-radius: 5px;
