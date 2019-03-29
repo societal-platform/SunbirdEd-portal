@@ -24,6 +24,7 @@ export interface IassessDetail {
   creators: string;
   artifactUrl: string;
   mimeType: string;
+  badgeAssertions: Array<any>;
 }
 @Component({
   selector: 'app-asset-detail-page',
@@ -60,13 +61,15 @@ export class AssetDetailPageComponent implements OnInit {
     version: '',
     creators: '',
     artifactUrl: '',
-    mimeType: ''
+    mimeType: '',
+    badgeAssertions: [],
   };
   public resourceService: ResourceService;
   private toasterService: ToasterService;
   orgId: any;
   role: any;
   verified =  false;
+  pdfs: string;
   constructor(activated: ActivatedRoute, public modalServices: SuiModalService , public modalService: SuiModalService,
     badgeService: BadgesService,  toasterService: ToasterService, resourceService: ResourceService, userService: UserService,
     config: ConfigService, contentServe: ContentService , rout: Router) {
@@ -91,6 +94,9 @@ export class AssetDetailPageComponent implements OnInit {
     this.contentService.get(req).subscribe(data => {
       console.log('read content', data);
       this.assetDetail = data.result.content;
+      this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
+      data.result.content.artifactUrl.lastIndexOf('pdf'));
+
     });
     console.log('this', this.assetDetail);
     this.userService.userData$.subscribe(

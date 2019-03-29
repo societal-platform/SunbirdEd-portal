@@ -117,9 +117,10 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
   percentDone: number;
   uploadSuccess = false;
   showMessage = false;
-  contentId: string;
+
   enabled: any;
   fileList: any;
+  contentId: string;
 
 
   constructor(
@@ -318,9 +319,14 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
   }
   checkFieldofFile() {
     const data = _.pickBy(this.formData.formInputData);
-    if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators && !!data.version && data.gradeLevel) {
+    if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators
+      && !!data.version && !!data.gradeLevel && !!this.fileList) {
       this.uploadSuccess = true;
-      this.createContentFile();
+      if (this.fileList.size < 50000000 ) {
+        this.createContentFile();
+      } else {
+        this.toasterService.error('File size should be less than 50MB');
+      }
     } else {
       this.toasterService.error('Asset creation failed please provide required fields');
     }

@@ -55,7 +55,7 @@
               <!-- <div *ngIf="content?.status==='Live'">
                   <button type="button" class="btn ml-4 text-light" id="badge">VERIFY</button>
               </div> -->
-              <button type="button" class="btn text-secondary ml-4" id="style" [routerLink]="['update/'+content.identifier]"><i
+              <button type="button" class="btn text-secondary ml-4" id="style" (click)="navigateToEditPage(content?.identifier)"><i
                   class="fas fa-pencil-alt"></i></button>
 
             </div>

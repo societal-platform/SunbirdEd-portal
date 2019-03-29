@@ -25,7 +25,7 @@ export class CardComponent {
 
   public onAction(data, action) {
     this.clickEvent.emit({ 'action': action, 'data': data });
-    this.router.navigate(['/play/content', data.identifier]);
+    // this.router.navigate(['/play/content', data.identifier]);
   }
 
 }

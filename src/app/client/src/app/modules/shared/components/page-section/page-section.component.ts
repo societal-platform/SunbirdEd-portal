@@ -5,7 +5,7 @@ import {ICaraouselData} from '../../interfaces/caraouselData';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as _ from 'lodash';
 import { IInteractEventObject, IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
-
+import { Router} from '@angular/router';
 /**
  * This display a a section
  */
@@ -34,6 +34,8 @@ export class PageSectionComponent implements OnInit {
   /**
   * This is slider setting
   */
+
+  route: Router;
  slideConfig = {
   'slidesToShow': 4,
   'slidesToScroll': 4,
@@ -120,6 +122,8 @@ export class PageSectionComponent implements OnInit {
   }
   playContent(event) {
     this.playEvent.emit(event);
+    console.log('event', event);
+    // this.route.navigate(['/play/content', data.identifier]);
   }
   ngOnInit() {
     const id = _.get(this.activatedRoute, 'snapshot.data.telemetry.env');

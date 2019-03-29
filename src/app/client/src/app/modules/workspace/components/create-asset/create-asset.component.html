@@ -1,30 +1,55 @@
-
 <div class="container mt-5">
     <h4>Update Asset</h4>
     <hr>
     <form class="ui form">
-            <div class="content">
-                <div *ngIf="formFieldProperties && categoryMasterList">
-                    <app-update-resoure-form #formData [formFieldProperties]="formFieldProperties" [categoryMasterList]="categoryMasterList" >
-                    </app-update-resoure-form>
+        <div class="content">
+            <div *ngIf="formFieldProperties && categoryMasterList">
+                <app-update-resoure-form #formData [formFieldProperties]="formFieldProperties"
+                    [categoryMasterList]="categoryMasterList">
+                </app-update-resoure-form>
+            </div>
+            <div *ngIf="enabled" class="row">
+                <p class="col-sm-4">
+                    {{pdf | slice: 1}}pdf
+                </p> 
+                <div class="col-sm-8">
+                        <button  type="button" class="btn btn-outline-secondary" routerLink="play">View</button>
                 </div>
+                
+            </div>
+            <div *ngIf="enabled">
                 <div class="form-group" *ngIf="enabled">
-                        <label for="exampleInputFile"></label>
-                        <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
-                            accept="application/pdf" (change)="basicUploadFile($event)">
-                        <small id="fileHelp" class="form-text text-muted">File accepted - pdf, Max file size - 50 Mb</small>
-                    </div>
+                    <label for="exampleInputFile"></label>
+                    <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
+                        accept="application/pdf" (change)="basicUploadFile($event)">
+                    <small id="fileHelp" class="form-text text-muted">File accepted - pdf, Max file size - 50 Mb</small>
+                </div>
                 <div class="actions mt-10">
                     <p class="text-align-center pt-20">
                         <!-- <button class="ui secondary text-align-center icon button" (click)="createContent();modal.deny()">
-                            Save
-                        </button> -->
-                        <button class="btn btn-default btn-sec mr-5 btn-lg text-light" (click)="checkFields()" type="submit">Update</button>
+                                        Save
+                                    </button> -->
+                        <button class="btn btn-default btn-sec mr-5 btn-lg text-light" (click)="checkFieldofFile()"
+                            type="submit">Update</button>
                         <button type="button" class="btn btn-outline btn-lg" (click)="goToCreate()">Cancel</button>
 
                     </p>
 
                 </div>
             </div>
-        </form>
+            <div class="actions mt-10" *ngIf="!enabled">
+                    <p class="text-align-center pt-20">
+                        <!-- <button class="ui secondary text-align-center icon button" (click)="createContent();modal.deny()">
+                                        Save
+                                    </button> -->
+                        <button class="btn btn-default btn-sec mr-5 btn-lg text-light" (click)="checkFields()"
+                            type="submit">Update</button>
+                        <button type="button" class="btn btn-outline btn-lg" (click)="goToCreate()">Cancel</button>
+
+                    </p>
+
+                </div>
+
+        </div>
+    </form>
 </div>

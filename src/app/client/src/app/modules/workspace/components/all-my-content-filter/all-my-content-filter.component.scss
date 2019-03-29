@@ -19,10 +19,43 @@
      .pad  {
          padding-top: 3.3rem;
      }
+     .upForReviewSearchBox {
+         border-radius: 4px !important;
+     }
+     @media screen and(min-width:312px) and (max-width:424px) {
+         .card {
+            width: 85vw !important;         
+        }
+         .prominent-filter {
+            width: 100vw !important;
+         }
+     }
+     @media screen and (min-width: 425px) and(max-width:767px) {
+        .card {
+            width: 89vw !important;         
+        }
+        .prominent-filter {
+            width: 100vw !important;
+         }
+     }
+     @media screen and(min-width: 768px) and (max-width:980px) {
+        .upForReviewSearchBox {
+            margin-left: -4rem !important;
+            margin-top: 0rem !important;
+            height: 6vh;
+        }
+        .input-group-btn 
+        {
+            margin-top: 0rem !important;
+        }
+
+        
+     }
+
      .btn-light {
         border-top-left-radius: 0!important;
         border-bottom-left-radius: 0!important;
         border: 1px solid rgba(34,36,38,.15);
-        border-radius: .28571429rem
-     }
-     
+        border-radius: .28571429rem;
+    }
+

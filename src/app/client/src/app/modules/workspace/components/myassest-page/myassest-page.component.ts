@@ -290,7 +290,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     } else {
       this.sort = { lastUpdatedOn: this.config.appConfig.WORKSPACE.lastUpdatedOn };
     }
-    const preStatus = ['Draft', 'FlagDraft', 'Review', 'Processing', 'Live', 'Unlisted', 'FlagReview'];
+    const preStatus = ['Draft', 'Review', 'Live'];
     const searchParams = {
       filters: {
         status: bothParams.queryParams.status ? bothParams.queryParams.status : preStatus,
@@ -312,7 +312,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     this.orgDetailsUnsubscribe = this.searchContentWithLockStatus(searchParams)
       .subscribe(
         (data: ServerResponse) => {
-          console.log('data', data);
+          console.log('data content', data);
           if (data.result.count && data.result.content.length > 0) {
             this.allContent = data.result.content;
             this.totalCount = data.result.count;
@@ -490,5 +490,8 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
       this.orgDetailsUnsubscribe.unsubscribe();
     }
 
+  }
+  navigateToEditPage(contentId: string) {
+    this.route.navigate(['myassets/update', contentId]);
   }
 }

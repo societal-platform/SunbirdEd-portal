@@ -165,3 +165,8 @@ background-color: #585858;
     color: #686F7A;
     padding-bottom: 6px;
 }
+@media screen and (min-width:312px ) and (max-width:760px) {
+  .card {
+   width: 304.5px !important;
+  }
+}

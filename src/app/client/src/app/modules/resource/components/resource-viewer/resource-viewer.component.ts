@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContentService } from '@sunbird/core';
-import { ConfigService , NavigationHelperService} from '@sunbird/shared';
+import { ConfigService } from '@sunbird/shared';
 import { BadgesService } from '../../../core/services/badges/badges.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-pdf-viewer',
-  templateUrl: './pdf-viewer.component.html',
-  styleUrls: ['./pdf-viewer.component.scss']
+  selector: 'app-resource-viewer',
+  templateUrl: './resource-viewer.component.html',
+  styleUrls: ['./resource-viewer.component.scss']
 })
-export class PdfViewerComponent implements OnInit {
+export class ResourceViewerComponent implements OnInit {
   public activatedRoute: ActivatedRoute;
   public configService: ConfigService;
   public contentService: ContentService;
@@ -21,8 +21,7 @@ export class PdfViewerComponent implements OnInit {
   showLoader = true;
   loaderMessage = 'Loading pdf please wait';
   constructor(activated: ActivatedRoute, sanitizers: DomSanitizer,
-    config: ConfigService, contentServe: ContentService , rout: Router, public navigationHelperService: NavigationHelperService,
-    ) {
+    config: ConfigService, contentServe: ContentService , rout: Router) {
       this.activatedRoute = activated;
       this.activatedRoute.url.subscribe(url => {
         this.contentId = url[1].path;
@@ -44,15 +43,6 @@ export class PdfViewerComponent implements OnInit {
       this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(data.result.content.artifactUrl);
       this.showLoader = false;
     });
-    this.checkForPreviousRouteForRedirect();
   }
-  checkForPreviousRouteForRedirect() {
-    const previousUrlObj = this.navigationHelperService.getPreviousUrl();
-    console.log('pre', previousUrlObj);
-    if (previousUrlObj && previousUrlObj.url && (previousUrlObj.url !== '/myassets')) {
-      // this.redirect();
-    }
-  }
-
 
 }

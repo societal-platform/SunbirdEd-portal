@@ -100,19 +100,19 @@ background: #007b5e;
   color:white;
 }
 
-@media only screen and (max-width: 767px) {
-  .primary-searchbar-alignment {
-    width: 100%;  
-  }
-  .ui.basic.button.qr-code-btn {
-    padding-top: 11px;
-    padding-bottom: 9px;
-  }
-  .ui.mobile-view.container {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-}
+// @media only screen and (max-width: 767px) {
+//   .primary-searchbar-alignment {
+//     width: 100%;  
+//   }
+//   .ui.basic.button.qr-code-btn {
+//     padding-top: 11px;
+//     padding-bottom: 9px;
+//   }
+//   .ui.mobile-view.container {
+//     margin-left: 0 !important;
+//     margin-right: 0 !important;
+//   }
+// }
 
 
 @media only screen and (min-width: 768px) {
@@ -179,13 +179,7 @@ background: #007b5e;
   }
 }
 
-@media only screen and (min-width: 767px) {
-  ::ng-deep {
-    .ui.fluid.action.input.primary-search-input {
-       height: 39px;
-    }
-  }
-}
+
 .ui.menu .active.item {
   background: none;
 }
@@ -196,4 +190,71 @@ background: #007b5e;
 
 .profile-avtar:hover{
   opacity:1;
+}
+
+@media screen and (max-width:374px ) and (min-width: 312px) {
+  .primary-header .logo img{
+    height:36px !important;
+  }
+  .navbar-padding {
+    padding: 3rem !important;
+    margin-top: -5rem !important;
+  }
+.profile-avtar {
+  top: -4rem;
+    left: 17rem;
+}
+
+  }
+    @media screen and (max-width: 424px) and (min-width: 375px) {
+
+    .img-fluid[_ngcontent-c17] {
+        height: 60rem !important;
+    }
+    .text-c[_ngcontent-c8] {
+      width: !important;
+    }
+    .navbar-padding {
+      padding: 3rem !important;
+      // margin-top: -5rem !important;
+    }
+    .primary-header[_ngcontent-c2] .logo[_ngcontent-c2] img[_ngcontent-c2]{
+      height:41px !important;
+    }
+    .main-header {
+      width: 100vw !important;
+    }
+  }
+
+@media screen and (max-width: 765px) and (min-width: 425px) {
+
+  .img-fluid[_ngcontent-c17] {
+      height: 60rem !important;
+  }
+  .text-c[_ngcontent-c8] {
+    width: !important;
+  }
+  .navbar-padding {
+    padding: 3rem !important;
+    // margin-top: -5rem !important;
+  }
+  .primary-header[_ngcontent-c2] .logo[_ngcontent-c2] img[_ngcontent-c2]{
+    height:41px !important;
+  }
+  .main-header {
+    width: 100vw !important;
+  }
+}
+@media only screen and (min-width: 766px) and (max-width:980px) {
+  ::ng-deep {
+    .ui.fluid.action.input.primary-search-input {
+       height: 39px;
+    }
+  }
+  .navbar-padding {
+    padding: 1.4rem !important;
+  }
+  .main-header {
+    width: 100vw !important;  
+  }
 }
