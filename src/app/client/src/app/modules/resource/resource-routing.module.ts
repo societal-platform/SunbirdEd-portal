@@ -6,6 +6,7 @@ import { FlagContentComponent } from '@sunbird/core';
 import { NoteListComponent } from '@sunbird/notes';
 import {ViewAllComponent} from '@sunbird/shared-feature';
 import { SharedDetailPageComponent } from './components/shared-detail-page/shared-detail-page.component';
+import { ResourceViewerComponent } from './components/resource-viewer/resource-viewer.component';
 const telemetryEnv = 'library';
 const routes: Routes = [
   {
@@ -49,7 +50,11 @@ const routes: Routes = [
       telemetry: {
         env: telemetryEnv, pageid: 'content-player', type: 'play'
       }, breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Library', url: '/resources' }]
-    }
+    },
+
+  },
+  {
+    path: 'view', component: ResourceViewerComponent
   },
    {
     path: 'play/content/:contentId/note', component: NoteListComponent, data: {
@@ -59,7 +64,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'play/content/:contentId/:contentStatus', component: ContentPlayerComponent,
+    path: 'play/content/:contentId/:contentStatus', component: ResourceViewerComponent,
     data: {
       breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Library', url: '' }],
       telemetry: { env: telemetryEnv, pageid: 'content-player-unlisted', type: 'play' }

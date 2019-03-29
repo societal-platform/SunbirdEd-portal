@@ -1,5 +1,4 @@
 @import "../../../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
 i.fas.fa-database.fa-lg {
   padding: 0.6em 0em;
   font-size: 2em;
@@ -14,7 +13,6 @@ i.fas.fa-database.fa-lg {
     background: white;
     width: fit-content; 
   }
-
   .smaller-image {
     width: 21px;
     padding-top: 12px;
@@ -57,7 +55,6 @@ background-color: #585858;
    border-radius: 4rem;
    font-family: "Muli",sans-serif;
    color: white ;
-
  }
  .card {
    height: 45vh;
@@ -71,7 +68,6 @@ background-color: #585858;
  #badge {
    background-color: #a7aae5;
       border-radius: 4rem;
-
  }
  .ui.mini.modal {
    height: fit-content !important;
@@ -111,7 +107,6 @@ background-color: #585858;
   background-image: url('../../../../../assets/images/Sprite-image.png');
   background-origin: 0;
 }
-
 .badgesprite{
   width: 63px;
   height:63px;
@@ -154,9 +149,7 @@ background-color: #585858;
   line-clamp: 3;
   line-height: 1.5rem;
   /* autoprefixer: off */
-
 -webkit-box-orient: vertical;
-
 /* autoprefixer: on */
   
 }
@@ -176,15 +169,11 @@ background-color: #585858;
   margin-bottom: 18px;
   line-clamp: 2;
   line-height: 2rem;
-
   /* autoprefixer: off */
-
 -webkit-box-orient: vertical;
-
 /* autoprefixer: on */
   
 }
-
 .btn-sec {
   background-color: #a8abe3 !important;
   border: none;
@@ -196,4 +185,13 @@ background-color: #585858;
   font-weight: 700;
   box-shadow: none;
   cursor: pointer;
+}
+@media screen and (min-width:312px) and (max-width:980px) {
+.btn-sec {
+  width: 37vw;
+  margin-left: 14rem !important
+}
+.card {
+  width: 88vw !important;
+}
 }

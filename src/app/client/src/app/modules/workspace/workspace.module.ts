@@ -26,6 +26,7 @@ import { CreateAssetComponent } from './components/create-asset/create-asset.com
 import { UpdateResoureFormComponent } from './components/update-resoure-form/update-resoure-form.component';
 import { MyassestPageComponent } from './components/myassest-page/myassest-page.component';
 import { AssetDetailPageComponent } from './components/asset-detail-page/asset-detail-page.component';
+import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { AssetDetailPageComponent } from './components/asset-detail-page/asset-d
     UpdateResoureFormComponent,
     MyassestPageComponent,
     AssetDetailPageComponent,
+    PdfViewerComponent,
   ],
   providers: [WorkSpaceService, EditorService, BatchService, ReviewCommentsService],
   exports: [CreateAssetComponent, DataDrivenComponent, DefaultTemplateComponent, CreateContentComponent]

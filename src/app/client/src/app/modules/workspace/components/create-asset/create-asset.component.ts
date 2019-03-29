@@ -6,7 +6,7 @@ import {
 } from '@sunbird/shared';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditorService } from './../../services';
-import { SearchService, UserService, FrameworkService, FormService , ContentService} from '@sunbird/core';
+import { SearchService, UserService, FrameworkService, FormService, ContentService } from '@sunbird/core';
 import * as _ from 'lodash';
 import { CacheService } from 'ng2-cache-service';
 import { DefaultTemplateComponent } from '../content-creation-default-template/content-creation-default-template.component';
@@ -116,8 +116,10 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
 	* telemetryImpression
 	*/
   telemetryImpression: IImpressionEventInput;
-
-
+  enabled = false;
+  pdf: any;
+  fileList: any;
+  contentId: string;
   constructor(
     public searchService: SearchService,
     public workSpaceService: WorkSpaceService,
@@ -153,19 +155,18 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
     this.resourceType = this.configService.appConfig.resourceType[this.contentType];
     this.creationFormLable = this.configService.appConfig.contentCreateTypeLable[this.contentType];
     this.name = this.configService.appConfig.contentName[this.contentType] ?
-                this.configService.appConfig.contentName[this.contentType] : 'Untitled';
-   this.description = this.configService.appConfig.contentDescription[this.contentType] ?
-   this.configService.appConfig.contentDescription[this.contentType] : 'Untitled';
+      this.configService.appConfig.contentName[this.contentType] : 'Untitled';
+    this.description = this.configService.appConfig.contentDescription[this.contentType] ?
+      this.configService.appConfig.contentDescription[this.contentType] : 'Untitled';
   }
 
 
   ngOnInit() {
+    console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
+    // this.contentID = this.activatedRoute.snapshot.params.contentId;
+    // this.fetchContentById(this.contentID);
 
-console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
-// this.contentID = this.activatedRoute.snapshot.params.contentId;
-// this.fetchContentById(this.contentID);
-
-     this.checkForPreviousRouteForRedirect();
+    this.checkForPreviousRouteForRedirect();
 
     /**
      * fetchFrameworkMetaData is called to config the form data and framework data
@@ -202,7 +203,7 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
   * fetchFrameworkMetaData is gives form config data
   */
   fetchFrameworkMetaData() {
-  console.log('hiis');
+    console.log('hiis');
     this.frameworkService.frameworkData$.subscribe((frameworkData: Framework) => {
       console.log('frame', frameworkData);
       if (!frameworkData.err) {
@@ -238,6 +239,20 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
       } else if (frameworkData && frameworkData.err) {
         this.toasterService.error(this.resourceService.messages.emsg.m0005);
       }
+    });
+    const req = {
+      url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
+    };
+    this.contentService.get(req).subscribe(data => {
+      console.log('read content', data);
+      if (data.result.content.mimeType === 'application/pdf') {
+        this.enabled = true;
+        this.pdf = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
+         data.result.content.artifactUrl.lastIndexOf('pdf'));
+
+      }
+      // this.formInputData['gradeLevel'] = this.mutateData(data.result.content.gradeLevel)
+      // this.formInputData['versionKey'] = data.result.content.versionKey;
     });
   }
 
@@ -284,13 +299,14 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
       requestData.createdFor = this.userProfile.organisationIds,
       requestData.contentType = this.configService.appConfig.contentCreateTypeForEditors[this.contentType],
       requestData.framework = this.framework;
-      requestData.version = parseFloat(requestData.version);
-      delete requestData.status;
-      requestData['artifactUrl'] = data.link;
-    if (this.contentType === 'studymaterial') {
+    requestData.version = parseFloat(requestData.version);
+    delete requestData.status;
+    if (this.contentType === 'studymaterial' && data.link) {
       requestData.mimeType = 'text/x-url';
+      requestData['artifactUrl'] = data.link;
+      // requestData.mimeType = 'application/pdf'
     } else {
-      requestData.mimeType = this.configService.urlConFig.URLS.CONTENT_COLLECTION;
+      requestData.mimeType = 'application/pdf';
     }
     if (this.resourceType) {
       requestData.resourceType = this.resourceType;
@@ -303,36 +319,111 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
     return requestData;
   }
   checkFields() {
-    const  data = _.pickBy(this.formData.formInputData);
-      if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators && !!data.version && data.gradeLevel) {
-        console.log('hii');
-        this.uploadSuccess = true;
-        this.updateContent();
-      } else {
-        this.showMessage = true;
-        this.toasterService.error('Asset updation failed please provide required fields');
-      }
+    console.log('formData', this.formData);
+    const data = _.pickBy(this.formData.formInputData);
+    if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators &&
+      !!data.version && !!data.gradeLevel && !!data.link) {
+      console.log('hii');
+      this.uploadSuccess = true;
+      this.updateContent();
+    } else {
+      this.showMessage = true;
+      this.toasterService.error('Asset updation failed please provide required fields');
     }
+  }
+  checkFieldofFile() {
+    const data = _.pickBy(this.formData.formInputData);
+    if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators &&
+      !!data.version && !!data.gradeLevel && !!this.fileList) {
+      this.uploadSuccess = true;
+      if (this.fileList.size < 50000000) {
+        this.updateContentFile();
+      } else {
+        this.toasterService.error('File size should be less than 50MB');
+      }
+    } else {
+      this.toasterService.error('Asset creation failed please provide required fields');
+    }
+  }
+
+  updateContentFile() {
+    console.log('in update content', this.generateData(_.pickBy(this.formData.formInputData)));
+    const requestData = {
+      content: this.generateData(_.pickBy(this.formData.formInputData)),
+    };
+    console.log('form data', this.formData.formInputData, requestData);
+    if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
+      this.editorService.update(requestData, this.activatedRoute.snapshot.params.contentId).subscribe(res => {
+        console.log('res', res);
+        this.contentId = res.result.content_id;
+        this.uploadFileEvent();
+
+        this.toasterService.success('Asset updated Successfully');
+      }, err => {
+        this.toasterService.error('Asset updation failed please try after some time');
+
+      });
+    } else {
+      this.toasterService.error('Asset updation failed please try after some time');
+    }
+  }
   updateContent() {
     console.log('in update content', this.generateData(_.pickBy(this.formData.formInputData)));
     const requestData = {
       content: this.generateData(_.pickBy(this.formData.formInputData)),
     };
-    console.log('form data', this.formData.formInputData , requestData);
+    console.log('form data', this.formData.formInputData, requestData);
     if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
-    this.editorService.update(requestData, this.activatedRoute.snapshot.params.contentId).subscribe(res => {
+      this.editorService.update(requestData, this.activatedRoute.snapshot.params.contentId).subscribe(res => {
         console.log('res', res);
         this.toasterService.success('Asset updated Successfully');
         this.goToCreate();
-    }, err => {
-      this.toasterService.error('Asset updation failed please try after some time');
+      }, err => {
+        this.toasterService.error('Asset updation failed please try after some time');
 
-    }); } else {
+      });
+    } else {
       this.toasterService.error('Asset updation failed please try after some time');
     }
   }
 
-  createLockAndNavigateToEditor (content) {
+  basicUploadFile(event) {
+    this.fileList = event.target.files[0];
+  }
+
+  uploadFileEvent() {
+    console.log('fileList', this.fileList);
+    const data = {
+      fileName: this.fileList.name
+    };
+    const request = {
+      content: data
+    };
+    console.log('request in upload file', request);
+    this.editorService.uploadUrl(request, this.contentId).subscribe(res => {
+      this.toasterService.success('uploaded successfully');
+      const pdfurl = res.result.pre_signed_url.substring(0, res.result.pre_signed_url.lastIndexOf('?'));
+      this.workSpaceService.uploadPreSigned(res.result.pre_signed_url, this.fileList).subscribe(ress => {
+        this.editorService.upload(pdfurl, this.contentId).subscribe(response => {
+          console.log('ress', response);
+
+        });
+        this.goToCreate();
+
+      }, err => {
+        this.toasterService.error('asset creation failed');
+      }
+
+      );
+
+      // this.editorService.upload()
+    }, err => {
+      this.toasterService.error('asset creation failed');
+    });
+
+  }
+
+  createLockAndNavigateToEditor(content) {
     const state = 'draft';
     const framework = this.framework;
   }
@@ -348,7 +439,7 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
     }
   }
 
-  sendForReview () {
+  sendForReview() {
 
   }
   fetchContentById(id) {
@@ -356,7 +447,7 @@ console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
 
   }
   redirect() {
-    this.router.navigate(['/myassets']);
+    this.router.navigate(['/myassets/update']);
 
   }
 }

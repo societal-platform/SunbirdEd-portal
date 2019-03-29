@@ -91,9 +91,10 @@ export class AdduserComponent implements OnInit {
             }
           };
           console.log(option1, 'in submit');
-          this.signupService.createUser1(option1).subscribe(data1 => {
-            console.log('service', data1);
-            this.userId = data1.result.userId;
+          // tslint:disable-next-line:no-shadowed-variable
+          this.signupService.createUser1(option1).subscribe(data => {
+            console.log('service', data);
+            this.userId = data.result.userId;
             this.success = true;
             console.log('userid', this.userId, this.success);
             this.userDetails(this.userId);

@@ -56,7 +56,8 @@
                 </div>
             </div>
             <div class="card-body">
-              <p class=""> <span style="font-weight: bold;">First Name: &nbsp;</span> <span> {{userProfile.firstName}}</span></p>
+              <p class=""> <span style="font-weight: bold;">First Name: &nbsp;</span> <span> {{userProfile.firstName | titlecase}} {{userProfile.lastName |
+                  titlecase}}</span></p>
               <p class=""><span style="font-weight: bold;">User Name: &nbsp;</span> <span> {{userProfile.userName}}</span></p>
               <p class="" *ngIf="userProfile.email"><span style="font-weight: bold;">Email: &nbsp; </span><span>{{userProfile.email}}</span></p>
               <p class="" *ngIf="userProfile.phone"><span style="font-weight: bold;">Phone No: &nbsp;</span><span>+91 {{userProfile.phone}}</span> </p>

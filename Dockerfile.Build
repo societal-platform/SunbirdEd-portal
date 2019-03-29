@@ -9,9 +9,7 @@ WORKDIR /opt/player
 COPY * /opt/player/
 WORKDIR /opt/player/app
 RUN npm set progress=false
-Run npm cache -f clean
-RUN npm install  --unsafe-perm
-RUN npm install -g gulp
+RUN npm install  --unsafe-perm 
 RUN npm run deploy
 WORKDIR /opt/player/app/app_dist
 RUN npm i -g npm@3.10.10
@@ -20,4 +18,4 @@ WORKDIR /opt/player/app
 # passing commit hash as build arg
 ARG commit_hash=0
 ENV commit_hash ${commit_hash}
-CMD ["/bin/bash","-x","../vcs-config.sh"]   
+CMD ["/bin/bash","-x","../vcs-config.sh"] 

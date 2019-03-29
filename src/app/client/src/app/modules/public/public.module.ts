@@ -31,8 +31,8 @@ import { ExploreThinkingComponent } from './components/explore-thinking/explore-
 import { AdduserComponent } from './components/adduser/adduser.component';
 import { ViewuserComponent } from './components/viewuser/viewuser.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
-import { UserSearchServicePublicService } from './services/user-search-service-public.service';
-@NgModule({
+import { UserSearchServicePublicService } from './services/searchService/user-search-service-public.service';
+ @NgModule({
   imports: [
     CommonModule,
     CoreModule,

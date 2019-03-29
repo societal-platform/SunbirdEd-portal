@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ResourceService, ToasterService, RouterNavigationService, ServerResponse } from '@sunbird/shared';
 import {Router} from '@angular/router';
-import { UserSearchServicePublicService  } from '../../services/user-search-service-public.service';
+import { UserSearchServicePublicService  } from '../../services/searchService/user-search-service-public.service';
 @Component({
   selector: 'app-viewuser',
   templateUrl: './viewuser.component.html',
@@ -23,10 +23,10 @@ export class ViewuserComponent implements OnInit {
   role = [];
   uniqueRoles = [];
   finalRoles = [];
+  modalRef: any;
   selectedOrgName: string;
-
   roles = [
-    { name: 'CONTENT_CREATOR' },
+    { name: 'CONTENT_CREATOR'},
     { name: 'BOOK_CREATOR' },
     { name: 'CONTENT_REVIEWER' },
     { name: 'TEACHER_BADGE_ISSUER' }
@@ -34,7 +34,6 @@ export class ViewuserComponent implements OnInit {
   selectedOrgUserRoles: Array<string>;
   selectedOrgUserRolesNew: any = [];
   condition = false;
-
   count: number;
   userUniqueId: any;
   orgId: any;
@@ -52,6 +51,7 @@ export class ViewuserComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.getUsersList();
 
   }
@@ -105,7 +105,6 @@ console.log('else', this.selectedOrgUserRolesNew);
               console.log('org detail', this.existingUserRoles);
             });
             if (user.organisations.length > 0) {
-
               this.userUniqueId = user.id;
               this.orgId = userorgid;
               console.log('user', user, this.orgId);
@@ -127,44 +126,6 @@ console.log('else', this.selectedOrgUserRolesNew);
     });
   }
 
-  iterate() {
-    this.userIds.forEach(element => {
-      this.selectedOrgUserRoles = element.roles;
-      console.log('iterate', this.selectedOrgUserRoles);
-
-    });
-//     let objt;
-//     console.log('iterate');
-//     this.roles.forEach(element => {
-//       this.existingUserRoles.forEach(element1 => {
-//         // console.log('roles ', element.name,'exiting ',element1);
-
-//         if(element.name === element1 ) {
-//           let key =true;
-//         // console.log('first if',element1);
-//           objt = {
-//             role: element1,
-//             key: key
-//           }
-// this.role.push(objt);
-//         }
-//         if(element.name != element1 ) {
-//           // console.log('second if',element1)
-//           let value = false;
-//           objt = {
-//             role: element1,
-//             key: value
-//           }
-// this.role.push(objt);
-//         }
-//       });
-//     });
-  //   // console.log('role', this.role);
-  //   this.uniqueRoles = _.uniqWith(this.role,_.isEqual);
-  // //  this.finalRoles = _.uniq(this.userroles,'role')
-  // this.finalRoles = Array.from(this.uniqueRoles.reduce((m, t) => m.set(t.role, t), new Map()).values());
-  //   console.log('unique',this.finalRoles);
-  }
   updateRoles(roles, userId) {
     if (this.selectedOrgUserRolesNew) {
       this.selectedOrgUserRolesNew.forEach((Newroles) => {
@@ -182,7 +143,8 @@ console.log('else', this.selectedOrgUserRolesNew);
         (apiResponse: ServerResponse) => {
           console.log(' in update', apiResponse);
           this.toasterService.success(this.resourceService.messages.smsg.m0028);
-          this.goBackToCoursePage();
+this.userIds = [];
+   this.gottoCancel();
         },
         err => {
           this.selectedOrgUserRoles = _.difference(this.selectedOrgUserRoles, this.selectedOrgUserRolesNew);
@@ -201,7 +163,6 @@ console.log('else', this.selectedOrgUserRolesNew);
           organisationId: user.organisationId,
           userName: user.firstName,
           provider: user.provider,
-
         }
       }
     };
@@ -209,68 +170,28 @@ console.log('else', this.selectedOrgUserRolesNew);
       data => {
         console.log(data);
         this.toasterService.success('user deleted successfully');
-
-        this.goBackToCoursePage();
+        this.goToUsers();
       },
       err => {
         this.toasterService.error(err);
       }
     );
   }
-  goBackToCoursePage() {
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 500);
-    // this.router.navigate(['/viewuser']);
-    location.reload();
-  }
-  openLg(content) {
 
-    this.modalService.open(content, { size: 'lg' });
+  openLg(content) {
+    console.log(content);
+  this.modalRef = this.modalService.open(content, { size: 'lg' });
+  console.log(this.modalRef);
+  }
+  goToUsers() {
+this.router.navigate(['/viewuser']);
+window.location.reload();
   }
   gottoCancel() {
-    console.log('in redirect');
-    this.router.navigate(['/viewuser']);
+    this.modalRef.close();
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 500);
   }
-
-
-
-
-  // updateUser(user, role) {
-  //   console.log('inside update');
-  //   this.existingUserRoles.forEach(element => {
-  //     this.userroles.push(element);
-  //     console.log(element,'check');
-  //   });
-  // console.log('key', this.userroles);
-  //   _.forEach(role.value, (value, key) => {
-  //      if(value) {
-  //       this.userroles.push(key);
-  //       console.log('key', key,value,this.userroles);
-  //      }
-  //   });
-  //   const option = {
-  //     url: this.configService.urlConFig.URLS.ADMIN.UPDATE_USER_ORG_ROLES,
-  //     data: {
-  //       request: {
-  //         userId: user.id,
-  //         organisationId: user.organisationId,
-  //         roles: this.userroles
-  //       }
-  //     }
-  //   };
-  //   console.log('public', option);
-  //   this.publicdataService.post(option).subscribe(
-  //     data => {
-  //       this.toasterService.success('user role updated successfully');
-  //       // this.goBackToCoursePage();
-  //     },
-  //     err => {
-  //       this.toasterService.error(err);
-  //     }
-  //   );
-  // }
-
-
 
 }
