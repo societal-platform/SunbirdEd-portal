@@ -170,16 +170,16 @@ const routes: Routes = [
           breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
         }
       },
-      {
-        path: 'upForReview/:pageNumber', component: UpForReviewComponent, canActivate: [AuthGuard],
-        data: {
-          telemetry: {
-            env: telemetryEnv, pageid: 'workspace-content-upforreview', subtype: 'paginate', uri: 'workspace/content/upForReview',
-            type: 'list', mode: 'create', object: { type: objectType, ver: '1.0' }
-          }, roles: 'upForReviewRole',
-          breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
-        }
-      },
+      // {
+      //   path: 'upForReview/:pageNumber', component: UpForReviewComponent, canActivate: [AuthGuard],
+      //   data: {
+      //     telemetry: {
+      //       env: telemetryEnv, pageid: 'workspace-content-upforreview', subtype: 'paginate', uri: 'workspace/content/upForReview',
+      //       type: 'list', mode: 'create', object: { type: objectType, ver: '1.0' }
+      //     }, roles: 'upForReviewRole',
+      //     breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
+      //   }
+      // },
       {
         path: 'limited-publish/:pageNumber', component: LimitedPublishedComponent, canActivate: [AuthGuard],
         data: {
@@ -299,7 +299,14 @@ const routes: Routes = [
       breadcrumbs: [{ label: 'Home', url: '/home' },
       { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
     }
-  }
+  },
+  {
+    path: 'upForReview/:pageNumber', component: UpForReviewComponent,
+    data: {
+      breadcrumbs: [{ label: 'Home', url: '/home' },
+       { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
+    }
+  },
 ];
 
 @NgModule({

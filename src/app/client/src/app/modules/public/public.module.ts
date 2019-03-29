@@ -30,6 +30,8 @@ import { CoreComponent } from './components/core/core.component';
 import { ExploreThinkingComponent } from './components/explore-thinking/explore-thinking.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
 import { ViewuserComponent } from './components/viewuser/viewuser.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { UserSearchServicePublicService } from './services/user-search-service-public.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -45,10 +47,11 @@ import { ViewuserComponent } from './components/viewuser/viewuser.component';
     DeviceDetectorModule,
     BadgingModule,
   ],
-  declarations: [LandingPageComponent, GetComponent, DialCodeComponent, ViewuserComponent,
+  declarations: [LandingPageComponent, GetComponent, DialCodeComponent,
+     ViewuserComponent, UserEditComponent,
     PublicFooterComponent, PublicContentPlayerComponent, PublicCollectionPlayerComponent, ContactUsComponent,
     CommonLicenseComponent, PeopleInvlovedComponent, AboutUSComponent, BlogComponent,
      ExploreAssetComponent, FrameworkComponent, CoreComponent, ExploreThinkingComponent, ExploreDetailPageComponent, AdduserComponent],
-  providers: [PublicPlayerService, DeviceDetectorService, LandingpageGuard]
+  providers: [PublicPlayerService, DeviceDetectorService, LandingpageGuard, UserSearchServicePublicService]
 })
 export class PublicModule { }

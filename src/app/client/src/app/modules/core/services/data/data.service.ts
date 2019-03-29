@@ -76,7 +76,7 @@ export class DataService {
     const httpOptions: HttpOptions = {
       headers: requestParam.header ? this.getHeader(requestParam.header) : this.getHeader(),
       params: requestParam.param
-    }; console.log('base url', this.baseUrl);
+    };
     return this.http.post(this.baseUrl + requestParam.url, requestParam.data, httpOptions).pipe(
       mergeMap((data: ServerResponse) => {
         console.log('data ', data);

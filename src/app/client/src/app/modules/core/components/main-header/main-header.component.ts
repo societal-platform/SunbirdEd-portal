@@ -1,7 +1,7 @@
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { UserService, PermissionService, TenantService } from './../../services';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserService, PermissionService, TenantService, LearnerService } from './../../services';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ConfigService, ResourceService, IUserProfile, IUserData } from '@sunbird/shared';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import * as _ from 'lodash';
@@ -109,7 +109,8 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   */
   constructor(config: ConfigService, resourceService: ResourceService, public router: Router,
     permissionService: PermissionService, userService: UserService, tenantService: TenantService,
-    public activatedRoute: ActivatedRoute, private cacheService: CacheService) {
+    public activatedRoute: ActivatedRoute, private cacheService: CacheService,
+    public learnService: LearnerService) {
     this.config = config;
     this.resourceService = resourceService;
     this.permissionService = permissionService;
