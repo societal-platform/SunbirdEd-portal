@@ -1,8 +1,8 @@
 
-<app-all-my-content-filter ></app-all-my-content-filter>
+<app-all-my-content-filter *ngIf="!route.isActive('upForReview')" ></app-all-my-content-filter>
 
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="!route.isActive('upForReview')">
     <div class="col" *ngIf='permissionService.permissionAvailable' appPermission [permission]='lessonRole'>
       <button type="button" class="btn btn-sec text-light float-right" routerLink="create"><i class="fas fa-plus"></i> New
         Asset</button>
@@ -44,18 +44,24 @@
              
             <div class="card-text1">{{content?.description | titlecase}}</div>
             <div class="d-flex justify-content-center">
-              <button type="button" class="btn text-secondary" id="style"
+              <button *ngIf="(content?.status==='Draft' || content?.status=== 'DRAFT' || content?.status=== 'LIVE' || content?.status=== 'Live') && route.isActive('myassets')" type="button" class="btn text-secondary" id="style"
                 (click)="deleteConfirmModal(content.identifier); $event.stopPropagation()">
                 <i class="trash large icon"></i>
               </button>
 
               <div *ngIf="content?.status==='Draft'">
-                <button type="button" class="btn ml-4" id="pub" (click)="publishConfirmModal(content.identifier); $event.stopPropagation()"><i class="fas fa-upload"></i>&nbsp; PUBLISH</button>
+                <button type="button" class="btn ml-4" id="pub" (click)="reviewConfirmModal(content.identifier); $event.stopPropagation()"><i class="fas fa-upload"></i>&nbsp; SEND FOR REVIEW</button>
+              </div>
+              <div *ngIf="(content?.status==='Review') && route.isActive('myassets')">
+                <button type="button" class="btn ml-4" id="pub" (click)="publishConfirmModal(content.identifier); $event.stopPropagation()" disabled><i class="fas fa-upload"></i>&nbsp; SENT FOR REVIEW</button>
+              </div>
+              <div *ngIf="(content?.status==='Review' || content?.status=== 'review' || content?.status==='REVIEW') && route.isActive('upForReview')">
+                <button type="button" class="btn ml-4" id="pub" (click)=" navigateToReviewAssetDetailsPage(content?.identifier); $event.stopPropagation()"><i class="fas fa-upload"></i>&nbsp; REVIEW</button>
               </div>
               <!-- <div *ngIf="content?.status==='Live'">
                   <button type="button" class="btn ml-4 text-light" id="badge">VERIFY</button>
               </div> -->
-              <button type="button" class="btn text-secondary ml-4" id="style" [routerLink]="['update/'+content.identifier]"><i
+              <button *ngIf="(content?.status==='Draft' || content?.status=== 'DRAFT' || content?.status=== 'LIVE' || content?.status=== 'Live') && route.isActive('myassets')" type="button" class="btn text-secondary ml-4" id="style" [routerLink]="['update/'+content.identifier]"><i
                   class="fas fa-pencil-alt"></i></button>
 
             </div>
@@ -99,7 +105,7 @@
 <ng-template let-context let-modal="modal" #modalTemplate>
   <div class="header"> {{ context.data | titlecase}}</div>
   <div class="content">
-    <p>Are you sure to {{ context.data }} this asset?</p>
+    <p>Are you sure to send this asset?</p>
   </div>
   <div class="actions">
     <button class="ui btn btn-lightgrey" (click)="modal.deny('denied')">No</button>

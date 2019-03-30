@@ -290,6 +290,9 @@ const routes: Routes = [
     }
   },
   {
+    path: 'review/detail/:contentId', component: AssetDetailPageComponent
+  },
+  {
     path: 'detail/:contentId', component: AssetDetailPageComponent
   },
   {
