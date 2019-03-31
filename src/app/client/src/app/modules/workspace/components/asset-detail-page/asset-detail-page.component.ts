@@ -215,6 +215,7 @@ export class AssetDetailPageComponent implements OnInit {
         this.toasterService.success('Asset has been rejected successfully');
         setTimeout(() => {
           this.route.navigate(['upForReview']);
+          this.ngOnInit();
         }, 1200);
       }, (err) => {
         this.showLoader = false;
@@ -259,7 +260,10 @@ export class AssetDetailPageComponent implements OnInit {
               console.log(data);
               // this.resourceService.messages.smsg.m0004
               this.toasterService.success('Asset has been sucessfully published');
-              this.location.back();
+              setTimeout(() => {
+                this.route.navigate(['upForReview']);
+                this.ngOnInit();
+              }, 1200);
             }, ( err ) => {
               console.log('error occured while sending asset for review');
               console.log(err);
