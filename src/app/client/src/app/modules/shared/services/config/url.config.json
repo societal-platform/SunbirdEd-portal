@@ -19,6 +19,7 @@
     "RESOURCEBUNDLES_PREFIX": "resourcebundles/v1",
     "DEVICE_REGISTER": "v3/device/register/",
     "PAGE_PREFIX": "data/v1/page/assemble",
+    "UPLOAD_PREFIX": "/action/content/",
     "RESOURCEBUNDLES": {
       "ENG": "/read"
     },
@@ -73,7 +74,9 @@
       "COPY": "content/v1/copy",
       "LOCK_LIST": "lock/v1/list",
       "LOCK_CREATE": "lock/v1/create",
-      "LOCK_RETIRE": "lock/v1/retire"
+      "LOCK_RETIRE": "lock/v1/retire",
+      "UPLOADURL": "v3/upload/url",
+      "UPLOAD":"v3/upload"
     },
     "DASHBOARD": {
       "ORG_CREATION": "dashboard/v1/creation/org",
@@ -109,7 +112,8 @@
         "STATUS": "data/v1/upload/status"
       },
       "DELETE_USER": "user/v1/block",
-      "UPDATE_USER_ORG_ROLES": "user/v1/role/assign"
+      "UPDATE_USER_ORG_ROLES": "user/v1/role/assign",
+      "ADD_MEMBER":"org/v1/member/add"
     },
     "BADGE": {
       "GET": "org/v1/badges/list",

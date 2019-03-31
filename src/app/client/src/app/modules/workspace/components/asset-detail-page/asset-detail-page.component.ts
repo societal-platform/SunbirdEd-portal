@@ -23,6 +23,9 @@ export interface IassessDetail {
   description: string;
   version: string;
   creators: string;
+  artifactUrl: string;
+  mimeType: string;
+  badgeAssertions: Array<any>;
 }
 @Component({
   selector: 'app-asset-detail-page',
@@ -57,7 +60,10 @@ export class AssetDetailPageComponent implements OnInit {
     keywords: [],
     description: '',
     version: '',
-    creators: ''
+    creators: '',
+    artifactUrl: '',
+    mimeType: '',
+    badgeAssertions: [],
   };
   public resourceService: ResourceService;
   private toasterService: ToasterService;
@@ -71,6 +77,7 @@ export class AssetDetailPageComponent implements OnInit {
   // capture previous url state for publish visibility
   visible = false;
 
+  pdfs: string;
   constructor(activated: ActivatedRoute, public modalServices: SuiModalService , public modalService: SuiModalService,
     badgeService: BadgesService,  toasterService: ToasterService, resourceService: ResourceService, userService: UserService,
     config: ConfigService, contentServe: ContentService , rout: Router, private location: Location) {
@@ -89,10 +96,9 @@ export class AssetDetailPageComponent implements OnInit {
 
   ngOnInit() {
     console.log('content', this.contentId);
-    if (this.route.url.indexOf('review/detail') > -1 ){
+    if (this.route.url.indexOf('review/detail') > -1 ) {
       this.visible = true;
-    }
-    else {
+    } else {
       this.visible = false;
     }
     const req = {
@@ -101,6 +107,9 @@ export class AssetDetailPageComponent implements OnInit {
     this.contentService.get(req).subscribe(data => {
       console.log('read content', data);
       this.assetDetail = data.result.content;
+      this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
+      data.result.content.artifactUrl.lastIndexOf('pdf'));
+
     });
     console.log('this', this.assetDetail);
     this.userService.userData$.subscribe(
@@ -153,7 +162,11 @@ export class AssetDetailPageComponent implements OnInit {
     alert('Badge added Successfully');
   }
   navigateToDetailsPage() {
-    this.route.navigate(['myassets']);
+    if (this.route.url.indexOf('/review/detail/do_') > -1 ) {
+       this.route.navigate(['/upForReview']);
+    } else {
+      this.route.navigate(['myassets']);
+    }
   }
   public deleteConfirmModal(issuerId, badgeId) {
     this.add = true;
@@ -200,24 +213,15 @@ export class AssetDetailPageComponent implements OnInit {
         console.log(data);
         // this.resourceService.messages.smsg.m0004
         this.toasterService.success('Asset has been rejected successfully');
-        this.location.back();
+        setTimeout(() => {
+          this.route.navigate(['upForReview']);
+        }, 1200);
       }, (err) => {
         this.showLoader = false;
         this.toasterService.error('error occured while rejecting the asset');
       });
    }
    publishAsset(contentId) {
-      /* const config2 = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
-      config2.isClosable = true;
-      config2.size = 'mini';
-      config2.context = {data: 'Publish'};
-      this.modalServices
-        .open(config2)
-        .onApprove(result => {
-        })
-  
-        .onDeny(result => {
-        }); */
         this.showLoader = true;
           this.loaderMessage = {
             'loaderMessage': this.resourceService.messages.stmsg.m0034,
@@ -263,4 +267,7 @@ export class AssetDetailPageComponent implements OnInit {
               this.toasterService.error('An error occured while sending your asset for review.');
             });
     }
+   navigateToplay() {
+    this.route.navigate(['play']);
+   }
 }

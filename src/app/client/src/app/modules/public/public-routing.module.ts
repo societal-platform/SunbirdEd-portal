@@ -20,6 +20,7 @@ import { ExploreThinkingComponent } from './components/explore-thinking/explore-
 import { FrameworkComponent } from './components/framework/framework.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
 import { ViewuserComponent } from './components/viewuser/viewuser.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 const routes: Routes = [
   {
@@ -110,7 +111,17 @@ const routes: Routes = [
   },
   {
     path: 'viewuser', component: ViewuserComponent
-  }
+    , children : [
+{
+    path: 'edit/:userId', component: UserEditComponent, data: {
+      telemetry: {
+        env: 'profile', pageid: 'user-edit', type: 'edit', subtype: 'paginate'
+      }
+    }
+  },
+    ]
+  },
+
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

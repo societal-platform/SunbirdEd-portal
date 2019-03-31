@@ -6,10 +6,12 @@ import {
   GenericEditorComponent, UploadedComponent, DataDrivenComponent, FlaggedComponent, UpForReviewComponent,
   BatchListComponent, UpdateBatchComponent, UpforreviewContentplayerComponent, ReviewsubmissionsContentplayerComponent,
   FlagConentplayerComponent, PublishedPopupComponent, RequestChangesPopupComponent, LimitedPublishedComponent,
-  AllContentComponent, FlagReviewerComponent, CollaboratingOnComponent, CreateAssetComponent} from './components';
+  AllContentComponent, FlagReviewerComponent, CollaboratingOnComponent, CreateAssetComponent
+} from './components';
 import { AuthGuard } from '../core/guard/auth-gard.service';
 import { MyassestPageComponent } from './components/myassest-page/myassest-page.component';
 import { AssetDetailPageComponent } from './components/asset-detail-page/asset-detail-page.component';
+import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
 const telemetryEnv = 'workspace';
 const objectType = 'workspace';
 const routes: Routes = [
@@ -92,7 +94,7 @@ const routes: Routes = [
 
       {
         path: 'edit/collection/:contentId/:type/:state/:framework/:contentStatus',
-          component: CollectionEditorComponent, canActivate: [AuthGuard],
+        component: CollectionEditorComponent, canActivate: [AuthGuard],
         data: { roles: 'workspace' }
       },
       {
@@ -109,7 +111,7 @@ const routes: Routes = [
       },
       {
         path: 'edit/collection/:contentId/:type/:state/:framework',
-          component: CollectionEditorComponent, canActivate: [AuthGuard],
+        component: CollectionEditorComponent, canActivate: [AuthGuard],
         data: { roles: 'workspace' }
       },
       {
@@ -170,16 +172,16 @@ const routes: Routes = [
           breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
         }
       },
-      {
-        path: 'upForReview/:pageNumber', component: UpForReviewComponent, canActivate: [AuthGuard],
-        data: {
-          telemetry: {
-            env: telemetryEnv, pageid: 'workspace-content-upforreview', subtype: 'paginate', uri: 'workspace/content/upForReview',
-            type: 'list', mode: 'create', object: { type: objectType, ver: '1.0' }
-          }, roles: 'upForReviewRole',
-          breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
-        }
-      },
+      // {
+      //   path: 'upForReview/:pageNumber', component: UpForReviewComponent, canActivate: [AuthGuard],
+      //   data: {
+      //     telemetry: {
+      //       env: telemetryEnv, pageid: 'workspace-content-upforreview', subtype: 'paginate', uri: 'workspace/content/upForReview',
+      //       type: 'list', mode: 'create', object: { type: objectType, ver: '1.0' }
+      //     }, roles: 'upForReviewRole',
+      //     breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
+      //   }
+      // },
       {
         path: 'limited-publish/:pageNumber', component: LimitedPublishedComponent, canActivate: [AuthGuard],
         data: {
@@ -280,13 +282,14 @@ const routes: Routes = [
   },
 
   {
-    path: 'create', component: DataDrivenComponent,
+    path: 'create', component: DataDrivenComponent, canActivate: [AuthGuard],
     data: {
       telemetry: {
         env: telemetryEnv, pageid: 'workspace-create-lesson', subtype: 'paginate', uri: '/workspace/content/create/studymaterial',
         type: 'view', mode: 'create', object: { type: objectType, ver: '1.0' }
       }, breadcrumbs: [{ label: 'Home', url: '/home' },
-      { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
+      { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }],
+      roles: 'workspace'
     }
   },
   {
@@ -296,13 +299,36 @@ const routes: Routes = [
     path: 'detail/:contentId', component: AssetDetailPageComponent
   },
   {
-    path: 'update/:contentId', component: CreateAssetComponent,
+    path: 'detail/:contentId/play', component: PdfViewerComponent, canActivate: [AuthGuard],
     data: {
-
-      breadcrumbs: [{ label: 'Home', url: '/home' },
-      { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
+      roles: 'workspace'
     }
-  }
+  },
+  {
+    path: 'update/:contentId', component: CreateAssetComponent, canActivate: [AuthGuard],
+    data: {
+      roles: 'workspace'
+    }
+  },
+  {
+    path: 'update/:contentId/play', component: PdfViewerComponent, canActivate: [AuthGuard],
+    data: {
+      roles: 'workspace'
+    }
+  },
+  {
+    path: 'play', component: PdfViewerComponent, canActivate: [AuthGuard],
+    data: {
+      roles: 'workspace'
+    }
+  },
+  {
+    path: 'upForReview/:pageNumber', component: UpForReviewComponent,
+    data: {
+      breadcrumbs: [{ label: 'Home', url: '/home' },
+       { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
+    }
+  },
 ];
 
 @NgModule({

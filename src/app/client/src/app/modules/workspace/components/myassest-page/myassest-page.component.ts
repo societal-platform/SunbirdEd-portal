@@ -35,7 +35,6 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
 
   state: string;
 
-  sendStatus = new BehaviorSubject<boolean>(false);
   /**
    * To store the content available for upForReview
    */
@@ -298,7 +297,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     } else {
       this.sort = { lastUpdatedOn: this.config.appConfig.WORKSPACE.lastUpdatedOn };
     }
-    const preStatus = ['Draft', 'FlagDraft', 'Review', 'Processing', 'Live', 'Unlisted', 'FlagReview'];
+    const preStatus = ['Draft', 'Review', 'Live'];
     const searchParams = {
       filters: {
         status: bothParams.queryParams.status ? bothParams.queryParams.status : preStatus,
@@ -322,29 +321,28 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
         (data: ServerResponse) => {
           console.log('data here ', data);
           if (data.result.count && data.result.content.length > 0) {
-            if(this.route.url === '/upForReview'){
+            if (this.route.url === '/upForReview' ) {
                console.log('reviewAsset is captured ');
               const option = {
                 url : '/content/v1/search',
                 param : '',
                 filters: {
-                  language:["English"],
-                  contentType:["Resource"],
-                  status:["Review"],
-                  channel:this.userDetails.organisationIds,
-                  organisation:["Societal_suborg_1","Societal","Societal_suborg_2"]
+                  language: ['English'],
+                  contentType: ['Resource'],
+                  status: ['Review'],
+                  channel: this.userDetails.organisationIds,
+                  organisation: ['Societal_suborg_1', 'Societal', 'Societal_suborg_2']
               },
-                sort_by:{me_averageRating:"desc"}
-              }
-              this.contentService.getupForReviewData(option).subscribe(response=>{
+                sort_by: {me_averageRating: 'desc'}
+              };
+              this.contentService.getupForReviewData(option).subscribe(response => {
                 this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
                 console.log('the up for review content is ', this.upForReviewContent);
-                //update the content-variable with the upForReviewVariable
+                // update the content-variable with the upForReviewVariable
                 this.allContent = this.upForReviewContent;
                 console.log('the all content for upforreview is ', this.allContent);
               });
-            }
-            else {this.allContent = data.result.content;}
+            } else {this.allContent = data.result.content; }
             console.log('this is allContent', this.allContent);
             this.totalCount = data.result.count;
             this.pager = this.paginationService.getPager(data.result.count, pageNumber, limit);
@@ -421,22 +419,19 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
           data: requestBody
         };
         console.log(this.config.urlConFig.URLS.CONTENT);
-        //`url ${this.config.urlConFig.URLS.CONTENT.PUBLISH}/review/${contentIds}`
         this.contentService.post(option).subscribe(
           (data: ServerResponse) => {
-            this.showLoader = false;
-            console.log("server response for asset review is ");
+            console.log('server response for asset review is ');
             console.log(data);
-            
-            //this.resourceService.messages.smsg.m0004
             this.toasterService.success('You Asset has been sucessfully sent for review');
-            this.sendStatus.next(true);
-            this.refreshAssets();
+            setTimeout(() => {
+              this.showLoader = false;
+              this.ngOnInit();
+            }, 1400);
           }, (err) => {
             console.log('error occured while sending asset for review');
             console.log(err);
             this.showLoader = false;
-            this.sendStatus.next(false);
             this.toasterService.error('An error occured while sending your asset for review.');
           });
       })
@@ -445,13 +440,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
       });
   }
 
-  refreshAssets(){
-
-  
-
-  }
-
-  public publishConfirmModal(contentId){
+  /* public publishConfirmModal(contentId){
     const config2 = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config2.isClosable = true;
     config2.size = 'mini';
@@ -507,7 +496,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
 
       .onDeny(result => {
       });
-  }
+  } */
 
   /**
    * This method helps to navigate to different pages.
@@ -582,5 +571,8 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
       this.orgDetailsUnsubscribe.unsubscribe();
     }
 
+  }
+  navigateToEditPage(contentId: string) {
+    this.route.navigate(['myassets/update', contentId]);
   }
 }

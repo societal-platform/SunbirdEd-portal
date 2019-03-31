@@ -1,6 +1,6 @@
 
 <div class="app-landing-page" *ngIf="!this.userService.loggedIn">
-        <ngb-carousel >
+        <ngb-carousel class="carousal">
                 <ng-template ngbSlide>
                         <div class="thumbnail text-center">
                             <div class="img-fluid"></div>
@@ -83,7 +83,7 @@
 </div>
 
 
-<div *ngIf="this.userService.loggedIn">
+<div *ngIf="this.userService.loggedIn" class="userloggedin">
     <div class="item active">
         <div class="thumbnail text-center" *ngFor="let role of userRole">
                 <!-- <div class="img-fluid"></div> -->
@@ -95,37 +95,19 @@
                         <p class="text-1">
                             Societal Platform Asset Collaboration Environment
                         </p><br>
-                        <div *ngIf="role === 'CONTENT_CREATOR'">
-                                <p class="text-c" >
-                                        As a Content Creator, you can use the SPace to accomplish the following:</p>
-                                <p class="text-c" >
-                                        - Search and Discover Assets: You can discover assets - Knowledge, Process, Software, Hardware, Data - that you would like to leverage for your Mission. Go to Shared Assets.
-                                    
-                                </p>
-                                <p class="text-c">
-                                        - Add an Asset: You can add information about an asset that you'd like to share with others in the ecosystem. You can also edit, delete and publish your assets. Go to My Assets.
-                                </p>
-                        </div>
-                       <div  *ngIf="role === 'TEACHER_BADGE_ISSUER'">
-                            <p class="text-c">
-                                    As a Badge Issuer, you can use the SPace to accomplish the following:</p>
-                            <p class="text-c">
-                                    - Search, Discover and Badge Assets: You can discover assets - Knowledge, Process, Software, Hardware, Data - that you would like to Badge. Go to Shared Assets.
-                                
-                            </p>
-                       </div>
-                       <div  *ngIf="role === 'ORG_ADMIN'">
-                                <p class="text-c">
-                                        As a Organization Admin, you can use the SPace to accomplish the following:</p>
-                                <p class="text-c">
-                                        - Search and Discover Assets: You can discover assets - Knowledge, Process, Software, Hardware, Data - that you would like to leverage for your Mission. Go to Shared Assets.
-                                 
-                                </p>
-                                <p class="text-c">
-                                        - Add User: You can add users and assign required roles to a specific user. Go to Add User.
-                                </p>
-                        </div>
+                        <p class="text-c" *ngFor="let data of userContents;let j =index">
+
+                          <span class="pb-5" *ngFor="let content of data;let i =index">
+                       {{content}} <br>
+                       <span *ngIf="i === 0"><br></span>
+                          <span *ngIf=" (i+1 )===data.length"><br></span>
+                         <!-- <span *ngIf="i===2 && j===0"><br><br></span>
+                          <span *ngIf="(i===0 && j===0) || (i===0 && j===1)"><br></span> -->
+                          </span>
+                        </p>
         </div>
     </div>
 
+</div>
+</div>
 </div>

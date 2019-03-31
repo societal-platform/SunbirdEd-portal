@@ -13,6 +13,7 @@ import { BadgingModule } from '@sunbird/badge';
 import { NgInviewModule } from 'angular-inport';
 import { TelemetryModule } from '@sunbird/telemetry';
 import {SharedFeatureModule} from '@sunbird/shared-feature';
+import { ResourceViewerComponent } from './components/resource-viewer/resource-viewer.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +30,7 @@ import {SharedFeatureModule} from '@sunbird/shared-feature';
     NgInviewModule,
     SharedFeatureModule
   ],
-  declarations: [ResourceComponent, CollectionPlayerComponent, ContentPlayerComponent, SharedDetailPageComponent]
+  declarations: [ResourceComponent, CollectionPlayerComponent, ContentPlayerComponent, SharedDetailPageComponent, ResourceViewerComponent]
 })
 export class ResourceModule {
   }

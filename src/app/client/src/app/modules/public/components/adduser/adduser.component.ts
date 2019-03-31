@@ -23,12 +23,16 @@ export class AdduserComponent implements OnInit {
   validdetails;
   route: Router;
   showbulkupload = false;
+  userroles = [];
   singleUser = false;
   password = new FormControl('', [Validators.required]);
   cpassword = new FormControl('', [Validators.required]);
   username = new FormControl('', [Validators.required]);
   phonenumber = new FormControl('', [Validators.required]);
   name = new FormControl('', [Validators.required]);
+  userId: any;
+  success = false;
+  orgId: any;
   constructor(
     public configService: ConfigService,
     public userService: UserService,
@@ -73,7 +77,8 @@ export class AdduserComponent implements OnInit {
       console.log('option', option);
       this.publicdataservice.post(option).subscribe(
         data => {
-          console.log('ps', data);
+          this.orgId = data.result.response.id;
+          console.log('ps', data, this.orgId);
           const channel = data.result.response.channel;
           const option1 = {
             request: {
@@ -86,14 +91,31 @@ export class AdduserComponent implements OnInit {
             }
           };
           console.log(option1, 'in submit');
-          this.signupService.createUser1(option1).subscribe();
-          this.toasterService.success('user created successfully');
-          // this.goBackToCoursePage();
+          // tslint:disable-next-line:no-shadowed-variable
+          this.signupService.createUser1(option1).subscribe(data => {
+            console.log('service', data);
+            this.userId = data.result.userId;
+            this.success = true;
+            console.log('userid', this.userId, this.success);
+            this.userDetails(this.userId);
+            this.addmemeber(this.orgId , this.userId);
+
+            this.toasterService.success('user created successfully');
+          }, (err) => {
+            this.toasterService.error(err);
+          });
+
+          // if(this.success) {
+          //   console.log('if is working');
+          //   this.updateUser(this.userId,'CONTENT_CREATOR',this.orgId);
+          // }
         }, (err) => {
           this.toasterService.error(err);
           // this.goBackToCoursePage();
         }
+
       );
+
     }
   }
   isDisabled(event) {
@@ -156,8 +178,77 @@ export class AdduserComponent implements OnInit {
     return this.validdetails;
   }
   goBackToCoursePage() {
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
+    this.route.navigate(['viewuser']);
+  }
+  userDetails(userId) {
+    console.log('inside user func', userId);
+    const option = {
+      url: `${this.configService.urlConFig.URLS.USER.GET_PROFILE}${userId}`,
+      data: {
+        request: {
+        }
+      }
+    };
+    console.log(option);
+    this.publicdataservice.get(option).subscribe(
+      data => {
+        console.log('member data', data);
+        if (data.responseCode === 'OK') {
+          this.updateUser(this.userId, 'CONTENT_CREATOR', this.orgId);
+        }
+       }, (err) => {
+         console.log(err);
+       });
+  }
+  addmemeber(orgId , userId) {
+    console.log('inside member func', userId, orgId);
+    const option = {
+      url: this.configService.urlConFig.URLS.ADMIN.ADD_MEMBER,
+      data: {
+        request: {
+          userId: userId,
+          organisationId: orgId,
+        }
+      }
+    };
+    console.log(option);
+    this.publicdataservice.post(option).subscribe(
+      data => {
+        console.log('member data', data);
+        if (data.responseCode === 'OK') {
+          this.updateUser(this.userId, 'CONTENT_CREATOR', this.orgId);
+        }
+       }
+       );
+  }
+  updateUser(user, role, orgId) {
+    console.log('inside update', user, role, orgId);
+    _.forEach(role.value, (value, key) => {
+      if (value) {
+        this.userroles.push(key);
+        console.log('key', value);
+      }
+    });
+    const option = {
+      url: this.configService.urlConFig.URLS.ADMIN.UPDATE_USER_ORG_ROLES,
+      data: {
+        request: {
+          userId: user,
+          organisationId: orgId,
+          roles: [role]
+        }
+      }
+    };
+    console.log('public', option);
+    this.publicdataservice.post(option).subscribe(
+      data => {
+        this.toasterService.success('user role updated successfully');
+
+        this.goBackToCoursePage();
+      },
+      err => {
+        this.toasterService.error(err);
+      }
+    );
   }
 }

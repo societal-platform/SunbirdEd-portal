@@ -60,6 +60,10 @@
     {
         "roles":["CONTENT_CREATOR","CONTENT_CREATION","CONTENT_REVIEWER","CONTENT_REVIEW","BOOK_CREATOR"],
         "roleName":"createRole","url":"myassets/create","tab":"CREATE"
+    },
+    {
+        "roles":["CONTENT_REVIEWER","CONTENT_REVIEW","BOOK_REVIEWER"],
+        "roleName":"upForReviewRole","url":"upForReview/1","tab":"Up FOR REVIEW"
     }
    ]
    

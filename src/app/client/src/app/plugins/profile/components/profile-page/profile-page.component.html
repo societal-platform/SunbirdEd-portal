@@ -8,7 +8,7 @@
     </div>
     <div class="fs-2-5 font-w-bold mb-15 text-ac">{{userProfile.firstName | titlecase}} {{userProfile.lastName |
       titlecase}}</div>
-    <div class="mb-15 text-ac profile-label-container" *ngIf="roles && roles.length > 0">
+    <!-- <div class="mb-15 text-ac profile-label-container" *ngIf="roles && roles.length > 0">
       <span class="ui dodger-blue basic label mr-15 mt-5" *ngFor="let role of roles | slice:0:showMoreRolesLimit">{{role}}</span>
     </div>
     <div *ngIf="roles.length > defaultShowMoreRolesLimit" class="fs-1 color-2 mb-10 font-w-bold cursor-pointer">
@@ -19,7 +19,7 @@
       <span (click)="toggle(false)" *ngIf="!showMoreRoles">{{resourceService.frmelmnts.lbl.showLess}}
         <i class="chevron up icon"></i>
       </span>
-    </div>
+    </div> -->
     <div class="fs-1-5 font-w-bold mb-10 text-ac" *ngIf=" orgDetails && orgDetails.orgName">{{orgDetails.orgName}}</div>
     <div class="m-0 pl-0 computer only" *ngIf=" orgDetails && orgDetails.locations">
       <div class="mb-0 d-flex mb-5 flex-jc-center" *ngIf="getLocationDetails(orgDetails.locations, 'block')">
@@ -45,9 +45,41 @@
     </div>
   </section>
 
+<section>
+    <div class="container mt-5 mb-30">
+        <div class="card">
+            <div class="card-header text-center text-light">
+                <div class="row mt-15">
+                 <div class="ml-15">
+                   <h4>User Information</h4>
+                 </div>
+                </div>
+            </div>
+            <div class="card-body">
+              <p class=""> <span style="font-weight: bold;">First Name: &nbsp;</span> <span> {{userProfile.firstName | titlecase}} {{userProfile.lastName |
+                  titlecase}}</span></p>
+              <p class=""><span style="font-weight: bold;">User Name: &nbsp;</span> <span> {{userProfile.userName}}</span></p>
+              <p class="" *ngIf="userProfile.email"><span style="font-weight: bold;">Email: &nbsp; </span><span>{{userProfile.email}}</span></p>
+              <p class="" *ngIf="userProfile.phone"><span style="font-weight: bold;">Phone No: &nbsp;</span><span>+91 {{userProfile.phone}}</span> </p>
+              <p class="" *ngIf="roles && roles.length > 0" > 
+                <span> Roles: &nbsp;</span>
+                      <span class="ui dodger-blue basic label" *ngFor="let role of roles | slice:0:showMoreRolesLimit">{{role}}</span>
+                     <span *ngIf="roles.length > defaultShowMoreRolesLimit" class="fs-1 color-2 mb-10 font-w-bold cursor-pointer">
+                  <span tabindex="0" *ngIf="showMoreRoles" (click)="toggle(true)">+ {{roles.length -
+                    defaultShowMoreRolesLimit}} {{resourceService.frmelmnts.lbl.more}}
+                    <i class="chevron down icon"></i>
+                  </span>
+                  <span (click)="toggle(false)" *ngIf="!showMoreRoles">{{resourceService.frmelmnts.lbl.showLess}}
+                    <i class="chevron up icon"></i>
+                  </span>
+                     </span>
+                    </p>
+            </div>
+        </div>
+      </div>
+</section>
 
-
-  <section class="pt-30 pb-30 d-flex flex-jc-center profile-bg-c-3" *ngIf="userProfile.email || userProfile.phone">
+  <!-- <section class="pt-30 pb-30 d-flex flex-jc-center profile-bg-c-3" *ngIf="userProfile.email || userProfile.phone">
     <div class="d-flex flex-dc">
       <div class="d-flex flex-jc-center">
         <div class="ui semi-circular dodger-blue basic label mb-15" *ngIf="userProfile.phone">
@@ -58,12 +90,12 @@
         <i class="mail icon mr-5"></i> {{userProfile.email}}
       </div>
     </div>
-  </section>
+  </section> -->
 
 
 
-  <section class="d-flex flex-ai-center flex-dc pt-30 pb-30 profile-bg-c-4">
-    <!-- User info computer view starts-->
+  <!-- <section class="d-flex flex-ai-center flex-dc pt-30 pb-30 profile-bg-c-4">
+  
     <div class="ui container">
       <div class="d-flex flex-jc-center relative">
         <div class="max-w-400 computer only">
@@ -90,9 +122,7 @@
       </div>
 
     </div>
-    <!-- User info computer view ends-->
-
-    <!-- User info mobile view starts-->
+    
     <div class="max-w-300 mobile only">
       <div class="mb-15 d-flex flex-ai-center flex-dc">
         <span class="fs-1-16">{{resourceService.frmelmnts.lbl.boards}}:</span>
@@ -115,8 +145,8 @@
         <button class="ui semi-circular dodger-blue button mt-30">{{resourceService.frmelmnts.lbl.edit}}</button>
       </div>
     </div>
-    <!-- User info mobile view ends-->
-  </section>
+   
+  </section> -->
 
 
 

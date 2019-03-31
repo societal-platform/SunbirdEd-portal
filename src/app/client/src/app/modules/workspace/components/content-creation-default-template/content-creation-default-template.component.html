@@ -4,7 +4,7 @@
     <hr *ngIf="i===3">
     <hr *ngIf="i===4">
     <hr *ngIf="i===5">
-    <div *ngIf="field.inputType==='text' && field.code!='creators' && field.code!='region'" class="required field"
+    <div *ngIf="field.inputType==='text' && field.code!='creators' && field.code!='region' && field.code!='link'" class="required field"
       [ngClass]="{ 'disabled':!field.editable}">
 
       <div class="field required">
