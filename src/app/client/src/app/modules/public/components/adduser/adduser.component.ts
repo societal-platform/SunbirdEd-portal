@@ -105,11 +105,6 @@ export class AdduserComponent implements OnInit {
             this.toasterService.error(err.error.params.errmsg);
             console.log('err', err);
           });
-
-          // if(this.success) {
-          //   console.log('if is working');
-          //   this.updateUser(this.userId,'CONTENT_CREATOR',this.orgId);
-          // }
         }, (err) => {
           this.toasterService.error(err.error.params.errmsg);
           // this.goBackToCoursePage();
@@ -198,8 +193,8 @@ export class AdduserComponent implements OnInit {
           this.updateUser(this.userId, 'CONTENT_CREATOR', this.orgId);
         }
        }, (err) => {
-         console.log(err);
-       });
+        this.toasterService.error(err.error.params.errmsg);
+      });
   }
   addmemeber(orgId , userId) {
     console.log('inside member func', userId, orgId);

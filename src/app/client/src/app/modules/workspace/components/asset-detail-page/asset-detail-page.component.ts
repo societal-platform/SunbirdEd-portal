@@ -219,7 +219,7 @@ export class AssetDetailPageComponent implements OnInit {
         }, 1200);
       }, (err) => {
         this.showLoader = false;
-        this.toasterService.error('error occured while rejecting the asset');
+        this.toasterService.error('An error occured while rejecting the asset');
       });
    }
    publishAsset(contentId) {
@@ -265,10 +265,10 @@ export class AssetDetailPageComponent implements OnInit {
                 this.ngOnInit();
               }, 1200);
             }, ( err ) => {
-              console.log('error occured while sending asset for review');
+              console.log('error occured while sending asset to publish');
               console.log(err);
               this.showLoader = false;
-              this.toasterService.error('An error occured while sending your asset for review.');
+              this.toasterService.error('An error occured while publishing the asset.');
             });
     }
    navigateToplay() {
