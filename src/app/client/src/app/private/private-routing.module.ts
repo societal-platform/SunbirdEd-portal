@@ -17,6 +17,10 @@ const appRoutes: Routes = [
   {
     path: 'myassets',
     loadChildren: 'app/modules/workspace/workspace.module#WorkspaceModule'
+  },
+  {
+    path: 'upForReview',
+    loadChildren: 'app/modules/workspace/workspace.module#WorkspaceModule'
   }
 ];
 

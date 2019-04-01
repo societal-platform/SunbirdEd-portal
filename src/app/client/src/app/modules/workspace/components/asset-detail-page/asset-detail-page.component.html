@@ -61,6 +61,11 @@
             <p class="card-text" *ngIf="assetDetail?.description">Description : {{assetDetail?.description}}</p>
             <p class="card-text" *ngIf="assetDetail?.link && assetDetail?.mimeType === 'text/x-url'">Link: <a
                     href="https://{{assetDetail?.link}}" target="blank">{{assetDetail?.link}} </a></p>
+                        <div class="ui buttons" *ngIf="visible">
+                <button class="ui negative button" (click)="rejectAsset(assetDetail?.identifier)">REJECT</button>
+                <div class="or"></div>
+                <button class="ui positive button" (click)="publishAsset(assetDetail?.identifier)">PUBLISH</button>
+            </div>
 
             <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'" class="row">
                 <p class="col-sm-4">
@@ -113,4 +118,4 @@
     </div>
 </div>
 
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->

@@ -293,11 +293,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'detail/:contentId', component: AssetDetailPageComponent, canActivate: [AuthGuard],
-    data: {
-      roles: 'workspace'
-    }
-
+    path: 'review/detail/:contentId', component: AssetDetailPageComponent
+  },
+  {
+    path: 'detail/:contentId', component: AssetDetailPageComponent
   },
   {
     path: 'detail/:contentId/play', component: PdfViewerComponent, canActivate: [AuthGuard],
