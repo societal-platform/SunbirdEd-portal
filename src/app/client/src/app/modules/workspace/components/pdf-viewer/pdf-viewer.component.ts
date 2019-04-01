@@ -57,13 +57,13 @@ export class PdfViewerComponent implements OnInit {
   }
 
   navigateToDetailsPage() {
-    console.log('params', this.activatedRoute)
+    console.log('params', this.activatedRoute);
     this.activatedRoute.url.subscribe(url => {
-      console.log('url', url)
+      console.log('url', url);
       this.path = url[0].path;
       this.contentId = url[1].path;
-      console.log('this.', this.path, this.contentId)
+      console.log('this.', this.path, this.contentId);
       });
-      this.route.navigate(['myassets', this.path, this.contentId])
+      this.route.navigate(['myassets', this.path, this.contentId]);
   }
 }

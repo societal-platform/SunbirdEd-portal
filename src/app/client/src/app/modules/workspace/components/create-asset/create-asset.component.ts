@@ -176,7 +176,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
         if (user && !user.err) {
           this.userProfile = user.userProfile;
         }
-      }); 
+      });
 
   }
   ngOnDestroy() {

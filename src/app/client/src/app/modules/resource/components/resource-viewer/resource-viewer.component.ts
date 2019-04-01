@@ -31,7 +31,7 @@ export class ResourceViewerComponent implements OnInit {
       this.contentService = contentServe;
       this.sanitizer = sanitizers;
       this.showLoader = true;
-      this.route = rout
+      this.route = rout;
 
     }
 
@@ -47,13 +47,13 @@ export class ResourceViewerComponent implements OnInit {
     });
   }
   navigateToDetailsPage() {
-    console.log('params', this.activatedRoute)
+    console.log('params', this.activatedRoute);
     this.activatedRoute.url.subscribe(url => {
-      console.log('url', url)
+      console.log('url', url);
       this.path = url[2].path;
       });
-      console.log('path', this.path)
-      this.route.navigate(['resources/play/content', this.path])
+      console.log('path', this.path);
+      this.route.navigate(['resources/play/content', this.path]);
   }
-  
+
 }
