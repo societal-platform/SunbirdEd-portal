@@ -15,6 +15,7 @@ import { PublicDataService } from '../../services/public-data/public-data.servic
 import { ConfigureService } from '../../services/configure/configure.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Main menu component
@@ -37,7 +38,7 @@ export class MainMenuComponent implements OnInit {
 userName: any;
 userEmail: any;
 orgName: any;
-
+loading: any;
   public modalTemplate: ModalTemplate<{ data: string }, string, string>;
   /**
    * Workspace access roles
@@ -78,14 +79,16 @@ orgName: any;
   private toasterService: ToasterService;
   success = false;
   user: any;
-
+  registerForm1: FormGroup;
+  submitted = false;
+  modalRef: any;
   /*
   * constructor
   */
   constructor(resourceService: ResourceService, userService: UserService, router: Router,
     public modalServices: SuiModalService, toasterService: ToasterService, public learnService: LearnerService,
     permissionService: PermissionService, config: ConfigService, private cacheService: CacheService,
-     public publicDataService: PublicDataService,
+     public publicDataService: PublicDataService, private formBuilder: FormBuilder,
     public dataService: ConfigureService, private modalService: NgbModal) {
     this.resourceService = resourceService;
     this.userService = userService;
@@ -97,6 +100,7 @@ orgName: any;
   }
 
   ngOnInit() {
+
     try {
       this.helpLinkVisibility = (<HTMLInputElement>document.getElementById('helpLinkVisibility')).value;
     } catch (error) {
@@ -112,7 +116,25 @@ orgName: any;
         this.userEmail = this.user.email;
         this.orgName = this.user.rootOrg.orgName;
       });
+      this.registerForm1 = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]],
+        message: ['', [ Validators.required]]
+    });
   }
+  get f() { return this.registerForm1.controls; }
+
+    onSubmit() {
+        this.submitted = true;
+console.log('fomr datas in submit', this.registerForm1);
+   this.email = this.registerForm1.value.email;
+   this.message = this.registerForm1.value.message;
+
+        if (this.registerForm1.invalid) {
+            return;
+        }
+        this.sendNotification();
+
+    }
   setInteractData() {
     this.homeMenuIntractEdata = {
       id: 'home-tab',
@@ -177,25 +199,9 @@ orgName: any;
     }
   }
 
-  gotoContact() {
-    const data = $('#feedbackform').serializeArray();
-    console.log('form', data);
-    this.sendNotification(data);
-  }
-  sendNotification(data1) {
+  sendNotification() {
     this.success = !this.success;
-    console.log('in func', data1);
-    data1.forEach(element => {
-   if (element.name === 'email') {
-    this.email = element.value;
-   }
-   if (element.name === 'org') {
-    this.org = element.value;
-   }
-   if (element.name === 'message') {
-      this.message = element.value;
-   }
-    });
+    console.log('in func', this.name);
     this.userData = 'Name: ' + this.userName + '<br>' + 'Email Id: ' + this.email + '<br>' +
     'Organization Name: ' + this.orgName + '<br>' + 'Message: ' + this.message;
 
@@ -224,12 +230,13 @@ orgName: any;
         this.learnService.post(req).subscribe( (data: ServerResponse) => {
           this.alert = !this.alert;
           this.toasterService.success('Thanks for your valuable feedback.');
+          this.modalRef.close();
     return data;
 
         });
     }
   openSm(content) {
-    const modalClose = this.modalService.open(content);
+    this.modalRef = this.modalService.open(content);
   }
 
 }

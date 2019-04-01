@@ -242,7 +242,7 @@ export class AdduserComponent implements OnInit {
     console.log('public', option);
     this.publicdataservice.post(option).subscribe(
       data => {
-        this.toasterService.success('user role updated successfully');
+        // this.toasterService.success('user role updated successfully');
 
         this.goBackToCoursePage();
       },

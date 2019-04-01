@@ -5,7 +5,7 @@ import {ConfigureService } from '../../services/configure/configure.service';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {Router} from '@angular/router';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
@@ -16,9 +16,11 @@ export class ContactUsComponent implements OnInit {
   public userServie: UserService;
   user: any;
   country: any;
+  registerForm: FormGroup;
+    submitted = false;
   constructor(public configService: ConfigService,  public publicDataService: PublicDataService,
    public dataService: ConfigureService, public tosterservice: ToasterService, public router: Router,
-   userService: UserService, public learnSerive: LearnerService) {
+   userService: UserService, public learnSerive: LearnerService , private formBuilder: FormBuilder) {
      this.userServie = userService;
    }
 email: any;
@@ -29,6 +31,7 @@ userData: any;
 userName: any;
 userEmail: any;
 orgName: any;
+loading: any;
 // contactform = document.getElementById('contactform');
 private _success = new Subject<string>();
 
@@ -36,6 +39,7 @@ staticAlertClosed = false;
 successMessage: string;
 
   ngOnInit() {
+
     this.userServie.userData$.subscribe(
       (user: IUserData) => {
         this.user = user.userProfile;
@@ -44,33 +48,35 @@ successMessage: string;
         this.orgName = this.user.rootOrg.orgName;
       console.log('user info', this.userServie.loggedIn);
     });
+    this.registerForm = this.formBuilder.group({
+      userName: ['', Validators.required],
+      org: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      country: ['', [Validators.required]],
+      message: ['', [ Validators.required]]
+  });
   }
 
-  gotoContact() {
-    // console.log('form data', formdata);
-    const data = $('#contactform').serializeArray();
-    console.log('form', data);
-    this.sendNotification(data);
-  }
-  sendNotification(data1) {
-    console.log('in func', data1);
-    data1.forEach(element => {
-   if (element.name === 'name') {
-   this.name = element.value;
-   }
-   if (element.name === 'email') {
-    this.email = element.value;
-   }
-   if (element.name === 'org') {
-    this.org = element.value;
-   }
-   if (element.name === 'message') {
-      this.message = element.value;
-   }
-   if (element.name === 'country') {
-    this.country = element.value;
- }
-    });
+  get f() { return this.registerForm.controls; }
+
+    onSubmit() {
+        this.submitted = true;
+console.log('fomr datas in submit', this.registerForm);
+   this.name = this.registerForm.value.userName;
+   this.email = this.registerForm.value.email;
+   this.org = this.registerForm.value.org;
+   this.message = this.registerForm.value.message;
+   this.country = this.registerForm.value.country;
+
+        // stop here if form is invalid
+        if (this.registerForm.invalid) {
+            return;
+        }
+        this.sendNotification();
+
+    }
+  sendNotification() {
+    console.log('in func', this.name, this.email, this.org, this.country, this.message);
     this.userData = 'Name: ' + this.name + '<br>' + 'Email Id: ' + this.email + '<br>' +
     'Organization Name: ' + this.org + '<br>' + 'Country: ' + this.country + '<br>' + 'Message: ' + this.message;
    const body = {

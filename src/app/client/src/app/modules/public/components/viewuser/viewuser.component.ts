@@ -170,6 +170,7 @@ this.userIds = [];
       data => {
         console.log(data);
         this.toasterService.success('user deleted successfully');
+        this.userIds = [];
         this.goToUsers();
       },
       err => {
@@ -186,6 +187,9 @@ this.userIds = [];
   goToUsers() {
 this.router.navigate(['/viewuser']);
 window.location.reload();
+// setTimeout(() => {
+//   this.ngOnInit();
+// }, 500);
   }
   gottoCancel() {
     this.modalRef.close();

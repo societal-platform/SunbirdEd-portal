@@ -2,16 +2,10 @@
   <h1 class="text-ac h1 mt-xl-n5">Collaborating Assets for Development</h1>
   <section>
     <div class="container">
-   
-           
-              
-              
                 <div class="center pb-5">
-            
-            
                                 <!--Form with header-->
             
-                                <form action="contact.php" method="post" id="contactform" name="contactform" role="form"  >
+                                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                                     <div class="card rounded-0 contact-form" id="card">
                                         <div class=" p-0">
                                             <div class=" text-center py-2">
@@ -26,41 +20,64 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <div class="input-group mb-2">
-                                                            <input type="text" class="form-control color required" id="name" name="name" placeholder="Name*" *ngIf="!this.userServie.loggedIn" aria-required="true" aria-invalid="true">
-                                                            <input type="text color" class="form-control color" id="name" name="name" placeholder="Name*" *ngIf="this.userServie.loggedIn" [value]="userName" required>
+                                                            <input type="text" class="form-control color" formControlName="userName"  [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"
+                                                            id="name" name="name" placeholder="Name*" *ngIf="!this.userServie.loggedIn">
+                                                            <input type="text" class="form-control color" id="name" name="name" formControlName="userName"  [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" 
+                                                            [(ngModel)]="userName" placeholder="Name*" *ngIf="this.userServie.loggedIn" [value]="userName">
+                                                            <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                                                                    <div *ngIf="f.userName.errors.required">User Name is required</div>
+                                                                </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <div class="input-group mb-2">
-                                                            <input type="text " class="form-control color" id="email" name="email" *ngIf="!this.userServie.loggedIn" placeholder="Email Id*" required>
-                                                            <input type="text " class="form-control color" id="email" name="email" [value]="userEmail" *ngIf="this.userServie.loggedIn" placeholder="Email Id*" required>
+                                                            <input type="text " class="form-control color " formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="email" name="email" *ngIf="!this.userServie.loggedIn" placeholder="Email Id*">
+                                                            <input type="text " class="form-control color"  formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  id="email" name="email" [value]="userEmail" *ngIf="this.userServie.loggedIn" placeholder="Email Id*" 
+                                                            [(ngModel)]="userEmail">
+                                                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                                                    <div *ngIf="f.email.errors.required">Email is required</div>
+                                                                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                                                                </div>
                                                         </div>
-                                                    </div>                                                </div>
+                                                    </div>                                
+                                               </div>
                                               </div>
                                               <div class="row pb-4">
                                                   <div class="col">
                                                       <div class="form-group">
                                                           <div class="input-group mb-2">
-                                                              <input type="text " class="form-control color" id="org" name="org" *ngIf="!this.userServie.loggedIn" placeholder="Organization" required>
-                                                              <input type="text " class="form-control color" id="org" name="org" [value]="orgName" *ngIf="this.userServie.loggedIn" placeholder="Organization" required>
+                                                              <input type="text " class="form-control color"  formControlName="org" [ngClass]="{ 'is-invalid': submitted && f.org.errors }"  id="org" name="org" *ngIf="!this.userServie.loggedIn" placeholder="Organization" >
+                                                              <input type="text " class="form-control color"  formControlName="org" [ngClass]="{ 'is-invalid': submitted && f.org.errors }" id="org" name="org" [value]="orgName"  [(ngModel)]= "orgName" *ngIf="this.userServie.loggedIn" placeholder="Organization" >
+                                                              <div *ngIf="submitted && f.org.errors" class="invalid-feedback">
+                                                                    <div *ngIf="f.org.errors.required">Organization Name is required</div>
+                                                                </div>
                                                           </div>
                                                       </div>
                                                   </div>
                                                   <div class="col">
                                                       <div class="form-group">
                                                           <div class="input-group mb-2">
-                                                             <input type="text " class="form-control color" id="country" name="country" placeholder="Country" required>
-                                                          </div>
+                                                             <input type="text " class="form-control color" formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" id="country" name="country" placeholder="Country">
+                                                             <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                                                                    <div *ngIf="f.country.errors.required">Country Name is required</div>
+                                                                </div>
+                                                            </div>
                                                       </div>                                               
                                                     </div>
                                                 </div>
                                                 <div class="form-group pb-3">
-                                                    <textarea class="form-control color" cols="40" rows="10" id="message" name="message" placeholder="Message" rows="3"></textarea>
+                                                    <textarea class="form-control color" cols="40" rows="10" formControlName="message" [ngClass]="{ 'is-invalid': submitted && f.message.errors }" id="message" name="message" 
+                                                    placeholder="Message" ></textarea>
+                                                    <div *ngIf="submitted && f.message.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.message.errors.required">Message is required</div>
+                                                        </div>
                                                   </div>
                                             <div class="text-center">
-                                                <input type="submit" value="SEND" (click)="gotoContact()" class="btn btn-info text-center  btn-purple ">
+                                                    <div class="form-group">
+                                                <button [disabled]="loading" value="SEND" class="btn btn-info text-center  btn-purple ">SEND</button>
+                                            </div>
                                             </div>
                                         </div>
                                        
@@ -78,3 +95,5 @@
     </div>
   </section>
 </div>
+    
+

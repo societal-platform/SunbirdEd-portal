@@ -322,14 +322,8 @@ const routes: Routes = [
     data: {
       roles: 'workspace'
     }
-  },
-  {
-    path: 'upForReview/:pageNumber', component: UpForReviewComponent,
-    data: {
-      breadcrumbs: [{ label: 'Home', url: '/home' },
-       { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
-    }
-  },
+  }
+
 ];
 
 @NgModule({
