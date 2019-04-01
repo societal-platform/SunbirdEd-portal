@@ -62,15 +62,12 @@
             <p class="card-text" *ngIf="assetDetail?.link && assetDetail?.mimeType === 'text/x-url'">Link: <a
                     href="https://{{assetDetail?.link}}" target="blank">{{assetDetail?.link}} </a></p>
 
-            <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'" class="row">
-                <p class="col-sm-4">
-                        {{pdfs | slice: 1}}pdf
+               <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'">
+                <p >
+                      File : <span routerLink="play" class="pdfStyle">{{pdfs | slice: 1}}pdf</span>
                     </p> 
-                    <div class="col-sm-8">
-                            <button  type="button" class="btn btn-outline-secondary" routerLink="play">View</button>
-                    </div>
-               </div>
 
+               </div>
             <div *ngIf="!assetDetail?.badgeAssertions">
                 <div *ngFor="let role of user">
                     <div *ngIf="role === 'TEACHER_BADGE_ISSUER'">

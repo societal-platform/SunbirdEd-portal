@@ -20,8 +20,9 @@ export class ResourceViewerComponent implements OnInit {
   sanitizer: any;
   showLoader = true;
   loaderMessage = 'Loading pdf please wait';
+  path: string;
   constructor(activated: ActivatedRoute, sanitizers: DomSanitizer,
-    config: ConfigService, contentServe: ContentService , rout: Router) {
+    config: ConfigService, contentServe: ContentService , private rout: Router) {
       this.activatedRoute = activated;
       this.activatedRoute.url.subscribe(url => {
         this.contentId = url[1].path;
@@ -30,6 +31,7 @@ export class ResourceViewerComponent implements OnInit {
       this.contentService = contentServe;
       this.sanitizer = sanitizers;
       this.showLoader = true;
+      this.route = rout
 
     }
 
@@ -44,5 +46,14 @@ export class ResourceViewerComponent implements OnInit {
       this.showLoader = false;
     });
   }
-
+  navigateToDetailsPage() {
+    console.log('params', this.activatedRoute)
+    this.activatedRoute.url.subscribe(url => {
+      console.log('url', url)
+      this.path = url[2].path;
+      });
+      console.log('path', this.path)
+      this.route.navigate(['resources/play/content', this.path])
+  }
+  
 }

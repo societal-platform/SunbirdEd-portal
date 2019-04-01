@@ -8,14 +8,17 @@
                     [categoryMasterList]="categoryMasterList">
                 </app-update-resoure-form>
             </div>
-            <div *ngIf="enabled" class="row">
-                <p class="col-sm-4">
+            <div *ngIf="enabled">
+                <!-- <p class="col-sm-4">
                     {{pdf | slice: 1}}pdf
                 </p> 
                 <div class="col-sm-8">
                         <button  type="button" class="btn btn-outline-secondary" routerLink="play">View</button>
-                </div>
-                
+                </div> -->
+                <p >
+                    File : <span routerLink="play" class="pdfStyle">{{pdf | slice: 1}}pdf</span>
+                  </p> 
+
             </div>
             <div *ngIf="enabled">
                 <div class="form-group" *ngIf="enabled">

@@ -306,13 +306,13 @@ const routes: Routes = [
     }
   },
   {
-    path: 'update/:contentId', component: CreateAssetComponent, canActivate: [AuthGuard],
+    path: 'update/:contentId', component: CreateAssetComponent,
     data: {
       roles: 'workspace'
     }
   },
   {
-    path: 'update/:contentId/play', component: PdfViewerComponent, canActivate: [AuthGuard],
+    path: 'update/:contentId/play', component: PdfViewerComponent,
     data: {
       roles: 'workspace'
     }

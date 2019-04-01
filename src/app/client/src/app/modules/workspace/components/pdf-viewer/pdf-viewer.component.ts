@@ -20,8 +20,9 @@ export class PdfViewerComponent implements OnInit {
   sanitizer: any;
   showLoader = true;
   loaderMessage = 'Loading pdf please wait';
+  path: string;
   constructor(activated: ActivatedRoute, sanitizers: DomSanitizer,
-    config: ConfigService, contentServe: ContentService , rout: Router, public navigationHelperService: NavigationHelperService,
+    config: ConfigService, contentServe: ContentService , private router: Router, public navigationHelperService: NavigationHelperService,
     ) {
       this.activatedRoute = activated;
       this.activatedRoute.url.subscribe(url => {
@@ -31,6 +32,7 @@ export class PdfViewerComponent implements OnInit {
       this.contentService = contentServe;
       this.sanitizer = sanitizers;
       this.showLoader = true;
+      this.route = router;
 
     }
 
@@ -54,5 +56,14 @@ export class PdfViewerComponent implements OnInit {
     }
   }
 
-
+  navigateToDetailsPage() {
+    console.log('params', this.activatedRoute)
+    this.activatedRoute.url.subscribe(url => {
+      console.log('url', url)
+      this.path = url[0].path;
+      this.contentId = url[1].path;
+      console.log('this.', this.path, this.contentId)
+      });
+      this.route.navigate(['myassets', this.path, this.contentId])
+  }
 }

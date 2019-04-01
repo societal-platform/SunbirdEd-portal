@@ -163,10 +163,6 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
 
   ngOnInit() {
     console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
-    // this.contentID = this.activatedRoute.snapshot.params.contentId;
-    // this.fetchContentById(this.contentID);
-
-    this.checkForPreviousRouteForRedirect();
 
     /**
      * fetchFrameworkMetaData is called to config the form data and framework data
@@ -180,18 +176,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
         if (user && !user.err) {
           this.userProfile = user.userProfile;
         }
-      });
-    this.telemetryImpression = {
-      context: {
-        env: this.activatedRoute.snapshot.data.telemetry.env
-      },
-      edata: {
-        type: this.activatedRoute.snapshot.data.telemetry.type,
-        pageid: this.activatedRoute.snapshot.data.telemetry.pageid,
-        subtype: this.activatedRoute.snapshot.data.telemetry.subtype,
-        uri: this.activatedRoute.snapshot.data.telemetry.uri
-      }
-    };
+      }); 
 
   }
   ngOnDestroy() {
@@ -438,16 +423,8 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
       this.redirect();
     }
   }
-
-  sendForReview() {
-
-  }
-  fetchContentById(id) {
-    console.log('hii iam');
-
-  }
   redirect() {
-    this.router.navigate(['/myassets/update']);
+    this.router.navigate(['/myassets/update', this.contentID]);
 
   }
 }
