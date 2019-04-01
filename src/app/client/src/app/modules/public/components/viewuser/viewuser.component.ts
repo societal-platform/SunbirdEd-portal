@@ -4,7 +4,7 @@ import { UserService, LearnerService, PublicDataService } from '@sunbird/core';
 import * as _ from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ResourceService, ToasterService, RouterNavigationService, ServerResponse } from '@sunbird/shared';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import { UserSearchServicePublicService  } from '../../services/searchService/user-search-service-public.service';
 @Component({
   selector: 'app-viewuser',
@@ -47,7 +47,8 @@ export class ViewuserComponent implements OnInit {
     private modalService: NgbModal,
     public router: Router,
     public userSearchService: UserSearchServicePublicService,
-    public resourceService: ResourceService
+    public resourceService: ResourceService,
+    public activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -185,17 +186,20 @@ this.userIds = [];
   console.log(this.modalRef);
   }
   goToUsers() {
-this.router.navigate(['/viewuser']);
-window.location.reload();
-// setTimeout(() => {
-//   this.ngOnInit();
-// }, 500);
+// this.router.navigate(['/viewuser']);
+// window.location.reload();
+setTimeout(() => {
+  this.router.navigate(['/viewuser']);
+this.ngOnInit();
+}, 500);
   }
   gottoCancel() {
     this.modalRef.close();
     setTimeout(() => {
+      this.router.navigate(['/viewuser']);
+
       this.ngOnInit();
-    }, 500);
+    }, 300);
   }
 
 }
