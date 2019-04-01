@@ -175,7 +175,7 @@ this.userIds = [];
         this.goToUsers();
       },
       err => {
-        this.toasterService.error(err);
+        this.toasterService.error(err.error.params.errmsg);
       }
     );
   }

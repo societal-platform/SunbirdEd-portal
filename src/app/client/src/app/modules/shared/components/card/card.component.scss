@@ -167,14 +167,52 @@ background-color: #585858;
     color: #686F7A;
     padding-bottom: 6px;
 }
-@media screen and (min-width:312px ) and (max-width:760px) {
+@media screen and (min-width:312px ) and (max-width:760px){
   .card {
    width: 281.5px;
   }
-
+  // #res-title {
+  //   margin-top: -6rem;
+  //   margin-left: 6rem;
+  
+  // }
+  // #res-para {
+  //   margin-top: -1rem !important;
+  //   margin-left: 6rem;
+  // }
 }
-@media screen and (min-width: 761px ) and (max-width:980px) { 
+@media screen and (min-width: 761px ) and (max-width:980px){ 
   .card {
   width: 311.5px;
+left : 1rem
+  }
+
+ }
+ @media screen and (min-height:450px ) and (max-height:500px) {
+  #res-title {
+    margin-top: -1rem;
+    margin-left: 0rem;
+  }
+  #res-para {
+    margin-top: -1rem !important;
+    margin-left: 0rem;
+  }
+  .card {
+    height: 69vh;
+    left: 1rem;
+  }
+ }
+ @media screen and (min-height: 501px) and (max-height:700px) {
+   .card {
+     height: 62vh;
+     left: 1rem;
+   }
+   #res-title {
+    margin-top: -1rem;
+    margin-left: 0rem;
+  }
+  #res-para {
+    margin-top: -1rem !important;
+    margin-left: 0rem;
   }
  }
