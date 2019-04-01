@@ -27,7 +27,5 @@ import { NgInviewModule } from 'angular-inport';
   declarations: [ UserSearchComponent, CourseSearchComponent, LibrarySearchComponent,
   UserFilterComponent, UserDeleteComponent, OrgSearchComponent, OrgFilterComponent,
    UserProfileComponent, HomeSearchComponent ],
-  providers: [UserSearchService],
-  exports: [UserSearchService]
 })
 export class SearchModule { }

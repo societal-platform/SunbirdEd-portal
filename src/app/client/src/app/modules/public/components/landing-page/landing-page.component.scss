@@ -181,7 +181,7 @@ hr{
 }
 .app-landing-page[_ngcontent-c8] {
   height: 83vh;
-  width: 99vw;
+  width: 100vw;
 
 }
 .carousal[_ngcontent-c8] {
@@ -213,11 +213,14 @@ hr{
 }
 .userloggedin {
   width: 100vw !important;
+  height: 70vh !important;
+  margin-top: 1rem;
 }
   } 
   @media screen and (max-width:980px ) and (min-width: 767px) {
     .app-landing-page[_ngcontent-c8] {
     width: 100vw !important;
+    height:96vh !important;
     }
   }
   @media screen and (min-width: 1700px) and (max-width:1800px) {
