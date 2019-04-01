@@ -427,7 +427,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
             setTimeout(() => {
               this.showLoader = false;
               this.ngOnInit();
-            }, 1400);
+            }, 2000);
           }, (err) => {
             console.log('error occured while sending asset for review');
             console.log(err);
