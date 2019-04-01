@@ -1,5 +1,5 @@
-import { combineLatest as observableCombineLatest, Observable, Subject, Subscription } from 'rxjs';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { combineLatest as observableCombineLatest, Observable, Subject, Subscription, BehaviorSubject } from 'rxjs';
+import { Component, OnInit, ViewChild, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkSpace } from '../../classes/workspace';
 import { SearchService, UserService, ISort, FrameworkService, PermissionService, ContentService } from '@sunbird/core';
@@ -16,6 +16,7 @@ import { SuiModalService, TemplateModalConfig, ModalTemplate } from 'ng2-semanti
 import { ICard } from '../../../shared/interfaces/card';
 import { BadgesService } from '../../../core/services/badges/badges.service';
 import { IUserData } from '@sunbird/shared';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -33,6 +34,11 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     */
 
   state: string;
+
+  /**
+   * To store the content available for upForReview
+   */
+  upForReviewContent: any;
 
   /**
    * To navigate to other pages
@@ -181,7 +187,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   user: any;
   orgId: any;
   role: any;
-
+  userDetails: any;
   /**
     * Constructor to create injected service(s) object
     Default method of Draft Component class
@@ -212,7 +218,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     this.config = config;
     this.permissionService = permissionService;
     this.badgeService = badgeService;
-
+    this.route.onSameUrlNavigation = 'reload';
     this.frameworkService = frameworkService;
     this.contentService = contentService;
 
@@ -251,6 +257,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
       });
     this.userService.userData$.subscribe(
       (user: IUserData) => {
+        this.userDetails = user.userProfile;
         this.user = user.userProfile.userRoles;
         this.orgId = user.userProfile.rootOrgId;
         this.user.forEach(element => {
@@ -312,9 +319,31 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     this.orgDetailsUnsubscribe = this.searchContentWithLockStatus(searchParams)
       .subscribe(
         (data: ServerResponse) => {
-          console.log('data content', data);
+          console.log('data here ', data);
           if (data.result.count && data.result.content.length > 0) {
-            this.allContent = data.result.content;
+            if (this.route.url === '/upForReview' ) {
+               console.log('reviewAsset is captured ');
+              const option = {
+                url : '/content/v1/search',
+                param : '',
+                filters: {
+                  language: ['English'],
+                  contentType: ['Resource'],
+                  status: ['Review'],
+                  channel: this.userDetails.organisationIds,
+                  organisation: ['Societal_suborg_1', 'Societal', 'Societal_suborg_2']
+              },
+                sort_by: {me_averageRating: 'desc'}
+              };
+              this.contentService.getupForReviewData(option).subscribe(response => {
+                this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
+                console.log('the up for review content is ', this.upForReviewContent);
+                // update the content-variable with the upForReviewVariable
+                this.allContent = this.upForReviewContent;
+                console.log('the all content for upforreview is ', this.allContent);
+              });
+            } else {this.allContent = data.result.content; }
+            console.log('this is allContent', this.allContent);
             this.totalCount = data.result.count;
             this.pager = this.paginationService.getPager(data.result.count, pageNumber, limit);
             this.showLoader = false;
@@ -367,11 +396,55 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
       .onDeny(result => {
       });
   }
-  public publishConfirmModal(contentIds) {
+  public reviewConfirmModal(contentIds) {
     const config2 = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config2.isClosable = true;
     config2.size = 'mini';
-    config2.context = {data: 'publish'};
+    config2.context = {data: 'Review'};
+    this.modalServices
+      .open(config2)
+      .onApprove(result => {
+        this.showLoader = true;
+        this.loaderMessage = {
+          'loaderMessage': this.resourceService.messages.stmsg.m0034,
+        };
+        const requestBody = {
+          request: {
+            content: {
+            }
+          }
+        };
+        const option = {
+          url: `${this.config.urlConFig.URLS.CONTENT.REVIEW}/${contentIds}`,
+          data: requestBody
+        };
+        console.log(this.config.urlConFig.URLS.CONTENT);
+        this.contentService.post(option).subscribe(
+          (data: ServerResponse) => {
+            console.log('server response for asset review is ');
+            console.log(data);
+            this.toasterService.success('You Asset has been sucessfully sent for review');
+            setTimeout(() => {
+              this.showLoader = false;
+              this.ngOnInit();
+            }, 2000);
+          }, (err) => {
+            console.log('error occured while sending asset for review');
+            console.log(err);
+            this.showLoader = false;
+            this.toasterService.error('An error occured while sending your asset for review.');
+          });
+      })
+
+      .onDeny(result => {
+      });
+  }
+
+  /* public publishConfirmModal(contentId){
+    const config2 = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
+    config2.isClosable = true;
+    config2.size = 'mini';
+    config2.context = {data: 'Review'};
     this.modalServices
       .open(config2)
       .onApprove(result => {
@@ -392,7 +465,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
           'Audio (if any) is clear and easy to understand',
           'No Spelling mistakes in the text',
           'Language is simple to understand'];
-        const requestBody = {
+         const requestBody = {
           request: {
             content: {
               publishChecklist: this.reasons,
@@ -401,25 +474,29 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
           }
         };
         const option = {
-          url: `${this.config.urlConFig.URLS.CONTENT.PUBLISH}/${contentIds}`,
+          url: `${this.config.urlConFig.URLS.CONTENT.PUBLISH}/${contentId}`,
           data: requestBody
         };
-        console.log('url', `${this.config.urlConFig.URLS.CONTENT.PUBLISH}/${contentIds}`);
+        console.log(this.config.urlConFig.URLS.CONTENT);
         this.contentService.post(option).subscribe(
           (data: ServerResponse) => {
             this.showLoader = false;
-
-            this.toasterService.success(this.resourceService.messages.smsg.m0004);
-
+            console.log("server response for asset review is ");
+            console.log(data);
+            //this.resourceService.messages.smsg.m0004
+            this.toasterService.success('You Asset has been sucessfully sent for review');
+            window.location.reload();
           }, (err) => {
+            console.log('error occured while sending asset for review');
+            console.log(err);
             this.showLoader = false;
-            this.toasterService.error(this.resourceService.messages.fmsg.m0019);
+            this.toasterService.error('An error occured while sending your asset for review.');
           });
       })
 
       .onDeny(result => {
       });
-  }
+  } */
 
   /**
    * This method helps to navigate to different pages.
@@ -438,7 +515,15 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     this.route.navigate(['myassets/', this.pageNumber], { queryParams: this.queryParams });
   }
   navigateToDetailsPage(contentId: string) {
-    this.route.navigate(['myassets/detail', contentId]);
+    if (this.route.url === '/upForReview') {
+      this.navigateToReviewAssetDetailsPage(contentId);
+    } else {
+      this.route.navigate(['myassets/detail', contentId]);
+    }
+  }
+
+  navigateToReviewAssetDetailsPage(contentId: string) {
+    this.route.navigate(['upForReview/review/detail', contentId]);
   }
 
   contentClick(content) {

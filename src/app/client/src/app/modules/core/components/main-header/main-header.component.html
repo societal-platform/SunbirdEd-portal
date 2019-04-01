@@ -90,6 +90,8 @@
 
                                             <a class="nav-item nav-link p-15 text" id="nav-contact-tab" data-toggle="tab" *ngIf='permissionService.permissionAvailable' appPermission
                                              [permission]='workSpaceRole'  routerLink="/myassets" [class.active]="router.isActive('/myassets')" role="tab" aria-controls="nav-contact" aria-selected="false"> My Assets</a>
+                                             <a class="nav-item nav-link p-15 text" id="nav-contact-tab" data-toggle="tab" *ngIf='permissionService.permissionAvailable' appPermission
+                                             [permission]='upForReviewRole'  routerLink="/upForReview" [class.active]="router.isActive('/upForReview')" role="tab" aria-controls="nav-contact" aria-selected="false">Up For Review</a>
 
                                              <!-- <a class="nav-item nav-link p-15 text"id="nav-contact-tab" data-toggle="tab"  *ngIf='permissionService.permissionAvailable' [class.active]="router.isActive('/upForReview/')"
                                              [routerLink]="['myassets/upForReview/'+1]" appPermission [permission]='workSpaceRole'>

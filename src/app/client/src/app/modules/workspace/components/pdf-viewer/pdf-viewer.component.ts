@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContentService } from '@sunbird/core';
-import { ConfigService , NavigationHelperService} from '@sunbird/shared';
+import { ConfigService, NavigationHelperService } from '@sunbird/shared';
 import { BadgesService } from '../../../core/services/badges/badges.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -20,19 +20,21 @@ export class PdfViewerComponent implements OnInit {
   sanitizer: any;
   showLoader = true;
   loaderMessage = 'Loading pdf please wait';
+  path: string;
   constructor(activated: ActivatedRoute, sanitizers: DomSanitizer,
-    config: ConfigService, contentServe: ContentService , rout: Router, public navigationHelperService: NavigationHelperService,
-    ) {
-      this.activatedRoute = activated;
-      this.activatedRoute.url.subscribe(url => {
-        this.contentId = url[1].path;
-      });
-      this.configService = config;
-      this.contentService = contentServe;
-      this.sanitizer = sanitizers;
-      this.showLoader = true;
+    config: ConfigService, contentServe: ContentService, private router: Router, public navigationHelperService: NavigationHelperService,
+  ) {
+    this.activatedRoute = activated;
+    this.activatedRoute.url.subscribe(url => {
+      this.contentId = url[1].path;
+    });
+    this.configService = config;
+    this.contentService = contentServe;
+    this.sanitizer = sanitizers;
+    this.showLoader = true;
+    this.route = router;
 
-    }
+  }
 
   ngOnInit() {
 
@@ -54,5 +56,25 @@ export class PdfViewerComponent implements OnInit {
     }
   }
 
+  navigateToDetailsPage() {
+    console.log('params', this.activatedRoute);
+    this.activatedRoute.url.subscribe(url => {
+      console.log('urls', url);
+      this.path = url[0].path;
+      if (this.path === 'review') {
+        this.contentId = url[2].path;
+      } else {
+        this.contentId = url[1].path;
+      }
 
+      console.log('this.', this.path, this.contentId);
+    });
+    if (this.path === 'review') {
+      this.route.navigate(['upForReview/review/detail', this.contentId]);
+
+    } else {
+      this.route.navigate(['myassets', this.path, this.contentId]);
+    }
+
+  }
 }

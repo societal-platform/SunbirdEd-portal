@@ -62,55 +62,61 @@
             <p class="card-text" *ngIf="assetDetail?.link && assetDetail?.mimeType === 'text/x-url'">Link: <a
                     href="https://{{assetDetail?.link}}" target="blank">{{assetDetail?.link}} </a></p>
 
-            <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'" class="row">
-                <p class="col-sm-4">
-                        {{pdfs | slice: 1}}pdf
-                    </p> 
-                    <div class="col-sm-8">
-                            <button  type="button" class="btn btn-outline-secondary" routerLink="play">View</button>
-                    </div>
-               </div>
 
-            <div *ngIf="!assetDetail?.badgeAssertions">
-                <div *ngFor="let role of user">
-                    <div *ngIf="role === 'TEACHER_BADGE_ISSUER'">
-                        <p class="card-text" *ngIf="assetDetail?.status === 'Live' "> Assign Badges:
-                            <span *ngFor="let badge of badgeList;let i = index">
-                                <span class="row">
-                                    <span class="col">
-                                        <button apptelemetryinteract=""
-                                            class="ui small basic primary compact button ml-10 mt-10" *ngIf="i === 0"
-                                            (click)="deleteConfirmModal(badge.issuerId,badge.badgeId); $event.stopPropagation()">
-                                            <img src="{{badge.image}}" class="img"> {{badge.name}}</button>
-                                    </span>
-                                </span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
+            <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'">
+                <p>
+                    File : <span routerLink="play" class="pdfStyle">{{pdfs | slice: 1}}pdf</span>
+                </p>
+            </div>
+            <div class="ui buttons" *ngIf="visible">
+                <button class="ui negative button" (click)="rejectAsset(assetDetail?.identifier)">REJECT</button>
+                <div class="or"></div>
+                <button class="ui positive button" (click)="publishAsset(assetDetail?.identifier)">PUBLISH</button>
             </div>
 
-            <ng-template let-context let-modal="modal" #modalTemplate>
-                <div class="header"> Mark as 'VERIFIED ASSET'</div>
-                <div class="content">
-                    <p>Are you sure you want to issue the badge to this content?</p>
+       
+        <div *ngIf="!assetDetail?.badgeAssertions">
+            <div *ngFor="let role of user">
+                <div *ngIf="role === 'TEACHER_BADGE_ISSUER'">
+                    <p class="card-text" *ngIf="assetDetail?.status === 'Live' "> Assign Badges:
+                        <span *ngFor="let badge of badgeList;let i = index">
+                            <span class="row">
+                                <span class="col">
+                                    <button apptelemetryinteract=""
+                                        class="ui small basic primary compact button ml-10 mt-10" *ngIf="i === 0"
+                                        (click)="deleteConfirmModal(badge.issuerId,badge.badgeId); $event.stopPropagation()">
+                                        <img src="{{badge.image}}" class="img"> {{badge.name}}</button>
+                                </span>
+                            </span>
+                        </span>
+                    </p>
                 </div>
-                <div class="actions">
-                    <button class="ui primary button" (click)="modal.approve('approved')" autofocus>Yes</button>
-                    <button class="ui red button" (click)="modal.deny('denied')">No</button>
-
-                </div>
-            </ng-template>
-        </div>
-        <div class="card-footer text-muted pt-30 pb-0">
-            <p><span *ngIf="assetDetail?.version"></span> Version : {{assetDetail?.version}}.0 <span
-                    *ngIf="assetDetail?.creators"></span> | Created By :
-                {{assetDetail?.creators | titlecase}} <span *ngIf="assetDetail?.since"> | Created Year :
-                    {{assetDetail?.year}} </span> <span *ngIf="assetDetail?.region"> | Where :
-                    {{assetDetail?.region | titlecase}}</span> </p>
-            <p class="float-right"></p>
+            </div>
         </div>
     </div>
+
+        
+   
+    <div class="card-footer text-muted pt-30 pb-0">
+        <p><span *ngIf="assetDetail?.version"></span> Version : {{assetDetail?.version}}.0 <span
+                *ngIf="assetDetail?.creators"></span> | Created By :
+            {{assetDetail?.creators | titlecase}} <span *ngIf="assetDetail?.since"> | Created Year :
+                {{assetDetail?.year}} </span> <span *ngIf="assetDetail?.region"> | Where :
+                {{assetDetail?.region | titlecase}}</span> </p>
+        <p class="float-right"></p>
+    </div>
+</div>
 </div>
 
-<router-outlet></router-outlet>
+<ng-template let-context let-modal="modal" #modalTemplate>
+    <div class="header"> Mark as 'VERIFIED ASSET'</div>
+    <div class="content">
+        <p>Are you sure you want to issue the badge to this content?</p>
+    </div>
+    <div class="actions">
+        <button class="ui primary button" (click)="modal.approve('approved')" autofocus>Yes</button>
+        <button class="ui red button" (click)="modal.deny('denied')">No</button>
+
+    </div>
+</ng-template>
+<!-- <router-outlet></router-outlet> -->

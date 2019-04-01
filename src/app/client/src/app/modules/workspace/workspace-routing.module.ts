@@ -293,11 +293,13 @@ const routes: Routes = [
     }
   },
   {
-    path: 'detail/:contentId', component: AssetDetailPageComponent, canActivate: [AuthGuard],
-    data: {
-      roles: 'workspace'
-    }
-
+    path: 'review/detail/:contentId', component: AssetDetailPageComponent
+  },
+  {
+    path: 'review/detail/:contentId/play', component: PdfViewerComponent
+  },
+  {
+    path: 'detail/:contentId', component: AssetDetailPageComponent
   },
   {
     path: 'detail/:contentId/play', component: PdfViewerComponent, canActivate: [AuthGuard],
@@ -306,13 +308,13 @@ const routes: Routes = [
     }
   },
   {
-    path: 'update/:contentId', component: CreateAssetComponent, canActivate: [AuthGuard],
+    path: 'update/:contentId', component: CreateAssetComponent,
     data: {
       roles: 'workspace'
     }
   },
   {
-    path: 'update/:contentId/play', component: PdfViewerComponent, canActivate: [AuthGuard],
+    path: 'update/:contentId/play', component: PdfViewerComponent,
     data: {
       roles: 'workspace'
     }

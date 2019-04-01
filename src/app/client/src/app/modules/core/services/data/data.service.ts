@@ -77,9 +77,10 @@ export class DataService {
       headers: requestParam.header ? this.getHeader(requestParam.header) : this.getHeader(),
       params: requestParam.param
     };
+    console.log('complete request created as ', this.baseUrl + requestParam.url);
     return this.http.post(this.baseUrl + requestParam.url, requestParam.data, httpOptions).pipe(
       mergeMap((data: ServerResponse) => {
-        console.log('data ', data);
+        console.log(`recieved data for ${requestParam.url} : `, data);
         if (data.responseCode !== 'OK') {
           return observableThrowError(data);
         }
