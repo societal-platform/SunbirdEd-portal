@@ -103,7 +103,7 @@ export class AdduserComponent implements OnInit {
             this.toasterService.success('user created successfully');
           }, (err) => {
             this.toasterService.error(err.error.params.errmsg);
-            console.log('err', err)
+            console.log('err', err);
           });
 
           // if(this.success) {
