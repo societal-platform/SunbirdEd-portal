@@ -515,7 +515,11 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     this.route.navigate(['myassets/', this.pageNumber], { queryParams: this.queryParams });
   }
   navigateToDetailsPage(contentId: string) {
-    this.route.navigate(['myassets/detail', contentId]);
+    if (this.route.url === '/upForReview') {
+      this.navigateToReviewAssetDetailsPage(contentId);
+    } else {
+      this.route.navigate(['myassets/detail', contentId]);
+    }
   }
 
   navigateToReviewAssetDetailsPage(contentId: string) {
