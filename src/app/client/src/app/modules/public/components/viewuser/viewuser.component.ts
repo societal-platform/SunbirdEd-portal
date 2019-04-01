@@ -98,6 +98,7 @@ console.log('else', this.selectedOrgUserRolesNew);
             // console.log('user Detail', user);
             this.userDetail = user;
             _.forEach(user.organisations, (userorg: any) => {
+
               this.existingUserRoles = userorg.roles;
               this.selectedOrgUserRoles = this.existingUserRoles;
               userorgid = userorg.organisationId;
@@ -120,6 +121,7 @@ console.log('else', this.selectedOrgUserRolesNew);
             }
           });
         });
+        // this.iterate();
       });
     });
   }

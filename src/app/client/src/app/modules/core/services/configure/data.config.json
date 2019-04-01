@@ -1,10 +1,10 @@
 {
-    "subject": "feedback for SPace" ,
-    "body": "You have received some feedback. Here are the details:" ,
+    "subject": "Feedback for SPace" ,
+    "body": "You have received some Feedback. Here are the details:" ,
     "OrgImgUrl":  "https://societal-sunbird.stackroute.com/assets/images/sunbird_logo.png" ,
     "actionName": "Test Action",
     "actionUrl": "https://societal-sunbird.stackroute.com/",
     "template": "feedback",
-    "email": ["kamaleeanbu@gmail.com","sumit.nautiyal@niit.com"],
-    "fromEmail": "sumit.nautiyal@niit.com"
+    "email": ["kamaleeanbu@gmail.com","sumit.nautiyal@niit.com","sumit.nautiyal@gmail.com"],
+    "fromEmail": "space@societalplatform.org"
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  UserSearchComponent, UserEditComponent, UserProfileComponent, HomeSearchComponent,
+  UserSearchComponent, UserProfileComponent, HomeSearchComponent,
   UserDeleteComponent, OrgSearchComponent, CourseSearchComponent, LibrarySearchComponent
 } from './components';
 import { AuthGuard } from '../core/guard/auth-gard.service';
@@ -48,16 +48,16 @@ const routes: Routes = [
         env: 'profile', pageid: 'user-search', type: 'view', subtype: 'paginate'
       }
     },
-    children: [
-      {
-        path: 'edit/:userId', component: UserEditComponent, data: {
-          telemetry: {
-            env: 'profile', pageid: 'user-edit', type: 'edit', subtype: 'paginate'
-          }
-        }
-      },
-      { path: 'delete/:userId', component: UserDeleteComponent }
-    ]
+    // children: [
+    //   {
+    //     path: 'edit/:userId', component: UserEditComponent, data: {
+    //       telemetry: {
+    //         env: 'profile', pageid: 'user-edit', type: 'edit', subtype: 'paginate'
+    //       }
+    //     }
+    //   },
+    //   { path: 'delete/:userId', component: UserDeleteComponent }
+    // ]
   },
   {
     path: 'Users/:pageNumber/view/:userId', component: UserProfileComponent,
@@ -67,7 +67,8 @@ const routes: Routes = [
         env: 'profile', pageid: 'user-detail', type: 'view', subtype: 'paginate'
       }
     }
-  }
+  },
+  { path: 'delete/:userId', component: UserDeleteComponent }
 ];
 
 @NgModule({

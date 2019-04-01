@@ -267,6 +267,7 @@ export class UpForReviewComponent extends WorkSpace implements OnInit {
     this.route.navigate(['workspace/content/upForReview', this.pageNumber], { queryParams: this.queryParams });
   }
   contentClick(content) {
+    console.log('inside upfor review', content, this.state);
     this.workSpaceService.navigateToContent(content, this.state);
   }
   /**

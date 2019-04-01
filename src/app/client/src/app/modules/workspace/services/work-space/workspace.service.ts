@@ -68,12 +68,16 @@ export class WorkSpaceService {
  */
   navigateToContent(content, state) {
     this.navigationHelperService.storeWorkSpaceCloseUrl();
+    console.log('navigate', this.navigationHelperService.storeWorkSpaceCloseUrl());
     const mimeType = content.mimeType;
     if (mimeType === 'application/vnd.ekstep.content-collection') {
+      console.log('inside 1 if');
       this.openCollectionEditor(content, state);
     } else if (mimeType === 'application/vnd.ekstep.ecml-archive') {
+      console.log('inside 2 if');
       this.openContent(content, state);
     } else if ((this.config.appConfig.WORKSPACE.genericMimeType).includes(mimeType)) {
+      console.log('inside 3 if');
       this.openGenericEditor(content, state);
     }
   }
@@ -83,7 +87,7 @@ export class WorkSpaceService {
   * @param {string}  state - Present state
 */
   openCollectionEditor(content, state) {
-    const navigationParams = ['/workspace/content/edit/collection', content.identifier, content.contentType, state, content.framework];
+    const navigationParams = ['/myassets/edit/collection', content.identifier, content.contentType, state, content.framework];
     if (content.status) {
       navigationParams.push(content.status);
     }
@@ -97,20 +101,20 @@ export class WorkSpaceService {
   */
   openContent(content, state) {
     if (this.config.appConfig.WORKSPACE.states.includes(state)) {
-      const navigationParams = ['/workspace/content/edit/content/', content.identifier, state, content.framework];
+      const navigationParams = ['/myassets/edit/content/', content.identifier, state, content.framework];
       if (content.status) {
         navigationParams.push(content.status);
       }
       this.route.navigate(navigationParams);
     } else {
       if (state === 'upForReview') {
-        this.route.navigate(['workspace/content/upForReview/content', content.identifier]);
+        this.route.navigate(['myassets/upForReview/content', content.identifier]);
       } else if (state === 'flagged') {
-        this.route.navigate(['workspace/content/flag/content', content.identifier]);
+        this.route.navigate(['myassets/flag/content', content.identifier]);
       } else if (state === 'review') {
-        this.route.navigate(['workspace/content/review/content', content.identifier]);
+        this.route.navigate(['myassets/review/content', content.identifier]);
       } else if (state === 'flagreviewer') {
-        this.route.navigate(['workspace/content/flagreviewer/content', content.identifier]);
+        this.route.navigate(['myassets/flagreviewer/content', content.identifier]);
       }
     }
   }
@@ -122,20 +126,20 @@ export class WorkSpaceService {
   */
   openGenericEditor(content, state) {
     if (this.config.appConfig.WORKSPACE.states.includes(state)) {
-      const navigationParams = ['/workspace/content/edit/generic/', content.identifier, state, content.framework];
+      const navigationParams = ['/myassets/edit/generic/', content.identifier, state, content.framework];
       if (content.status) {
         navigationParams.push(content.status);
       }
       this.route.navigate(navigationParams);
     } else {
       if (state === 'review') {
-        this.route.navigate(['workspace/content/review/content', content.identifier]);
+        this.route.navigate(['myassets/content/review/content', content.identifier]);
       } else if (state === 'upForReview') {
-        this.route.navigate(['workspace/content/upForReview/content', content.identifier]);
+        this.route.navigate(['myassets/content/upForReview/content', content.identifier]);
       } else if (state === 'flagged') {
-        this.route.navigate(['workspace/content/flag/content', content.identifier]);
+        this.route.navigate(['myassets/content/flag/content', content.identifier]);
       } else if (state === 'flagreviewer') {
-        this.route.navigate(['workspace/content/flagreviewer/content', content.identifier]);
+        this.route.navigate(['myassets/content/flagreviewer/content', content.identifier]);
       }
     }
   }
