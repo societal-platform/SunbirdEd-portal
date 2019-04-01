@@ -186,7 +186,7 @@ background-color: #585858;
   box-shadow: none;
   cursor: pointer;
 }
-@media screen and (min-width:312px) and (max-width:980px) {
+@media screen and (min-width:312px) and (max-width:760px) {
 .btn-sec {
   width: 37vw;
   margin-left: 14rem !important
@@ -194,4 +194,19 @@ background-color: #585858;
 .card {
   width: 88vw !important;
 }
+
+#res-title {
+  margin-top: -4rem;
+  margin-left: 6rem;
+
+}
+}
+@media screen and (min-width:761px) and (max-width:980px) {
+  .card {
+    width: 41vw !important;
+  }
+  .col-md-4 {
+    max-width: 46.333333% !important;
+  }
+
 }

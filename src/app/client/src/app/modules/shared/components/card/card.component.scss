@@ -149,9 +149,11 @@ background-color: #585858;
 .badgeimg{
   background-position: -12px 900px;
 }
+
 .card-title {
   text-transform: capitalize !important;
 }
+
 .cardsdist{
   margin:1.2em;
 }
@@ -167,6 +169,12 @@ background-color: #585858;
 }
 @media screen and (min-width:312px ) and (max-width:760px) {
   .card {
-   width: 281.5px !important;
+   width: 281.5px;
   }
+
 }
+@media screen and (min-width: 761px ) and (max-width:980px) { 
+  .card {
+  width: 311.5px;
+  }
+ }

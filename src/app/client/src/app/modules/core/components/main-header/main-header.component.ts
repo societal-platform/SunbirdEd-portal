@@ -62,12 +62,6 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   /**
    * reference of UserService service.
    */
-
-  /**
-   * up For Review Tab access roles
-   */
-   upForReviewRole: Array<string>;
-
   public userService: UserService;
   /**
    * reference of config service.
@@ -123,7 +117,6 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     this.userService = userService;
     this.tenantService = tenantService;
     this.workSpaceRole = this.config.rolesConfig.headerDropdownRoles.workSpaceRole;
-    this.upForReviewRole = this.config.rolesConfig.headerDropdownRoles.upForReviewRole;
    }
 
   ngOnInit() {

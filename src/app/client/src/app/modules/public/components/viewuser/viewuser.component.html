@@ -1,149 +1,157 @@
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>S.NO</th>
-      <th>First Name</th>
-      <th>User Name</th>
-      <th>User Roles</th>
-      <th>Assign role to user</th>
-      <th>Delete User</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of userIds; let i = index">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ user.firstName }}</td>
-      <td>{{user.organisationName}}</td>
-      <td class="roles">
-        {{ user.roles }}
-      </td>
-      <td>
-        <button
-          type="button"
-          class="btn btn-purple"
-          data-toggle="modal"
-          data-target="#updateuserrole"
-          (click)="openLg(content)"
-        >
-          <i class="fas fa-pencil-alt "></i>
-        </button>
-        <!-- <span [queryParams]="queryParams"
-        class="remove-outline"  [routerLink]="['edit/'+user.id]"  (click)="user.status===1">
-          <i class="edit large icon remove-outline"></i>
-        </span> -->
-        <ng-template #content let-d="dismiss">
-            <!-- <div class="modal-header">
-              <h4 class="modal-title" id="roleheading"> Assign Roles to User</h4>
-              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <form
-                #checkboxForm="ngForm"
-                (submit)="updateUser(user, checkboxForm)"
-              >
-            
-              <div *ngFor="let role of roles">
+<div id="responsive-table">
+  <table class="table table-hover" id="res-table">
+    <thead>
+      <tr>
+        <th>S.NO</th>
+        <th>First Name</th>
+        <th>User Name</th>
+        <th>User Roles</th>
+        <th>Assign role to user</th>
+        <th>Delete User</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userIds; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ user.firstName }}</td>
+        <td>{{user.organisationName}}</td>
+        <td class="roles">
+          {{ user.roles }}
+        </td>
+        <td>
+<div class="res-update">
+  <button
+  type="button"
+  class="btn btn-purple"
+  data-toggle="modal"
+  data-target="#updateuserrole"
+  (click)="openLg(content)"
+>
+  <i class="fas fa-pencil-alt "></i>
+</button>
+</div>
+
+          <!-- <span [queryParams]="queryParams"
+          class="remove-outline"  [routerLink]="['edit/'+user.id]"  (click)="user.status===1">
+            <i class="edit large icon remove-outline"></i>
+          </span> -->
+          <ng-template #content let-d="dismiss">
+              <!-- <div class="modal-header">
+                <h4 class="modal-title" id="roleheading"> Assign Roles to User</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <form
+                  #checkboxForm="ngForm"
+                  (submit)="updateUser(user, checkboxForm)"
+                >
               
-                 
-                      <label>
-                          <input
-                          type="checkbox" value='{{role.name}}' (click)="editRoles(role.name, selectedOrgUserRoles, $event)"
-                          [checked]="selectedOrgUserRoles.includes(role.role)"/>&nbsp;
-                          <span innerHTML="{{ role.name }}"></span>
-                        </label>
+                <div *ngFor="let role of roles">
                 
-            
-                     
-                     
-                  </div>
-                
-                <div class="row">
-                  <div class="col-9 text-align-right">
-                    <input
-                      type="submit"
-                      value="Submit"
-                      class="btn btn-purple"
-                    />
-                  </div>
-      
-                  <div class="">
-                    <button
-                      type="button"
-                      class="btn button"
-                      data-dismiss="modal"
-                      (click)="d('Cross click')"
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div> -->
-            <div class="header">
-                <div class="ui grid">
-                    <div class="eleven wide column">
-                        <span class="ui header">{{resourceService.frmelmnts?.lbl?.selrole}}</span>
-                    </div>
-                    <!--<div class="one wide column actions">
-                        <h5 class="ui basic icon circular button deny">
-                            <i class="ui remove icon"></i>
-                        </h5>
-                    </div>-->
-                </div>
-            </div>
-        
-            <div class="scrolling content">
-                <div 
-                    class="ui selection dropdown ml-10" suiDropdown *ngIf="userDetails && userDetails.organisations.length > 0">
-                    <i class="dropdown icon"></i>
-                    <div>{{selectedOrgName || userDetails.organisations[0].orgName || orgId}}</div>
-                    <div class="menu" suiDropdownMenu [menuAutoSelectFirst]="true">
-                        <div class="item" [ngClass]="{'active': orgId === org.organisationId }" *ngFor="let org of userDetails.organisations"
-                            (click)="selectedOrgName = org.orgName; selectedOrgUserRoles=org.roles; selectedOrgId=org.organisationId">{{org.orgName || org.organisationId}}</div>
-                    </div>
-                </div>
-                <div class="ui form mt-40" *ngIf="selectedOrgUserRoles">
-                    <ul class="selectOrgRoles">
-                        <li class="orgRolesListView" *ngFor="let role of roles">
-                            <div class="ui checkbox">
-                              <input 
-                              type="checkbox" value='{{role.name}}' (click)="editRoles(role.name, selectedOrgUserRoles, $event)"
-                              [checked]="user.roles.includes(role.name)">
-                          <label>{{role.roleName || role.name}}</label>
-                            </div>
                    
-                      
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row pb-15">
-                <div class="col-9 text-align-right">
-                    <button 
-                        [disabled]="!selectedOrgUserRoles" class="btn btn-purple" type="submit" (click)="updateRoles(selectedOrgUserRoles,user.id)">
-                        {{resourceService.frmelmnts?.btn?.update}}</button>
-                </div>
-                <div class="">
-                    <button
-                      type="button"
-                      class="btn button"
-                      data-dismiss="modal"
-                      (click)="d('Cross click')"
-                    >
-                      Close
-                    </button>
+                        <label>
+                            <input
+                            type="checkbox" value='{{role.name}}' (click)="editRoles(role.name, selectedOrgUserRoles, $event)"
+                            [checked]="selectedOrgUserRoles.includes(role.role)"/>&nbsp;
+                            <span innerHTML="{{ role.name }}"></span>
+                          </label>
+                  
+              
+                       
+                       
+                    </div>
+                  
+                  <div class="row">
+                    <div class="col-9 text-align-right">
+                      <input
+                        type="submit"
+                        value="Submit"
+                        class="btn btn-purple"
+                      />
+                    </div>
+        
+                    <div class="">
+                      <button
+                        type="button"
+                        class="btn button"
+                        data-dismiss="modal"
+                        (click)="d('Cross click')"
+                      >
+                        Close
+                      </button>
+                    </div>
                   </div>
-            </div>
-          </ng-template>
-      </td>
-      <td>
+                </form>
+              </div> -->
+              <div class="header">
+                  <div class="ui grid">
+                      <div class="eleven wide column">
+                          <span class="ui header">{{resourceService.frmelmnts?.lbl?.selrole}}</span>
+                      </div>
+                      <!--<div class="one wide column actions">
+                          <h5 class="ui basic icon circular button deny">
+                              <i class="ui remove icon"></i>
+                          </h5>
+                      </div>-->
+                  </div>
+              </div>
+          
+              <div class="scrolling content">
+                  <div 
+                      class="ui selection dropdown ml-10" suiDropdown *ngIf="userDetails && userDetails.organisations.length > 0">
+                      <i class="dropdown icon"></i>
+                      <div>{{selectedOrgName || userDetails.organisations[0].orgName || orgId}}</div>
+                      <div class="menu" suiDropdownMenu [menuAutoSelectFirst]="true">
+                          <div class="item" [ngClass]="{'active': orgId === org.organisationId }" *ngFor="let org of userDetails.organisations"
+                              (click)="selectedOrgName = org.orgName; selectedOrgUserRoles=org.roles; selectedOrgId=org.organisationId">{{org.orgName || org.organisationId}}</div>
+                      </div>
+                  </div>
+                  <div class="ui form mt-40" *ngIf="selectedOrgUserRoles">
+                      <ul class="selectOrgRoles">
+                          <li class="orgRolesListView" *ngFor="let role of roles">
+                              <div class="ui checkbox">
+                                <input 
+                                type="checkbox" value='{{role.name}}' (click)="editRoles(role.name, selectedOrgUserRoles, $event)"
+                                [checked]="user.roles.includes(role.name)">
+                            <label>{{role.roleName || role.name}}</label>
+                              </div>
+                     
+                        
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="row pb-15">
+                  <div class="col-9 text-align-right">
+                      <button 
+                          [disabled]="!selectedOrgUserRoles" class="btn btn-purple" type="submit" (click)="updateRoles(selectedOrgUserRoles,user.id)">
+                          {{resourceService.frmelmnts?.btn?.update}}</button>
+                  </div>
+                  <div class="">
+                      <button
+                        type="button"
+                        class="btn button"
+                        data-dismiss="modal"
+                        (click)="d('Cross click')"
+                      >
+                        Close
+                      </button>
+                    </div>
+              </div>
+            </ng-template>
+        </td>
+        <td>
+       <div class="res-delete">
         <button (click)="deleteUser(user)" class="btn btn-purple">
           <i class="fas fa-trash-alt"></i>
         </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<router-outlet></router-outlet>
+       </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <router-outlet></router-outlet>
+  
+</div>
