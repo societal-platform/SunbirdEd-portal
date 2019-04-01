@@ -67,3 +67,10 @@ sui-select {
                 .modals.dimmer .ui.tree-picker.content-creation-concept-picker.scrolling.modal {
                    height: auto !important;
                   }
+
+
+                  @media screen and (min-width:320px) and (max-width:980px) {
+ 
+                    .ui.column.grid>[class*="four wide"].column, .ui.grid>.column.row>[class*="four wide"].column, .ui.grid>.row>[class*="four wide"].column, .ui.grid>[class*="four wide"].column {        width: 91vw !important;;
+                    }
+                   }

@@ -44,7 +44,7 @@
                 </span>
             </p>
             <p class="card-text" *ngIf="assetDetail?.description">Description : {{assetDetail?.description | titlecase}}</p>
-            <p class="card-text" *ngIf="assetDetail?.link">Link: <a href="https://{{assetDetail?.link}}" target="blank">{{assetDetail?.link}}</a></p>
+            <p class="card-text" *ngIf="assetDetail?.link">Link: <a href="https://{{assetDetail?.link}}" target="_blank">{{assetDetail?.link}}</a></p>
             <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'">
                 <p>
                     File : <span class="pdfStyle">{{pdfs | slice: 1}}pdf</span>

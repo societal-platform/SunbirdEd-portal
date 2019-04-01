@@ -53,7 +53,30 @@
   font-size: 25px;
   margin-right: 1rem;
  }
- .pdfStyle {
+
+ @media screen and (min-width:320px) and (max-width:760px) {
+.res-header {
+  margin-top: -4rem;
+  margin-left: 5rem;
+}
+// .res-para {
+//   margin-left: -5rem;
+
+// } 
+
+ }
+
+@media screen and (min-width:761px) and (max-width:980px) {
+  .res-header {
+    margin-top: 0rem;
+    margin-left: 2rem;
+  }
+  .res-para {
+    margin-top: 0.5rem;
+    margin-left: 0rem;
+  }
+}
+.pdfStyle {
   cursor: pointer;
   color: #6e71c3
 }

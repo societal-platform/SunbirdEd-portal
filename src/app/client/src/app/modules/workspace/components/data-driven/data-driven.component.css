@@ -48,3 +48,22 @@ h4 {
   box-shadow: none;
   cursor: pointer;
 }
+@media screen and (min-width:320px) and (max-width:980px) {
+    .container {
+        width: 90vw !important;
+        height: 91rem;
+    }
+    #res-btn {
+        margin-right: 0rem !important;
+    }
+    #res-align {
+        padding-top: 0rem !important;
+    }
+    .ui.column.grid>[class*="four wide"].column, .ui.grid>.column.row>[class*="four wide"].column, .ui.grid>.row>[class*="four wide"].column, .ui.grid>[class*="four wide"].column {       
+         width: 91vw !important;;
+    }
+    h4 {
+        font-size: 26px;
+    }
+
+   }

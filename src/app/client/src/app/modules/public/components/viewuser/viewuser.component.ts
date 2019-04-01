@@ -186,8 +186,6 @@ this.userIds = [];
   console.log(this.modalRef);
   }
   goToUsers() {
-// this.router.navigate(['/viewuser']);
-// window.location.reload();
 setTimeout(() => {
   this.router.navigate(['/viewuser']);
 this.ngOnInit();
@@ -197,7 +195,6 @@ this.ngOnInit();
     this.modalRef.close();
     setTimeout(() => {
       this.router.navigate(['/viewuser']);
-
       this.ngOnInit();
     }, 300);
   }

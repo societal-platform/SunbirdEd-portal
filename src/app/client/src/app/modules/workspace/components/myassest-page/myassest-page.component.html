@@ -32,7 +32,7 @@
             </div>
             <div class="col-sm-8 text-light pt-3 pl-20">
                
-              <h5 class="card-title">{{content?.name | titlecase}}</h5>
+              <h5 class="card-title" id="res-title">{{content?.name | titlecase}}</h5>
               <p class="card-text">version : {{content?.version}}.0</p>
             </div>
             <button *ngIf="content?.badgeAssertions" type="button" class="btn text-light float-right badgesprite badgeimg " id="styletick">
