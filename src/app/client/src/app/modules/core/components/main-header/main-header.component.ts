@@ -25,6 +25,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
    * organization log
    */
   workSpaceRole: Array<string>;
+  upForReviewRole: Array<string>;
   exploreButtonVisibility: string;
   logo: string;
   key: string;
@@ -117,6 +118,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     this.userService = userService;
     this.tenantService = tenantService;
     this.workSpaceRole = this.config.rolesConfig.headerDropdownRoles.workSpaceRole;
+    this.upForReviewRole = this.config.rolesConfig.headerDropdownRoles.upForReviewRole;
    }
 
   ngOnInit() {

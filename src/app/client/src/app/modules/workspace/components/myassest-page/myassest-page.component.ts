@@ -97,6 +97,11 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   noResultMessage: INoResultMessage;
 
   /**
+  to show no results on upForReview tab 
+  */
+  noResultsForReview = false;
+
+  /**
     * For showing pagination on draft list
   */
   private paginationService: PaginationService;
@@ -323,6 +328,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
           if (data.result.count && data.result.content.length > 0) {
             if (this.route.url === '/upForReview' ) {
                console.log('reviewAsset is captured ');
+               this.noResultsForReview = false;
               const option = {
                 url : '/content/v1/search',
                 param : '',
@@ -339,6 +345,16 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
                 this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
                 console.log('the up for review content is ', this.upForReviewContent);
                 // update the content-variable with the upForReviewVariable
+                if(this.upForReviewContent.length <= 0){
+                  // set the no results template if no assets is present
+                  this.noResultsForReview = true;
+                  this.noResultMessage = {
+                    'messageText': 'No assets available to review for now.'
+                  };
+                }
+                else {
+                  this.noResultsForReview = false;
+                }
                 this.allContent = this.upForReviewContent;
                 console.log('the all content for upforreview is ', this.allContent);
               });
