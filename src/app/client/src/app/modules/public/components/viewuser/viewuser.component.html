@@ -31,70 +31,13 @@
 </button>
 </div>
 
-          <!-- <span [queryParams]="queryParams"
-          class="remove-outline"  [routerLink]="['edit/'+user.id]"  (click)="user.status===1">
-            <i class="edit large icon remove-outline"></i>
-          </span> -->
           <ng-template #content let-d="dismiss">
-              <!-- <div class="modal-header">
-                <h4 class="modal-title" id="roleheading"> Assign Roles to User</h4>
-                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                  <form
-                  #checkboxForm="ngForm"
-                  (submit)="updateUser(user, checkboxForm)"
-                >
-              
-                <div *ngFor="let role of roles">
-                
-                   
-                        <label>
-                            <input
-                            type="checkbox" value='{{role.name}}' (click)="editRoles(role.name, selectedOrgUserRoles, $event)"
-                            [checked]="selectedOrgUserRoles.includes(role.role)"/>&nbsp;
-                            <span innerHTML="{{ role.name }}"></span>
-                          </label>
-                  
-              
-                       
-                       
-                    </div>
-                  
-                  <div class="row">
-                    <div class="col-9 text-align-right">
-                      <input
-                        type="submit"
-                        value="Submit"
-                        class="btn btn-purple"
-                      />
-                    </div>
-        
-                    <div class="">
-                      <button
-                        type="button"
-                        class="btn button"
-                        data-dismiss="modal"
-                        (click)="d('Cross click')"
-                      >
-                        Close
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div> -->
+             
               <div class="header">
                   <div class="ui grid">
                       <div class="eleven wide column">
                           <span class="ui header">{{resourceService.frmelmnts?.lbl?.selrole}}</span>
                       </div>
-                      <!--<div class="one wide column actions">
-                          <h5 class="ui basic icon circular button deny">
-                              <i class="ui remove icon"></i>
-                          </h5>
-                      </div>-->
                   </div>
               </div>
           
@@ -108,12 +51,13 @@
                               (click)="selectedOrgName = org.orgName; selectedOrgUserRoles=org.roles; selectedOrgId=org.organisationId">{{org.orgName || org.organisationId}}</div>
                       </div>
                   </div>
+               
                   <div class="ui form mt-40" *ngIf="selectedOrgUserRoles">
                       <ul class="selectOrgRoles">
                           <li class="orgRolesListView" *ngFor="let role of roles">
                               <div class="ui checkbox">
                                 <input 
-                                type="checkbox" value='{{role.name}}' (click)="editRoles(role.name, selectedOrgUserRoles, $event)"
+                                type="checkbox" value='{{role.name}}' (click)="editRoles(role.name, selectedOrgUserRoles, $event,user.id)"
                                 [checked]="user.roles.includes(role.name)">
                             <label>{{role.roleName || role.name}}</label>
                               </div>

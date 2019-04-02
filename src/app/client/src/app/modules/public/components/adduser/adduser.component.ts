@@ -6,7 +6,8 @@ import { ConfigService, ToasterService } from '@sunbird/shared';
 import {
   UserService,
   OrgDetailsService,
-  PublicDataService
+  LearnerService,
+  PublicDataService,
 } from '@sunbird/core';
 import { SignupService } from '../../../public/module/signup/services';
 
@@ -40,6 +41,7 @@ export class AdduserComponent implements OnInit {
     public signupService: SignupService,
     public publicdataservice: PublicDataService,
     public toasterService: ToasterService,
+    public learnerService: LearnerService,
     route: Router
   ) {
     this.route = route;
@@ -75,7 +77,7 @@ export class AdduserComponent implements OnInit {
         }
       };
       console.log('option', option);
-      this.publicdataservice.post(option).subscribe(
+      this.learnerService.post(option).subscribe(
         data => {
           this.orgId = data.result.response.id;
           console.log('ps', data, this.orgId);
@@ -187,7 +189,7 @@ export class AdduserComponent implements OnInit {
       }
     };
     console.log(option);
-    this.publicdataservice.get(option).subscribe(
+    this.learnerService.get(option).subscribe(
       data => {
         console.log('member data', data);
         if (data.responseCode === 'OK') {
@@ -209,7 +211,7 @@ export class AdduserComponent implements OnInit {
       }
     };
     console.log(option);
-    this.publicdataservice.post(option).subscribe(
+    this.learnerService.post(option).subscribe(
       data => {
         console.log('member data', data);
         if (data.responseCode === 'OK') {
@@ -237,7 +239,7 @@ export class AdduserComponent implements OnInit {
       }
     };
     console.log('public', option);
-    this.publicdataservice.post(option).subscribe(
+    this.learnerService.post(option).subscribe(
       data => {
         // this.toasterService.success('user role updated successfully');
 
