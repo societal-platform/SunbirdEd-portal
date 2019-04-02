@@ -38,7 +38,6 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   /**
    * To store the content available for upForReview
    */
-  upForReviewContent: any;
 
   /**
    * To navigate to other pages
@@ -60,6 +59,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   */
   // allContent: Array<IContents> = [];
   allContent: Array<ICard> = [];
+  upForReviewContent = [];
 
   /**
    * To show / hide loader
@@ -346,23 +346,21 @@ modalMessage = '';
                 sort_by: {me_averageRating: 'desc'}
               };
               this.contentService.getupForReviewData(option).subscribe(response => {
-                // console.log('initial response for getForReviewData is ', response.result.content);
-                // console.log('the user id is ', this.userId);
-                this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
-                // console.log('the up for review content is ', this.upForReviewContent);
+                if(response.result.count > 0){
+                  this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
+                  this.noResultsForReview = false;
+                  this.allContent = this.upForReviewContent;
+                console.log('the all content for upforreview is ', this.allContent);
+                }
                 // update the content-variable with the upForReviewVariable
-                if(this.upForReviewContent.length <= 0){
+                else{
+                  console.log('did not recieve anything')
                   // set the no results template if no assets is present
                   this.noResultsForReview = true;
                   this.noResultMessage = {
                     'messageText': 'No assets available to review for now.'
                   };
                 }
-                else {
-                  this.noResultsForReview = false;
-                }
-                this.allContent = this.upForReviewContent;
-                console.log('the all content for upforreview is ', this.allContent);
               });
             } else {this.allContent = data.result.content; }
             console.log('this is allContent', this.allContent);
