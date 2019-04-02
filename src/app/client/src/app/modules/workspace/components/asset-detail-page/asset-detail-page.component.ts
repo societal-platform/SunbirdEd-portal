@@ -216,7 +216,7 @@ export class AssetDetailPageComponent implements OnInit {
         setTimeout(() => {
           this.route.navigate(['upForReview']);
           this.ngOnInit();
-        }, 1200);
+        }, 1800);
       }, (err) => {
         this.showLoader = false;
         this.toasterService.error('An error occured while rejecting the asset');
@@ -263,7 +263,7 @@ export class AssetDetailPageComponent implements OnInit {
               setTimeout(() => {
                 this.route.navigate(['upForReview']);
                 this.ngOnInit();
-              }, 1200);
+              }, 1800);
             }, ( err ) => {
               console.log('error occured while sending asset to publish');
               console.log(err);
