@@ -158,15 +158,16 @@ export class DefaultTemplateComponent implements OnInit, AfterViewInit {
     this.userService.userData$.subscribe(
       (user: IUserData) => {
         console.log('use', user);
-        if (user && !user.err && user.userProfile.organisationNames.length > 1) {
+        if (user && !user.err) {
           this.userProfile = user.userProfile;
-          this.orgname = user.userProfile.organisationNames[1];
-          this.formInputData['creators'] = user.userProfile.organisationNames[1];
-        } else if (user && !user.err && user.userProfile.organisationNames.length === 1) {
-          this.userProfile = user.userProfile;
-          this.orgname = user.userProfile.organisationNames[0];
-          this.formInputData['creators'] = user.userProfile.organisationNames[0];
+          this.orgname = user.userProfile.organisations[0].orgName;
+          this.formInputData['creators'] = user.userProfile.organisations[0].orgName;
         }
+        //  else if (user && !user.err && user.userProfile.organisationNames.length === 1) {
+        //   this.userProfile = user.userProfile;
+        //   this.orgname = user.userProfile.organisationNames[0];
+        //   this.formInputData['creators'] = user.userProfile.organisationNames[0];
+        // }
       });
     this.showLoader = false;
     this.years = this.getYearsForCreateTextBook();
