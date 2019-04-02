@@ -97,7 +97,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   noResultMessage: INoResultMessage;
 
   /**
-  to show no results on upForReview tab 
+  to show no results on upForReview tab
   */
   noResultsForReview = false;
 
@@ -345,14 +345,13 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
                 this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
                 console.log('the up for review content is ', this.upForReviewContent);
                 // update the content-variable with the upForReviewVariable
-                if(this.upForReviewContent.length <= 0){
+                if (this.upForReviewContent.length <= 0) {
                   // set the no results template if no assets is present
                   this.noResultsForReview = true;
                   this.noResultMessage = {
                     'messageText': 'No assets available to review for now.'
                   };
-                }
-                else {
+                } else {
                   this.noResultsForReview = false;
                 }
                 this.allContent = this.upForReviewContent;
