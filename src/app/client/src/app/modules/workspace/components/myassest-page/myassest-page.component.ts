@@ -327,10 +327,11 @@ modalMessage = '';
     this.orgDetailsUnsubscribe = this.searchContentWithLockStatus(searchParams)
       .subscribe(
         (data: ServerResponse) => {
+          console.log("USER USER",this.userDetails);
           console.log('data here ', data);
           if (data.result.count && data.result.content.length > 0) {
             if (this.route.url === '/upForReview' ) {
-               console.log('reviewAsset is captured ');
+               console.log('reviewAsset is captured ',this.config.appConfig.Library.orgName);
                //console.log('getting the data here here here',this.userDetails);
                this.noResultsForReview = false;
               const option = {
@@ -341,7 +342,7 @@ modalMessage = '';
                   contentType: ['Resource'],
                   status: ['Review'],
                   channel: this.userDetails.organisationIds,
-                  organisation: ['Societal_suborg_1', 'Societal', 'Societal_suborg_2']
+                  organisation: this.config.appConfig.Library.orgName
               },
                 sort_by: {me_averageRating: 'desc'}
               };
