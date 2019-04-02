@@ -328,6 +328,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
           if (data.result.count && data.result.content.length > 0) {
             if (this.route.url === '/upForReview' ) {
                console.log('reviewAsset is captured ');
+               console.log('getting the data here here here',this.userDetails);
                this.noResultsForReview = false;
               const option = {
                 url : '/content/v1/search',
@@ -341,7 +342,10 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
               },
                 sort_by: {me_averageRating: 'desc'}
               };
+              // alert(JSON.stringify(option));
               this.contentService.getupForReviewData(option).subscribe(response => {
+                // console.log('initial response for getForReviewData is ', response.result.content);
+                // console.log('the user id is ', this.userId);
                 this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
                 console.log('the up for review content is ', this.upForReviewContent);
                 // update the content-variable with the upForReviewVariable
@@ -439,7 +443,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
           (data: ServerResponse) => {
             console.log('server response for asset review is ');
             console.log(data);
-            this.toasterService.success('You Asset has been sucessfully sent for review');
+            this.toasterService.success('Your Asset has been sucessfully sent for review');
             setTimeout(() => {
               this.showLoader = false;
               this.ngOnInit();
