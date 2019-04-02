@@ -214,8 +214,8 @@
       "ribbon.right.name": "resourceType",
       "ribbon.left.image": "badgeAssertions[0].badgeClassImage"
     },
-    "orgId":["0127227887366471688"],
-    "orgName":["sunbird-client-societal"]
+    "orgId":["0127227887366471688", "01272279025007001610", "01272279175723417614"],
+    "orgName":["Societal_suborg_1", "Societal","Societal_suborg_2"]
   },
   "PublicPlayer": {
     "contentApiQueryParams": {
@@ -260,7 +260,7 @@
       "ribbon.left.image": "badgeAssertions[0].badgeClassImage"
     },
     "orgId":["0127227887366471688"],
-    "orgName":["sunbird-client-societal"]
+    "orgName":["Societal_suborg_1", "Societal","Societal_suborg_2"]
   },
   "CoursePage": {
     "slickSize": 10,
