@@ -17,7 +17,7 @@
 
       </div>
     </div>
-    <div *ngIf="field.inputType==='text' && field.code==='link'" class="required field"
+    <div *ngIf="field.inputType==='text' && field.code==='link' && formInputData[field.code]" class="required field"
     [ngClass]="{ 'disabled':!field.editable}">
 
     <div class="field required">
