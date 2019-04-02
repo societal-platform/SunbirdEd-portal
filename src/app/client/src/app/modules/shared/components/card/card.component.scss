@@ -190,29 +190,40 @@ left : 1rem
  }
  @media screen and (min-height:450px ) and (max-height:500px) {
   #res-title {
-    margin-top: -1rem;
-    margin-left: 0rem;
+    text-overflow: ellipsis;
+    width: 11rem;
   }
   #res-para {
     margin-top: -1rem !important;
-    margin-left: 0rem;
   }
   .card {
     height: 69vh;
-    left: 1rem;
+  }
+  .col-sm-8 {
+    width: auto;
+    margin-top: -1rem;
   }
  }
  @media screen and (min-height: 501px) and (max-height:700px) {
-   .card {
-     height: 53vh;
-     left: 1rem;
-   }
-   #res-title {
-    margin-top: -1rem;
-    margin-left: 0rem;
+  .card {
+    height: 54vh !important;
   }
-  #res-para {
-    margin-top: -1rem !important;
-    margin-left: 0rem;
-  }
+  #res-title {
+   text-overflow: ellipsis;
+   width: 9rem;
  }
+ }
+
+//  @media screen and (min-height: 501px)  and (max-height: 600px) {
+//   .card {
+//     height: 63vh !important;
+//     left: 1rem;
+//   }
+//   #res-title {
+//    text-overflow: ellipsis;
+//    width: 9rem;
+//  }
+//  #res-para {
+//    margin-left: 5rem;
+//  }
+//  }

@@ -213,8 +213,8 @@ background-color: #585858;
 }
 @media screen and (min-height:450px ) and (max-height:500px) {
   #res-title {
-    margin-top: -6rem;
-    margin-left: 5rem;
+    text-overflow: ellipsis;
+    width: 11rem;
   }
   #res-para {
     margin-top: -1rem !important;
@@ -223,7 +223,10 @@ background-color: #585858;
   .card {
     height: 69vh;
     left: 1rem;
-
+  }
+  .col-sm-8 {
+    width: auto;
+    margin-top: -1rem;
   }
  }
  @media screen and (min-height: 501px) and (max-height:600px) {
@@ -232,13 +235,10 @@ background-color: #585858;
      left: 1rem;
    }
    #res-title {
-    margin-top: -6rem;
-    margin-left: 5rem;
+    text-overflow: ellipsis;
+    width: 9rem;
   }
-  #res-para {
-    margin-top: -1rem !important;
-    margin-left: 5rem;
-  }
+
  }
  @media screen and (min-height: 450px) and (min-width:1024px) {
 

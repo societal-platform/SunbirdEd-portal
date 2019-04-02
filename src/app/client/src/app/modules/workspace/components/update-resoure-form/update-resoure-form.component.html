@@ -17,7 +17,7 @@
 
       </div>
     </div>
-    <div *ngIf="field.inputType==='text' && field.code==='link' && formInputData[field.code]" class="required field"
+    <div *ngIf="field.inputType==='text' && field.code==='link'" class="required field"
     [ngClass]="{ 'disabled':!field.editable}">
 
     <div class="field required">
@@ -131,7 +131,10 @@
       <label>{{field.name}}</label>
     <form class="concept ui form">
      
-      <app-framwork-selector  [selectedConcept]="formInputData[field.code]" [categoryName]="field.name"
+      <app-framwork-selector  *ngIf="formInputData[field.code]" [selectedConcept]="formInputData[field.code]" [categoryName]="field.name"
+        [category]="categoryList[field.code]" [conceptPicker]="'content-creation-concept-picker'"
+        (Framework)="conceptspFramework($event)"></app-framwork-selector>
+        <app-framwork-selector *ngIf="formInputData[field.code]===[]" [selectedConcept]="formInputData[field.code]" [categoryName]="field.name"
         [category]="categoryList[field.code]" [conceptPicker]="'content-creation-concept-picker'"
         (Framework)="conceptspFramework($event)"></app-framwork-selector>
     </form>

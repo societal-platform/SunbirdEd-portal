@@ -319,13 +319,20 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
   checkFieldofFile() {
     const data = _.pickBy(this.formData.formInputData);
     if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators &&
-      !!data.version && !!data.gradeLevel && !!this.fileList) {
+      !!data.version && !!data.gradeLevel) {
       this.uploadSuccess = true;
-      if (this.fileList.size < 50000000) {
-        this.updateContentFile();
+      if (this.fileList) {
+        if (this.fileList.size < 50000000) {
+          this.updateContentFile();
+
+        } else {
+          this.toasterService.error('File size should be less than 50MB');
+        }
       } else {
-        this.toasterService.error('File size should be less than 50MB');
+        this.updateContent();
+
       }
+
     } else {
       this.toasterService.error('Asset creation failed please provide required fields');
     }
@@ -368,7 +375,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
 
       });
     } else {
-      this.toasterService.error('Asset updation failed please try after some time');
+      this.toasterService.error('Asset updation failed please try after ');
     }
   }
 
