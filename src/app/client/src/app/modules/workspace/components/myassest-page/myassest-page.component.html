@@ -105,13 +105,14 @@
 <ng-template let-context let-modal="modal" #modalTemplate>
   <div class="header"> {{ context.data | titlecase}}</div>
   <div class="content">
-    <p>Are you sure to send this asset?</p>
+    <p>{{modalMessage}}</p>
   </div>
   <div class="actions">
     <button class="ui btn btn-lightgrey" (click)="modal.deny('denied')">No</button>
     <button class="ui btn btn-purple ml-20" (click)="modal.approve('approved')" autofocus>Yes</button>
   </div>
 </ng-template>
+
 
 
 <app-contentlock-info-popup [content]="lockPopupData" (closeEvent)="onCloseLockInfoPopup($event)"

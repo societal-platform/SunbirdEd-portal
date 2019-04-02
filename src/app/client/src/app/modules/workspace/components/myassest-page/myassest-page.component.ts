@@ -38,7 +38,6 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   /**
    * To store the content available for upForReview
    */
-  upForReviewContent: any;
 
   /**
    * To navigate to other pages
@@ -60,6 +59,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   */
   // allContent: Array<IContents> = [];
   allContent: Array<ICard> = [];
+  upForReviewContent = [];
 
   /**
    * To show / hide loader
@@ -71,6 +71,9 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   */
   loaderMessage: ILoaderMessage;
 
+  /**
+  Modal message stores the message to display in the generic modal template */
+modalMessage = '';
   /**
    * To show / hide no result message when no result found
   */
@@ -324,10 +327,11 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     this.orgDetailsUnsubscribe = this.searchContentWithLockStatus(searchParams)
       .subscribe(
         (data: ServerResponse) => {
+          console.log('USER USER', this.userDetails);
           console.log('data here ', data);
           if (data.result.count && data.result.content.length > 0) {
             if (this.route.url === '/upForReview' ) {
-               console.log('reviewAsset is captured ');
+               console.log('reviewAsset is captured ', this.config.appConfig.Library.orgName);
                this.noResultsForReview = false;
               const option = {
                 url : '/content/v1/search',
@@ -337,25 +341,32 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
                   contentType: ['Resource'],
                   status: ['Review'],
                   channel: this.userDetails.organisationIds,
-                  organisation: ['Societal_suborg_1', 'Societal', 'Societal_suborg_2']
+                  organisation: this.config.appConfig.Library.orgName
               },
                 sort_by: {me_averageRating: 'desc'}
               };
               this.contentService.getupForReviewData(option).subscribe(response => {
-                this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
-                console.log('the up for review content is ', this.upForReviewContent);
-                // update the content-variable with the upForReviewVariable
-                if (this.upForReviewContent.length <= 0) {
+                if (response.result.count > 0) {
+                  this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
+                  if (this.upForReviewContent.length <= 0) {
+                    this.noResultsForReview = true;
+                    this.noResultMessage = {
+                      'messageText': 'No assets available to review for now.'
+                    };
+                  } else {
+                    this.noResultsForReview = false;
+                  }
+
+                  this.allContent = this.upForReviewContent;
+                console.log('the all content for upforreview is ', this.allContent);
+                } else {
+                  console.log('did not recieve anything');
                   // set the no results template if no assets is present
                   this.noResultsForReview = true;
                   this.noResultMessage = {
                     'messageText': 'No assets available to review for now.'
                   };
-                } else {
-                  this.noResultsForReview = false;
                 }
-                this.allContent = this.upForReviewContent;
-                console.log('the all content for upforreview is ', this.allContent);
               });
             } else {this.allContent = data.result.content; }
             console.log('this is allContent', this.allContent);
@@ -385,7 +396,11 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     const config = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config.isClosable = true;
     config.size = 'mini';
-    config.context = {data: 'delete'};
+    config.context = {
+      data: 'delete'
+      };
+      this.modalMessage = 'Do you want to delete this asset ?';
+
     this.modalService
       .open(config)
       .onApprove(result => {
@@ -415,7 +430,10 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     const config2 = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config2.isClosable = true;
     config2.size = 'mini';
-    config2.context = {data: 'Review'};
+    config2.context = {
+      data: 'Review'
+      };
+      this.modalMessage = 'Do you want to send this asset for review?';
     this.modalServices
       .open(config2)
       .onApprove(result => {
@@ -438,7 +456,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
           (data: ServerResponse) => {
             console.log('server response for asset review is ');
             console.log(data);
-            this.toasterService.success('You Asset has been sucessfully sent for review');
+            this.toasterService.success('Your Asset has been sucessfully sent for review');
             setTimeout(() => {
               this.showLoader = false;
               this.ngOnInit();
