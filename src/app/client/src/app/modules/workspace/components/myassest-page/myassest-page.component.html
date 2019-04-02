@@ -2,13 +2,13 @@
 <app-all-my-content-filter *ngIf="!route.isActive('upForReview', true)" ></app-all-my-content-filter>
 
 <div class="container">
-  <div class="row" *ngIf="!route.isActive('upForReview', true)">
+  <div class="row pt-15" *ngIf="!route.isActive('upForReview', true)">
     <div class="col" *ngIf='permissionService.permissionAvailable' appPermission [permission]='lessonRole'>
       <button type="button" class="btn btn-sec text-light float-right" routerLink="create"><i class="fas fa-plus"></i> New
         Asset</button>
     </div>
   </div>
-  <div *ngIf="noResult && !showLoader">
+  <div *ngIf="(noResult && !showLoader) || noResultsForReview === true">
       <app-no-result [data]="noResultMessage"></app-no-result>
     </div>
   <div class="row" *ngIf="allContent.length > 0 && !showLoader && !noResult">
@@ -105,13 +105,14 @@
 <ng-template let-context let-modal="modal" #modalTemplate>
   <div class="header"> {{ context.data | titlecase}}</div>
   <div class="content">
-    <p>Are you sure to send this asset?</p>
+    <p>{{modalMessage}}</p>
   </div>
   <div class="actions">
     <button class="ui btn btn-lightgrey" (click)="modal.deny('denied')">No</button>
     <button class="ui btn btn-purple ml-20" (click)="modal.approve('approved')" autofocus>Yes</button>
   </div>
 </ng-template>
+
 
 
 <app-contentlock-info-popup [content]="lockPopupData" (closeEvent)="onCloseLockInfoPopup($event)"

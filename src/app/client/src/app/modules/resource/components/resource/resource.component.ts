@@ -47,6 +47,7 @@ export class ResourceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.userService.userData$.subscribe(userData => {
       if (userData && !userData.err) {
           this.frameworkData = _.get(userData.userProfile, 'framework');

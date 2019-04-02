@@ -104,11 +104,10 @@ export class AdduserComponent implements OnInit {
 
             this.toasterService.success('user created successfully');
           }, (err) => {
-            console.log('err', err);
             this.toasterService.error(err.error.params.errmsg);
+            console.log('err', err);
           });
         }, (err) => {
-          console.log('err', err);
           this.toasterService.error(err.error.params.errmsg);
           // this.goBackToCoursePage();
         }

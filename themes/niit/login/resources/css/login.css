@@ -1,0 +1,113 @@
+body{background-image: url(../img/banner_bg.jpg); width: 100%; height: 100%; background-size: cover;
+    background-repeat: repeat;
+    background-position: 100% 0%;}
+#kc-container-wrapper{width: 350px; margin: 5% auto 0px; min-height: 380px; background: #fff; padding: 20px;  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);}
+.LoginLabel label{font-weight: 400; font-size: 13px; padding-bottom: 5px; color: #565555;}
+.LoginInput input{border-radius: 0px; height: 42px; border: 1px solid #d2d2d2;}
+input:-internal-autofill-previewed, input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected{background-color: #fff!important;}
+.LoginBtn input.btn{border-radius: 0px; border: 0px;background: #585858; width: 100%; margin-top: 30px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);} 
+.loginLogoIMg .kc-logo-text span{display: none;}
+.navbar-inverse {
+    background-color: #585858;
+    border-color: #585858;
+}
+.navbar-white {background-color:#fff;border-color:#fff;}
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
+.btn-purple {
+  background-color: #a8abe3 !important;
+  border-radius:4px !important;
+  border: none;
+  color:#fff !important;
+  border-radius: 5px;
+  height: 40px;
+  font-family: "Muli",sans-serif;
+  font-size: 15px;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: none;
+  cursor: pointer;
+}
+#keycloakfooter{
+    
+width:84px;
+    
+display:block;
+    
+height:32px;
+    
+right: -8px;
+    
+position: fixed;
+    
+bottom: 15px;
+}
+span.kc-feedback-text {
+    color: red;
+}
+div#kc-content {
+    margin-top: 20px;
+}
+
+.navbar-right {
+    float: right !important;
+    margin-right: 15px !important;
+}
+.kc-headerlogo {
+    background-image: url(../img/societal_Logo2.png);
+    width: 356px;
+    display: block;
+    height: 68px;
+    background-position: center;
+    /* margin: 0px auto 20px; */
+    background-repeat: no-repeat;
+    background-size: 95%;
+}
+.nav > li {
+    position: relative;
+    display: inline-block;
+}
+#keycloakfooter #footerniitlogo{
+    background-image: url(../img/NIIT-Logo.png);
+    width:100%;
+    background-size: 52px;
+    background-position: 0 23px;
+    height: 100px;
+    background-repeat: no-repeat;
+}
+.loginLogoIMg .kc-logo-text{
+    background-image: url(../img/societal_Logo.png); 
+    width: 85%; display: block; height: 120px;
+    background-position: center; margin: 0px auto 20px; 
+    background-repeat: no-repeat;
+    background-size: 80%; }
+
+    input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus { 
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset!important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+#kc-form-options{width:100%}
+div#kc-container-wrapper:after {
+    clear: both;
+    display: table;
+    content: '';
+}
+
+
+@media only screen and (max-width :768px){
+
+    #kc-container-wrapper{width: 95%; margin: 15% auto 0px;}
+    body{background-size: auto;}
+}
+

@@ -138,6 +138,7 @@ export class SharedDetailPageComponent implements OnInit {
   }
   navigateToDetailsPage() {
     this.route.navigate(['resources']);
+
   }
   public deleteConfirmModal(issuerId, badgeId) {
     this.add = true;

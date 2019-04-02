@@ -17,8 +17,8 @@
         </div>
         <div class="text-light pt-3 pl-20 col-sm-8">
            
-          <h5 class="card-title">{{data?.name | titlecase}}</h5>
-          <p class="card-text1 text-light">version : {{data?.version}}.0</p>
+          <h5 class="card-title" id="res-title">{{data?.name | titlecase}}</h5>
+          <p class="card-text1 text-light" id="res-para">version : {{data?.version}}.0</p>
           
         </div>
         <button *ngIf="data?.ribbon?.left?.image" type="button" class="btn text-light float-right badgesprite badgeimg " id="styletick">

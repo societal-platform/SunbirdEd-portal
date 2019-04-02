@@ -220,10 +220,11 @@ export class UpdateResoureFormComponent implements OnInit, AfterViewInit {
   conceptspFramework(events) {
     console.log('events', events);
     const spFramework = [];
+
     _.forEach(events, (field) => {
       spFramework.push(field.name);
     });
-    this.formInputData['medium'] = spFramework;
+    this.formInputData['topic'] = spFramework;
   }
 
   /**
