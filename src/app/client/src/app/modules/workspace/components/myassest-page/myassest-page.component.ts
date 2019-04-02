@@ -348,7 +348,15 @@ modalMessage = '';
               this.contentService.getupForReviewData(option).subscribe(response => {
                 if(response.result.count > 0){
                   this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
-                  this.noResultsForReview = false;
+                  if(this.upForReviewContent.length <= 0){
+                    this.noResultsForReview = true;
+                    this.noResultMessage = {
+                      'messageText': 'No assets available to review for now.'
+                    };
+                  }else {
+                    this.noResultsForReview = false;
+                  }
+                  
                   this.allContent = this.upForReviewContent;
                 console.log('the all content for upforreview is ', this.allContent);
                 }
