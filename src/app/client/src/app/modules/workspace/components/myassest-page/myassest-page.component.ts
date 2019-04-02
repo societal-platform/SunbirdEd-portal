@@ -330,7 +330,7 @@ modalMessage = '';
           console.log('USER USER', this.userDetails);
           console.log('data here ', data);
 
-          if(this.route.url === '/upForReview'){
+          if (this.route.url === '/upForReview' ) {
             if (this.route.url === '/upForReview' ) {
                this.noResultsForReview = false;
               const option = {
@@ -355,7 +355,7 @@ modalMessage = '';
                       'messageText': 'No assets available to review for now.'
                     };
                   } else {
-                    //recieved some result
+                    // recieved some result
                     this.noResultsForReview = false;
                      this.showLoader = false;
                       this.noResult = false;
@@ -373,8 +373,7 @@ modalMessage = '';
                 }
               });
             }
-          }
-          else{
+          } else {
             if (data.result.count && data.result.content.length > 0) {
             // this is the tem area
             this.allContent = data.result.content;
