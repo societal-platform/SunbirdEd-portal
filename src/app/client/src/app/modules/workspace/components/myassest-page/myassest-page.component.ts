@@ -72,6 +72,9 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
   loaderMessage: ILoaderMessage;
 
   /**
+  Modal message stores the message to display in the generic modal template */
+modalMessage = '';
+  /**
    * To show / hide no result message when no result found
   */
   noResult = false;
@@ -328,7 +331,7 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
           if (data.result.count && data.result.content.length > 0) {
             if (this.route.url === '/upForReview' ) {
                console.log('reviewAsset is captured ');
-               console.log('getting the data here here here',this.userDetails);
+               //console.log('getting the data here here here',this.userDetails);
                this.noResultsForReview = false;
               const option = {
                 url : '/content/v1/search',
@@ -342,12 +345,11 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
               },
                 sort_by: {me_averageRating: 'desc'}
               };
-              // alert(JSON.stringify(option));
               this.contentService.getupForReviewData(option).subscribe(response => {
                 // console.log('initial response for getForReviewData is ', response.result.content);
                 // console.log('the user id is ', this.userId);
                 this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
-                console.log('the up for review content is ', this.upForReviewContent);
+                // console.log('the up for review content is ', this.upForReviewContent);
                 // update the content-variable with the upForReviewVariable
                 if(this.upForReviewContent.length <= 0){
                   // set the no results template if no assets is present
@@ -390,7 +392,11 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     const config = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config.isClosable = true;
     config.size = 'mini';
-    config.context = {data: 'delete'};
+    config.context = {
+      data: 'delete'
+      };
+      this.modalMessage = 'Do you want to delete this asset ?';
+
     this.modalService
       .open(config)
       .onApprove(result => {
@@ -420,7 +426,10 @@ export class MyassestPageComponent extends WorkSpace implements OnInit, OnDestro
     const config2 = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
     config2.isClosable = true;
     config2.size = 'mini';
-    config2.context = {data: 'Review'};
+    config2.context = {
+      data: 'Review'
+      };
+      this.modalMessage = 'Do you want to send this asset for review?';
     this.modalServices
       .open(config2)
       .onApprove(result => {
