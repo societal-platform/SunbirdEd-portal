@@ -32,8 +32,8 @@
          
        
         <div class="details">
-        <span class="creator">Created By : {{data?.creator | titlecase}}</span>
-        <span class="creator" *ngIf="data?.link ">Link : {{data?.link}}</span>
+        <span class="creator" *ngIf="data?.creators">Created By : {{data?.creator | titlecase}}</span>
+        <span class="creator" *ngIf="data?.link">Link : {{data?.link}}</span>
         <span class="creator" *ngIf="data?.region ">Where : {{data?.region | titlecase}}</span>
         <span class="creator" *ngIf="data?.year">Since : {{data?.year}}</span>
       </div>
