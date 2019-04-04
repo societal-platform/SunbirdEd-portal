@@ -100,7 +100,7 @@ modalMessage = '';
   noResultMessage: INoResultMessage;
 
   /**
-  to show no results on upForReview tab 
+  to show no results on upForReview tab
   */
   noResultsForReview = false;
 
@@ -327,12 +327,12 @@ modalMessage = '';
     this.orgDetailsUnsubscribe = this.searchContentWithLockStatus(searchParams)
       .subscribe(
         (data: ServerResponse) => {
-          console.log("USER USER",this.userDetails);
+          console.log('USER USER', this.userDetails);
           console.log('data here ', data);
           if (data.result.count && data.result.content.length > 0) {
             if (this.route.url === '/upForReview' ) {
-               console.log('reviewAsset is captured ',this.config.appConfig.Library.orgName);
-               //console.log('getting the data here here here',this.userDetails);
+               console.log('reviewAsset is captured ', this.config.appConfig.Library.orgName);
+               // console.log('getting the data here here here',this.userDetails);
                this.noResultsForReview = false;
               const option = {
                 url : '/content/v1/search',
@@ -347,23 +347,21 @@ modalMessage = '';
                 sort_by: {me_averageRating: 'desc'}
               };
               this.contentService.getupForReviewData(option).subscribe(response => {
-                if(response.result.count > 0){
+                if (response.result.count > 0) {
                   this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
-                  if(this.upForReviewContent.length <= 0){
+                  if (this.upForReviewContent.length <= 0) {
                     this.noResultsForReview = true;
                     this.noResultMessage = {
                       'messageText': 'No assets available to review for now.'
                     };
-                  }else {
+                  } else {
                     this.noResultsForReview = false;
                   }
-                  
+
                   this.allContent = this.upForReviewContent;
                 console.log('the all content for upforreview is ', this.allContent);
-                }
-                // update the content-variable with the upForReviewVariable
-                else{
-                  console.log('did not recieve anything')
+                } else {
+                  console.log('did not recieve anything');
                   // set the no results template if no assets is present
                   this.noResultsForReview = true;
                   this.noResultMessage = {

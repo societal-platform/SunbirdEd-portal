@@ -1,20 +1,16 @@
-<sui-modal [isClosable]="true" (dismissed)="redirect()" [mustScroll]="true"
+<!-- <sui-modal [isClosable]="true" (dismissed)="redirect()" [mustScroll]="true"
     #modal>
     <div class="header">
         <div class="ui grid">
             <div class="eleven wide column">
                 <span class="ui header">{{resourceService.frmelmnts?.lbl?.selrole}}</span>
             </div>
-            <!--<div class="one wide column actions">
-                <h5 class="ui basic icon circular button deny">
-                    <i class="ui remove icon"></i>
-                </h5>
-            </div>-->
+           
         </div>
-    </div>
+    </div> -->
 
     <div class="scrolling content">
-        <div appTelemetryInteract [telemetryInteractEdata]="organizationIntractEdata" [telemetryInteractObject]="{id:userId,type:'user',ver:'1.0'}"
+        <!-- <div appTelemetryInteract [telemetryInteractEdata]="organizationIntractEdata" [telemetryInteractObject]="{id:userId,type:'user',ver:'1.0'}"
             class="ui selection dropdown ml-10" suiDropdown *ngIf="userDetails && userDetails.organisations.length > 0">
             <i class="dropdown icon"></i>
             <div>{{selectedOrgName || userDetails.organisations[0].orgName || selectedOrgId}}</div>
@@ -23,7 +19,7 @@
                 <div class="item" [ngClass]="{'active': selectedOrgId === org.organisationId }" *ngFor="let org of userDetails.organisations"
                     (click)="selectedOrgName = org.orgName; selectedOrgUserRoles=org.roles; selectedOrgId=org.organisationId">{{org.orgName || org.organisationId}}</div>
             </div>
-        </div>
+        </div> -->
         <div class="ui form mt-40" *ngIf="selectedOrgUserRoles">
             <ul class="selectOrgRoles">
 
@@ -38,9 +34,11 @@
             </ul>
         </div>
     </div>
-    <div class="actions">
-        <button appTelemetryInteract [telemetryInteractEdata]="updateIntractEdata" [telemetryInteractObject]="{id:userId,type:'user',ver:'1.0'}"
-            [disabled]="!selectedOrgUserRoles" class="ui primary button" type="submit" (click)="updateRoles(selectedOrgUserRoles); modal.deny();">
+    <div class="row pb-15 justify-content-center" style="margin-left: -8rem;">
+        <div class="">
+            <button
+            [disabled]="!selectedOrgUserRoles" class="btn btn-purple" type="submit" (click)="updateRoles(selectedOrgUserRoles);">
             {{resourceService.frmelmnts?.btn?.update}}</button>
+        </div>
     </div>
-</sui-modal>
+<!-- </sui-modal> -->

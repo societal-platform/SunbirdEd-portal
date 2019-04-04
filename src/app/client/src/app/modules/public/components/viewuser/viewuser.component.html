@@ -41,7 +41,7 @@
                   </div>
               </div>
           
-              <div class="scrolling content">
+              <!-- <div class="scrolling content">
                   <div 
                       class="ui selection dropdown ml-10" suiDropdown *ngIf="userDetails && userDetails.organisations.length > 0">
                       <i class="dropdown icon"></i>
@@ -66,11 +66,13 @@
                           </li>
                       </ul>
                   </div>
-              </div>
-              <div class="row pb-15">
+              </div> -->
+              <app-user-edit [userid]="user.id" [model]="modalRef" ></app-user-edit>
+             
+              <!-- <div class="row pb-15">
                   <div class="col-9 text-align-right">
                       <button 
-                          [disabled]="!selectedOrgUserRoles" class="btn btn-purple" type="submit" (click)="updateRoles(selectedOrgUserRoles,user.id)">
+                          [disabled]="!selectedOrgUserRoles" class="btn btn-purple" type="submit" (click)="updateRoles(selectedOrgUserRoles,user.id,user.roles)">
                           {{resourceService.frmelmnts?.btn?.update}}</button>
                   </div>
                   <div class="">
@@ -83,6 +85,16 @@
                         Close
                       </button>
                     </div>
+              </div> -->
+              <div class="btnStyle text-align-center">
+                <button
+                  type="button"
+                  class="btn button "
+                  data-dismiss="modal"
+                  (click)="gottoCancel()"
+                >
+                  Close
+                </button>
               </div>
             </ng-template>
         </td>

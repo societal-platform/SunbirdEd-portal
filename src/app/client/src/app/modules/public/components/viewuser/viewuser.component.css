@@ -23,6 +23,14 @@
     box-shadow: none;
     cursor: pointer;
 }
+.btnStyle {
+  margin-right: -5.5rem;
+  margin-top: -4rem;
+  margin-bottom: 1rem;
+}
+.modal.show .modal-dialog {
+  width: 38rem !important;
+}
 @media screen and (max-width:450px ) and (min-width: 320px) {
   #responsive-table {
     width: 100vw;
