@@ -109,24 +109,20 @@ export class DataService {
    *
    */
   patch(requestParam: RequestParam): Observable<ServerResponse> {
-    const httpOptions: HttpOptions = {
-      headers: requestParam.header ? requestParam.header : this.getHeader(),
-      params: requestParam.param
-    };
-  const config = {
-      enctype: 'multipart/form-data',
-      processData: false,
-      contentType: false,
-      cache: false
-  };
+      const httpOptions: HttpOptions = {
+        headers: requestParam.header ? this.getHeader(requestParam.header) : this.getHeader(),
+        params: requestParam.param
+      };
+      console.log('complete request created as ', this.baseUrl + requestParam.url);
+      return this.http.patch(this.baseUrl + requestParam.url, requestParam.data, httpOptions).pipe(
+        mergeMap((data: ServerResponse) => {
 
-    return this.http.patch(this.baseUrl + requestParam.url, requestParam.data, httpOptions).pipe(
-      mergeMap((data: ServerResponse) => {
-        if (data.responseCode !== 'OK') {
-          return observableThrowError(data);
-        }
-        return observableOf(data);
-      }));
+          console.log(`recieved data for ${requestParam.url} : `, data);
+          if (data.responseCode !== 'OK') {
+            return observableThrowError(data);
+          }
+          return observableOf(data);
+        }));
   }
 
   /**

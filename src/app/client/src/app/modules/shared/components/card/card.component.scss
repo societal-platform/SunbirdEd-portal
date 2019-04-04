@@ -13,14 +13,15 @@ i.fas.fa-database.fa-lg {
     margin-left: 1rem; 
     background: white;
     width: fit-content; 
+    margin-top: 1rem
   }
 
   .smaller-image {
     width: 21px;
     padding-top: 12px;
   }
-  .card-text, .card-text1, .card-title{
-    min-height: 46px;
+  .card-text, .card-title{
+    min-height: 45px;
     text-overflow: ellipsis;
     white-space: normal;
     overflow: hidden;
@@ -29,31 +30,19 @@ i.fas.fa-database.fa-lg {
     font-weight: 600;
     margin-bottom: 10px;
     font-family: 'Muli', sans-serif;
-
-    /* autoprefixer: off */
-
--webkit-box-orient: vertical;
-
-/* autoprefixer: on */
-
   }
-//   .card-text1{
-//     min-height: 46px;
-//     text-overflow: ellipsis;
-//     white-space: normal;
-//     overflow: hidden;
-//     display: -webkit-box !important;
-//     -webkit-line-clamp: 2;
-//     font-weight: 600;
-//     font-size: 15px;
-//     color: white;
-//     margin-bottom: 10px;
-//     /* autoprefixer: off */
-
-// -webkit-box-orient: vertical;
-
-// /* autoprefixer: on */
-//   }
+  .card-text1{
+    min-height: 30px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    font-weight: 600;
+    font-size: 15px;
+    color: white;
+    margin-bottom: 10px;
+  }
   
  .card-img-top{
 background-color: #585858;
@@ -69,8 +58,8 @@ background-color: #585858;
   height: 112px;
  }
  .card {
-   height: 50vh;
-   width: 355.5px;
+   height: auto;
+   width: 350px;
    cursor: pointer;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   font-family: 'Muli', sans-serif;
@@ -93,7 +82,7 @@ background-color: #585858;
   height: 48px;
   position: absolute;
   top: 10px;
-  right: 30px;
+  right: 20px;
  }
  i.fas.fa-database.fa-lg {
   padding: 1em 0.1em;
@@ -167,63 +156,13 @@ background-color: #585858;
     color: #686F7A;
     padding-bottom: 6px;
 }
-@media screen and (min-width:312px ) and (max-width:760px){
-  .card {
-   width: 281.5px;
-  }
-  // #res-title {
-  //   margin-top: -6rem;
-  //   margin-left: 6rem;
-  
-  // }
-  // #res-para {
-  //   margin-top: -1rem !important;
-  //   margin-left: 6rem;
-  // }
-}
-@media screen and (min-width: 761px ) and (max-width:980px){ 
-  .card {
-  width: 311.5px;
-left : 1rem
-  }
 
- }
- @media screen and (min-height:450px ) and (max-height:500px) {
-  #res-title {
-    text-overflow: ellipsis;
-    width: 11rem;
-  }
-  #res-para {
-    margin-top: -1rem !important;
-  }
+@media not all and (min-width: 575px) {
   .card {
-    height: 69vh;
+    width: 300px !important
   }
   .col-sm-8 {
-    width: auto;
-    margin-top: -1rem;
+    // text-align: center;
+    width: 13rem !important;
   }
- }
- @media screen and (min-height: 501px) and (max-height:700px) {
-  .card {
-    height: 54vh !important;
-  }
-  #res-title {
-   text-overflow: ellipsis;
-   width: 9rem;
- }
- }
-
-//  @media screen and (min-height: 501px)  and (max-height: 600px) {
-//   .card {
-//     height: 63vh !important;
-//     left: 1rem;
-//   }
-//   #res-title {
-//    text-overflow: ellipsis;
-//    width: 9rem;
-//  }
-//  #res-para {
-//    margin-left: 5rem;
-//  }
-//  }
+}

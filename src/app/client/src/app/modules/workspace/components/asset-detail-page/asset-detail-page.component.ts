@@ -78,6 +78,7 @@ export class AssetDetailPageComponent implements OnInit {
   visible = false;
 
   pdfs: string;
+  path: string;
   constructor(activated: ActivatedRoute, public modalServices: SuiModalService , public modalService: SuiModalService,
     badgeService: BadgesService,  toasterService: ToasterService, resourceService: ResourceService, userService: UserService,
     config: ConfigService, contentServe: ContentService , rout: Router, private location: Location) {
@@ -101,17 +102,38 @@ export class AssetDetailPageComponent implements OnInit {
     } else {
       this.visible = false;
     }
-    const req = {
-      url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
-    };
-    this.contentService.get(req).subscribe(data => {
-      console.log('read content', data);
-      this.assetDetail = data.result.content;
-      this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
-      data.result.content.artifactUrl.lastIndexOf('pdf'));
-
+    this.activatedRoute.url.subscribe(url => {
+      console.log('urls', url);
+      this.path = url[2].path;
     });
-    console.log('this', this.assetDetail);
+    if (this.path === 'Draft' || this.path === 'Review') {
+      const req = {
+        url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}/?mode=edit`,
+      };
+      this.contentService.get(req).subscribe(data => {
+        console.log('read content', data);
+        this.assetDetail = data.result.content;
+        this.showLoader = false;
+        this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
+        data.result.content.artifactUrl.lastIndexOf('pdf'));
+
+      });
+      console.log('this', this.assetDetail);
+    } else {
+      const req = {
+        url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
+      };
+      this.contentService.get(req).subscribe(data => {
+        console.log('read content', data);
+        this.assetDetail = data.result.content;
+        this.showLoader = false;
+        this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
+        data.result.content.artifactUrl.lastIndexOf('pdf'));
+
+      });
+      console.log('this', this.assetDetail);
+    }
+
     this.userService.userData$.subscribe(
       (user: IUserData) => {
         this.user = user.userProfile.userRoles;

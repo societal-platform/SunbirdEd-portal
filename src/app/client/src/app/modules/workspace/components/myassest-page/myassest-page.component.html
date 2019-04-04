@@ -14,35 +14,35 @@
   <div class="row" *ngIf="allContent.length > 0 && !showLoader && !noResult">
     <div in-view-item *ngFor="let content of allContent;let i = index;" [id]="i" [data]="content"
       class="col-md-4 py-3 pl-10">
-      <!-- <app-myasset-card [data]="content" (clickEvent)="contentClick($event)"></app-myasset-card> -->
       <div *ngIf="content">
-        <div class="card mt-5 mb-5"  (click)="navigateToDetailsPage(content?.identifier)">
-          <div class="card-img-top" alt="..." ></div>
-          <div class="card-img-overlay row">
-              
-             <div class="thick-green-border sprite knowledgeimg" *ngIf="content?.board === 'Knowledge'">
+        <div class="card mb-5"  (click)="navigateToDetailsPage(content?.identifier, content?.status)">
+
+          <div class="card-header" style="background: #585858;">
+            <div class="row">
+                <div class="thick-green-border sprite knowledgeimg" *ngIf="content?.board === 'Knowledge'">
+                  </div>
+                  <div class="thick-green-border sprite hardwareimg" *ngIf="content?.board === 'Hardware'">
+                  </div>
+                  <div class="thick-green-border  sprite softwareimg" *ngIf="content?.board === 'Software'">
+                  </div>
+                  <div class="thick-green-border  sprite processimg" *ngIf="content?.board === 'Process'">
+                  </div>
+                  <div class="thick-green-border  sprite dataimg" *ngIf="content?.board === 'Data'">
+                  </div>
+                  <div class="col-sm-8 text-light pt-3 pl-20">
+                     
+                    <h5 class="card-title" id="res-title">{{content?.name | titlecase | slice:0:35}}<span *ngIf="content.name && content.name.length > 35">...</span></h5>
+                    <p class="card-text">version : {{content?.version}}.0</p>
+                  </div>
+                  <button *ngIf="content?.badgeAssertions" type="button" class="btn text-light float-right badgesprite badgeimg " id="styletick">
+                            
+                  </button> 
             </div>
-            <div class="thick-green-border sprite hardwareimg" *ngIf="content?.board === 'Hardware'">
-            </div>
-            <div class="thick-green-border  sprite softwareimg" *ngIf="content?.board === 'Software'">
-            </div>
-            <div class="thick-green-border  sprite processimg" *ngIf="content?.board === 'Process'">
-            </div>
-            <div class="thick-green-border  sprite dataimg" *ngIf="content?.board === 'Data'">
-            </div>
-            <div class="col-sm-8 text-light pt-3 pl-20">
-               
-              <h5 class="card-title" id="res-title">{{content?.name | titlecase}}</h5>
-              <p class="card-text">version : {{content?.version}}.0</p>
-            </div>
-            <button *ngIf="content?.badgeAssertions" type="button" class="btn text-light float-right badgesprite badgeimg " id="styletick">
-                      
-            </button> 
-          </div>
+                         </div>
           <div class="card-body">
              <!-- <div> <i class="far fa-heart float-right"></i></div> -->
              
-            <div class="card-text1">{{content?.description | titlecase}}</div>
+            <div class="card-text1">{{content?.description | titlecase | slice:0:95}}<span *ngIf="content.description && content.description.length > 95">...</span></div>
             <div class="d-flex justify-content-center">
               <button *ngIf="(content?.status==='Draft' || content?.status=== 'DRAFT' || content?.status=== 'LIVE' || content?.status=== 'Live') && route.isActive('myassets')" type="button" class="btn text-secondary" id="style"
                 (click)="deleteConfirmModal(content.identifier); $event.stopPropagation()">
@@ -61,7 +61,7 @@
               <!-- <div *ngIf="content?.status==='Live'">
                   <button type="button" class="btn ml-4 text-light" id="badge">VERIFY</button>
               </div> -->
-              <button *ngIf="(content?.status==='Draft' || content?.status=== 'DRAFT' || content?.status=== 'LIVE' || content?.status=== 'Live') && route.isActive('myassets')" type="button" class="btn text-secondary ml-4" id="style" (click)="navigateToEditPage(content?.identifier)"><i
+              <button *ngIf="(content?.status==='Draft' || content?.status=== 'DRAFT' || content?.status=== 'LIVE' || content?.status=== 'Live') && route.isActive('myassets')" type="button" class="btn text-secondary ml-4" id="style" (click)="navigateToEditPage(content?.identifier, content?.status)"><i
                   class="fas fa-pencil-alt"></i></button>
 
             </div>

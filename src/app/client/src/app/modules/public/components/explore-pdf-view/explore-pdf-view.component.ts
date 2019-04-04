@@ -6,11 +6,12 @@ import { BadgesService } from '../../../core/services/badges/badges.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-pdf-viewer',
-  templateUrl: './pdf-viewer.component.html',
-  styleUrls: ['./pdf-viewer.component.scss']
+  selector: 'app-explore-pdf-view',
+  templateUrl: './explore-pdf-view.component.html',
+  styleUrls: ['./explore-pdf-view.component.scss']
 })
-export class PdfViewerComponent implements OnInit {
+export class ExplorePdfViewComponent implements OnInit {
+
   public activatedRoute: ActivatedRoute;
   public configService: ConfigService;
   public contentService: ContentService;
@@ -60,23 +61,13 @@ export class PdfViewerComponent implements OnInit {
   navigateToDetailsPage() {
     console.log('params', this.activatedRoute);
     this.activatedRoute.url.subscribe(url => {
-      console.log('urls', url);
-      this.path = url[0].path;
-      this.status = url[2].path;
-      if (this.path === 'review') {
+
         this.contentId = url[2].path;
-      } else {
-        this.contentId = url[1].path;
-      }
 
-      console.log('this.', this.path, this.contentId);
     });
-    if (this.path === 'review') {
-      this.route.navigate(['upForReview/review/detail', this.contentId]);
 
-    } else {
-      this.route.navigate(['myassets', this.path, this.contentId, this.status]);
-    }
+      this.route.navigate(['play/content', this.contentId]);
 
   }
+
 }

@@ -32,6 +32,7 @@ import { AdduserComponent } from './components/adduser/adduser.component';
 import { ViewuserComponent } from './components/viewuser/viewuser.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UserSearchServicePublicService } from './services/searchService/user-search-service-public.service';
+import { ExplorePdfViewComponent } from './components/explore-pdf-view/explore-pdf-view.component';
  @NgModule({
   imports: [
     CommonModule,
@@ -51,7 +52,8 @@ import { UserSearchServicePublicService } from './services/searchService/user-se
      ViewuserComponent, UserEditComponent,
     PublicFooterComponent, PublicContentPlayerComponent, PublicCollectionPlayerComponent, ContactUsComponent,
     CommonLicenseComponent, PeopleInvlovedComponent, AboutUSComponent, BlogComponent,
-     ExploreAssetComponent, FrameworkComponent, CoreComponent, ExploreThinkingComponent, ExploreDetailPageComponent, AdduserComponent],
+     ExploreAssetComponent, FrameworkComponent, CoreComponent, ExploreThinkingComponent,
+      ExploreDetailPageComponent, AdduserComponent, ExplorePdfViewComponent],
   providers: [PublicPlayerService, DeviceDetectorService, LandingpageGuard, UserSearchServicePublicService]
 })
 export class PublicModule { }

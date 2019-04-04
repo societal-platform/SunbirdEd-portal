@@ -233,7 +233,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
       if (data.result.content.mimeType === 'application/pdf') {
         this.enabled = true;
         this.pdf = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
-         data.result.content.artifactUrl.lastIndexOf('pdf'));
+          data.result.content.artifactUrl.lastIndexOf('pdf'));
 
       }
       // this.formInputData['gradeLevel'] = this.mutateData(data.result.content.gradeLevel)
@@ -284,7 +284,9 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
       requestData.createdFor = this.userProfile.organisationIds,
       requestData.contentType = this.configService.appConfig.contentCreateTypeForEditors[this.contentType],
       requestData.framework = this.framework;
-    requestData.version = parseFloat(requestData.version);
+      requestData.keywords = _.uniqWith(requestData.keywords, _.isEqual);
+      requestData['tags'] = requestData.keywords;
+      requestData.version = parseFloat(requestData.version);
     delete requestData.status;
     if (this.contentType === 'studymaterial' && data.link) {
       requestData.mimeType = 'text/x-url';

@@ -79,7 +79,7 @@
       <div class="field">
        
         <select name="{{field.code}}" id={{field.code}} multiple="" class="ui search fluid dropdown multiple" [(ngModel)]="formInputData[field.code]" (ngModelChange)="updateForm({index:i, field:field, value:formInputData[field.code]})">
-          <option  *ngFor="let option of keywords" selected>{{option}}</option>    
+          <option  *ngFor="let option of keywords" selected="selected">{{option}}</option>    
 
         </select>
        

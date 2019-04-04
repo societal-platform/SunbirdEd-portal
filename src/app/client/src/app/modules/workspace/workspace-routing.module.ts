@@ -299,22 +299,22 @@ const routes: Routes = [
     path: 'review/detail/:contentId/play', component: PdfViewerComponent
   },
   {
-    path: 'detail/:contentId', component: AssetDetailPageComponent
+    path: 'detail/:contentId/:status', component: AssetDetailPageComponent
   },
   {
-    path: 'detail/:contentId/play', component: PdfViewerComponent, canActivate: [AuthGuard],
+    path: 'detail/:contentId/:status/play', component: PdfViewerComponent, canActivate: [AuthGuard],
     data: {
       roles: 'workspace'
     }
   },
   {
-    path: 'update/:contentId', component: CreateAssetComponent,
+    path: 'update/:contentId/:status', component: CreateAssetComponent,
     data: {
       roles: 'workspace'
     }
   },
   {
-    path: 'update/:contentId/play', component: PdfViewerComponent,
+    path: 'update/:contentId/:status/play', component: PdfViewerComponent,
     data: {
       roles: 'workspace'
     }

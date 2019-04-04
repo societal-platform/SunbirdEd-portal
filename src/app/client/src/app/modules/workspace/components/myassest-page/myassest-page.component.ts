@@ -556,11 +556,11 @@ modalMessage = '';
     this.pageNumber = page;
     this.route.navigate(['myassets/', this.pageNumber], { queryParams: this.queryParams });
   }
-  navigateToDetailsPage(contentId: string) {
+  navigateToDetailsPage(contentId: string, status: string) {
     if (this.route.url === '/upForReview') {
       this.navigateToReviewAssetDetailsPage(contentId);
     } else {
-      this.route.navigate(['myassets/detail', contentId]);
+      this.route.navigate(['myassets/detail', contentId, status]);
     }
   }
 
@@ -618,7 +618,7 @@ modalMessage = '';
     }
 
   }
-  navigateToEditPage(contentId: string) {
-    this.route.navigate(['myassets/update', contentId]);
+  navigateToEditPage(contentId: string, status: string) {
+    this.route.navigate(['myassets/update', contentId, status]);
   }
 }

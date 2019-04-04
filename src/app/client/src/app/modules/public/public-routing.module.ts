@@ -21,6 +21,7 @@ import { FrameworkComponent } from './components/framework/framework.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
 import { ViewuserComponent } from './components/viewuser/viewuser.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { ExplorePdfViewComponent } from './components/explore-pdf-view/explore-pdf-view.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,9 @@ const routes: Routes = [
         env: 'public', pageid: 'play-content', type: 'view', subtype: 'paginate'
       }
     }
+  },
+  {
+    path: 'play/content/:contentId/view', component: ExplorePdfViewComponent
   },
   {
     path: 'play/collection/:collectionId', component: PublicCollectionPlayerComponent, data: {

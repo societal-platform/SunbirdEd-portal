@@ -47,7 +47,7 @@
             <p class="card-text" *ngIf="assetDetail?.link">Link: <a href="{{assetDetail?.link}}" target="_blank">{{assetDetail?.link}}</a></p>
             <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'">
                 <p>
-                    File : <span class="pdfStyle">{{pdfs | slice: 1}}pdf</span>
+                    File : <span routerLink="view" class="pdfStyle">{{pdfs | slice: 1}}pdf</span>
                 </p>
 
             </div>

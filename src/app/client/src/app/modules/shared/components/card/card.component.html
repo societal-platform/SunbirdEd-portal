@@ -1,29 +1,31 @@
 
 
-    <div class="card mt-5 mb-5"  *ngIf="data" (click)="onAction(data,data.action.onImage)" >
-      <div class="card-img-top" alt="..." ></div>
-      <div class="card-img-overlay row">
-          
-         <div class="thick-green-border sprite knowledgeimg" *ngIf="data?.board === 'Knowledge'">
-        </div>
-        <div class="thick-green-border sprite hardwareimg" *ngIf="data?.board === 'Hardware'">
-          <!-- <img src="images"> -->
-        </div>
-        <div class="thick-green-border sprite softwareimg" *ngIf="data?.board === 'Software'">
-        </div>
-        <div class="thick-green-border sprite processimg" *ngIf="data?.board === 'Process'">
-        </div>
-        <div class="thick-green-border sprite dataimg" *ngIf="data?.board === 'Data'">
-        </div>
-        <div class="text-light pt-3 pl-20 col-sm-8">
-           
-          <h5 class="card-title" id="res-title">{{data?.name | titlecase}}</h5>
-          <p class="card-text1 text-light" id="res-para">version : {{data?.version}}.0</p>
-          
-        </div>
-        <button *ngIf="data?.ribbon?.left?.image" type="button" class="btn text-light float-right badgesprite badgeimg " id="styletick">
-                      
-        </button> 
+    <div class="card  mb-5"  *ngIf="data" (click)="onAction(data,data.action.onImage)" >
+      <!-- <div class="card-img-top" alt="..." ></div> -->
+      <div class="card-header" style="background: #585858">
+          <div class="row">
+              <div class="thick-green-border sprite knowledgeimg" *ngIf="data?.board === 'Knowledge'">
+                </div>
+                <div class="thick-green-border sprite hardwareimg" *ngIf="data?.board === 'Hardware'">
+                  <!-- <img src="images"> -->
+                </div>
+                <div class="thick-green-border sprite softwareimg" *ngIf="data?.board === 'Software'">
+                </div>
+                <div class="thick-green-border sprite processimg" *ngIf="data?.board === 'Process'">
+                </div>
+                <div class="thick-green-border sprite dataimg" *ngIf="data?.board === 'Data'">
+                </div>
+                <div class="text-light pt-3 pl-20 col-sm-8">
+                   
+                  <h5 class="card-title" id="res-title">{{data?.name | titlecase | slice:0:30}}<span *ngIf="data.name && data.name.length > 30">...</span></h5>
+                  <p class="card-text1 text-light" id="res-para">version : {{data?.version}}.0</p>
+                  
+                </div>
+                <button *ngIf="data?.ribbon?.left?.image" type="button" class="btn text-light float-right badgesprite badgeimg " id="styletick">
+                              
+                </button> 
+          </div>
+        
       </div>
       <div class="card-body">
          <!-- <div> <i class="far fa-heart float-right"></i></div> -->
@@ -36,7 +38,7 @@
         <span class="creator" *ngIf="data?.year">Since : {{data?.year}}</span>
       </div>
       <hr>
-      <div class="card-text text-secondary fs-1-16">{{data?.description | titlecase}}</div>
+      <div class="card-text text-secondary fs-1-16">{{data?.description | titlecase | slice:0:70}} <span *ngIf="data.description && data.description.length > 70">...</span></div>
         <!-- <div class="creator ellipsis float-right">
            creator {{data.orgDetails?.orgName}}
           </div> -->

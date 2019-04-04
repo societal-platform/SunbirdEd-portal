@@ -104,6 +104,7 @@ export class UpdateResoureFormComponent implements OnInit, AfterViewInit {
   public contentService: ContentService;
   formUpdateData: any;
   keywords = [];
+  path: string;
 
   constructor(
     formService: FormService,
@@ -181,17 +182,34 @@ export class UpdateResoureFormComponent implements OnInit, AfterViewInit {
     /***
  * Call User service to get user data
  */
-    const req = {
-      url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
-    };
-    this.contentService.get(req).subscribe(data => {
-      console.log('read content', data);
-      this.formInputData = data.result.content;
-      // this.formInputData['gradeLevel'] = this.mutateData(data.result.content.gradeLevel);
-      this.keywords = data.result.content.keywords;
-      // this.formInputData['versionKey'] = data.result.content.versionKey;
-    });
-     // console.log('in upadat', this.formSaveData);
+this.activatedRoute.url.subscribe(url => {
+  console.log('urls', url);
+  this.path = url[2].path;
+});
+if (this.path === 'Live') {
+  const req = {
+    url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
+  };
+  this.contentService.get(req).subscribe(data => {
+    console.log('read content', data);
+    this.formInputData = data.result.content;
+    // this.formInputData['gradeLevel'] = this.mutateData(data.result.content.gradeLevel);
+    this.keywords = data.result.content.keywords;
+    // this.formInputData['versionKey'] = data.result.content.versionKey;
+  });
+} else {
+  const req = {
+    url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}/?mode=edit`,
+  };
+  this.contentService.get(req).subscribe(data => {
+    console.log('read content', data);
+    this.formInputData = data.result.content;
+    // this.formInputData['gradeLevel'] = this.mutateData(data.result.content.gradeLevel);
+    this.keywords = data.result.content.keywords;
+    // this.formInputData['versionKey'] = data.result.content.versionKey;
+  });
+}
+ // console.log('in upadat', this.formSaveData);
     this.setFormConfig();
     this.userService.userData$.subscribe(
       (user: IUserData) => {
