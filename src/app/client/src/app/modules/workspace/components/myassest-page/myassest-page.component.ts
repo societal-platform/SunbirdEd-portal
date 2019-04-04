@@ -329,10 +329,9 @@ modalMessage = '';
         (data: ServerResponse) => {
           console.log('USER USER', this.userDetails);
           console.log('data here ', data);
-          if (data.result.count && data.result.content.length > 0) {
+
+          if (this.route.url === '/upForReview' ) {
             if (this.route.url === '/upForReview' ) {
-               console.log('reviewAsset is captured ', this.config.appConfig.Library.orgName);
-               // console.log('getting the data here here here',this.userDetails);
                this.noResultsForReview = false;
               const option = {
                 url : '/content/v1/search',
@@ -347,6 +346,7 @@ modalMessage = '';
                 sort_by: {me_averageRating: 'desc'}
               };
               this.contentService.getupForReviewData(option).subscribe(response => {
+                // console.log('ALERT CHANGE', response)
                 if (response.result.count > 0) {
                   this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
                   if (this.upForReviewContent.length <= 0) {
@@ -355,13 +355,16 @@ modalMessage = '';
                       'messageText': 'No assets available to review for now.'
                     };
                   } else {
+                    // recieved some result
                     this.noResultsForReview = false;
+                     this.showLoader = false;
+                      this.noResult = false;
                   }
 
                   this.allContent = this.upForReviewContent;
-                console.log('the all content for upforreview is ', this.allContent);
+                // console.log('the all content for upforreview is ', this.allContent);
                 } else {
-                  console.log('did not recieve anything');
+                  this.showLoader = false;
                   // set the no results template if no assets is present
                   this.noResultsForReview = true;
                   this.noResultMessage = {
@@ -369,7 +372,11 @@ modalMessage = '';
                   };
                 }
               });
-            } else {this.allContent = data.result.content; }
+            }
+          } else {
+            if (data.result.count && data.result.content.length > 0) {
+            // this is the tem area
+            this.allContent = data.result.content;
             console.log('this is allContent', this.allContent);
             this.totalCount = data.result.count;
             this.pager = this.paginationService.getPager(data.result.count, pageNumber, limit);
@@ -382,6 +389,7 @@ modalMessage = '';
             this.noResultMessage = {
               'messageText': this.resourceService.messages.stmsg.m0125
             };
+          }
           }
         },
         (err: ServerResponse) => {
