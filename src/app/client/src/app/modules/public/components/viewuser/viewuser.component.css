@@ -28,14 +28,15 @@
   margin-top: -4rem;
   margin-bottom: 1rem;
 }
-.modal.show .modal-dialog {
-  width: 38rem !important;
-}
+
 @media screen and (max-width:450px ) and (min-width: 320px) {
   #responsive-table {
     width: 100vw;
     overflow-x: scroll;
   
+  }
+  .avatar-container {
+    margin-top: -1.2rem !important;
   }
   #res-table {
     width: 50vw !important;
@@ -60,6 +61,9 @@
 #responsive-table::-webkit-scrollbar {
   width: 5px;
   height: 8px;
+}
+#res { 
+  width: 25rem !important;
 }
 }
 @media screen and (max-width:980px ) and (min-width: 451px) {

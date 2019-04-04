@@ -235,7 +235,7 @@ this.userIds = [];
 
   openLg(content) {
     console.log(content);
-  this.modalRef = this.modalService.open(content, { size: 'sm' , });
+  this.modalRef = this.modalService.open(content, { size: 'sm' , centered: true});
   console.log(this.modalRef);
   }
 

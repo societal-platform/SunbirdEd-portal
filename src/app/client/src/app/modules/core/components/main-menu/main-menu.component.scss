@@ -90,3 +90,10 @@
   box-shadow: none;
   cursor: pointer;
 }
+@media screen and (min-width:312px) and (max-width:991px) {
+#close {
+  // margin-bottom: 1rem;
+  float: right;
+  // margin-top: -3rem;
+}
+}

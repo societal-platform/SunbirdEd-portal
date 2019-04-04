@@ -18,7 +18,7 @@
         
         <a class="profile-avtar item  pr-0 mr-100" *ngIf="userService.loggedIn; else showLoginBtn">
             <div suiDropdown [(isOpen)]="isOpen" class="ui floating dropdown right top pointing header-user-container" id="dropdown-menu-list-header">
-                <ngx-avatar *ngIf='userProfile' [style]="avtarDesktopStyle" [size]="38" initialsSize="1" name="{{userProfile?.firstName}}">
+                <ngx-avatar *ngIf='userProfile' [style]="avtarDesktopStyle" [size]="38" initialsSize="1" name="{{userProfile?.firstName}}" style="margin-right:5rem">
                 </ngx-avatar>
                 <div class="menu" suiDropdownMenu>
                     <div *ngIf='userProfile' class="item headerDropdownProfile text">

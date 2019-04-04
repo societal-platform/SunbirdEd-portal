@@ -31,72 +31,75 @@
 </button>
 </div>
 
-          <ng-template #content let-d="dismiss">
+          <ng-template #content let-d="dismiss" >
              
-              <div class="header">
-                  <div class="ui grid">
-                      <div class="eleven wide column">
-                          <span class="ui header">{{resourceService.frmelmnts?.lbl?.selrole}}</span>
-                      </div>
+           
+            <div class="header">
+              <div class="ui grid">
+                  <div class="eleven wide column">
+                      <span class="ui header">{{resourceService.frmelmnts?.lbl?.selrole}}</span>
                   </div>
               </div>
-          
-              <!-- <div class="scrolling content">
-                  <div 
-                      class="ui selection dropdown ml-10" suiDropdown *ngIf="userDetails && userDetails.organisations.length > 0">
-                      <i class="dropdown icon"></i>
-                      <div>{{selectedOrgName || userDetails.organisations[0].orgName || orgId}}</div>
-                      <div class="menu" suiDropdownMenu [menuAutoSelectFirst]="true">
-                          <div class="item" [ngClass]="{'active': orgId === org.organisationId }" *ngFor="let org of userDetails.organisations"
-                              (click)="selectedOrgName = org.orgName; selectedOrgUserRoles=org.roles; selectedOrgId=org.organisationId">{{org.orgName || org.organisationId}}</div>
-                      </div>
+          </div>
+      
+          <!-- <div class="scrolling content">
+              <div 
+                  class="ui selection dropdown ml-10" suiDropdown *ngIf="userDetails && userDetails.organisations.length > 0">
+                  <i class="dropdown icon"></i>
+                  <div>{{selectedOrgName || userDetails.organisations[0].orgName || orgId}}</div>
+                  <div class="menu" suiDropdownMenu [menuAutoSelectFirst]="true">
+                      <div class="item" [ngClass]="{'active': orgId === org.organisationId }" *ngFor="let org of userDetails.organisations"
+                          (click)="selectedOrgName = org.orgName; selectedOrgUserRoles=org.roles; selectedOrgId=org.organisationId">{{org.orgName || org.organisationId}}</div>
                   </div>
-               
-                  <div class="ui form mt-40" *ngIf="selectedOrgUserRoles">
-                      <ul class="selectOrgRoles">
-                          <li class="orgRolesListView" *ngFor="let role of roles">
-                              <div class="ui checkbox">
-                                <input 
-                                type="checkbox" value='{{role.name}}' (click)="editRoles(role.name, selectedOrgUserRoles, $event,user.id)"
-                                [checked]="user.roles.includes(role.name)">
-                            <label>{{role.roleName || role.name}}</label>
-                              </div>
-                     
-                        
-                          </li>
-                      </ul>
-                  </div>
-              </div> -->
-              <app-user-edit [userid]="user.id" [model]="modalRef" ></app-user-edit>
-             
-              <!-- <div class="row pb-15">
-                  <div class="col-9 text-align-right">
-                      <button 
-                          [disabled]="!selectedOrgUserRoles" class="btn btn-purple" type="submit" (click)="updateRoles(selectedOrgUserRoles,user.id,user.roles)">
-                          {{resourceService.frmelmnts?.btn?.update}}</button>
-                  </div>
-                  <div class="">
-                      <button
-                        type="button"
-                        class="btn button"
-                        data-dismiss="modal"
-                        (click)="d('Cross click')"
-                      >
-                        Close
-                      </button>
-                    </div>
-              </div> -->
-              <div class="btnStyle text-align-center">
-                <button
-                  type="button"
-                  class="btn button "
-                  data-dismiss="modal"
-                  (click)="gottoCancel()"
-                >
-                  Close
-                </button>
               </div>
+           
+              <div class="ui form mt-40" *ngIf="selectedOrgUserRoles">
+                  <ul class="selectOrgRoles">
+                      <li class="orgRolesListView" *ngFor="let role of roles">
+                          <div class="ui checkbox">
+                            <input 
+                            type="checkbox" value='{{role.name}}' (click)="editRoles(role.name, selectedOrgUserRoles, $event,user.id)"
+                            [checked]="user.roles.includes(role.name)">
+                        <label>{{role.roleName || role.name}}</label>
+                          </div>
+                 
+                    
+                      </li>
+                  </ul>
+              </div>
+          </div> -->
+          <app-user-edit [userid]="user.id" [model]="modalRef" ></app-user-edit>
+         
+          <!-- <div class="row pb-15">
+              <div class="col-9 text-align-right">
+                  <button 
+                      [disabled]="!selectedOrgUserRoles" class="btn btn-purple" type="submit" (click)="updateRoles(selectedOrgUserRoles,user.id,user.roles)">
+                      {{resourceService.frmelmnts?.btn?.update}}</button>
+              </div>
+              <div class="">
+                  <button
+                    type="button"
+                    class="btn button"
+                    data-dismiss="modal"
+                    (click)="d('Cross click')"
+                  >
+                    Close
+                  </button>
+                </div>
+          </div> -->
+          <div class="btnStyle text-align-center">
+            <button
+              type="button"
+              class="btn button "
+              data-dismiss="modal"
+              (click)="gottoCancel()"
+            >
+              Close
+            </button>
+          </div>
+           
             </ng-template>
+            
         </td>
         <td>
        <div class="res-delete">

@@ -30,24 +30,35 @@ input[type=number]::-webkit-outer-spin-button {
 }
 @media screen and (min-width:312px) and (max-width: 374px) {
   .form-width {
-    width: 109vw;
-    margin-left: 11rem !important;
+    /* width: 97vw;
+    margin-left: 11rem !important; */
+  }
+  .card {
+    width: 24rem;
   }
 }
 @media screen and (min-width:375px) and (max-width:765px){
   .form-width {
-    width: 94vw;
-    margin-left: 9rem !important;
+    /* width: 94vw;
+    margin-left: 9rem !important; */
+    /* margin-left: 8rem !important; */
+    justify-content: center;
+    width: 28rem;
   }
+  .card {
+    width: 29rem;
+  }
+  .style {
+    width: 28rem;
+  }
+  
 }
 @media screen and (min-width:766px) {
   .form-width {
     width: 58vw;
-    margin-left: 10rem !important;
+    /* margin-left: 10rem !important; */
 }
-.card {
-  width: 54rem;
-}
+
 }
 @media screen and (min-width: 1024px) and (max-width: 1339px)
 {
@@ -57,6 +68,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 @media screen and (min-width: 1440px) {
   .form-width {
-    width: 42vw;
+    width: 40vw;
+    margin-left: 4rem;
   }
 }
