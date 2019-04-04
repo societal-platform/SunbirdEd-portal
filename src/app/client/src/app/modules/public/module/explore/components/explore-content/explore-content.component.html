@@ -19,6 +19,15 @@
                     <i class="ui remove icon "></i>
                 </h5>
             </div>
+            <div class="ui clearing segment content-player-header search-content-header" *ngIf="!showLoader && !contentList.length && this.queryParams.key">
+                    <div class="ui left floated header">
+                        <p class="serch-allresult">No results Found For {{this.queryParams.key}}
+                        </p>
+                    </div>
+                    <h5 appTelemetryInteract [telemetryInteractEdata]="closeIntractEdata" class="ui right floated basic icon circular button " [routerLink]="['/explore']">
+                        <i class="ui remove icon "></i>
+                    </h5>
+                </div>
         </div>
         <div class="twelve wide column" in-view-container (inview)="inView($event)" [throttle]="[1000]" [trigger]="contentList" *ngIf="!showLoader && contentList.length">
             <div class="ui stackable row dynamic-section-card">
