@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { ConfigService, IUserData } from '@sunbird/shared';
 import { UserService, LearnerService, PublicDataService  } from '@sunbird/core';
 import * as _ from 'lodash';
@@ -6,7 +6,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ResourceService, ToasterService, RouterNavigationService, ServerResponse } from '@sunbird/shared';
 import {Router, ActivatedRoute} from '@angular/router';
 import { UserSearchServicePublicService  } from '../../services/searchService/user-search-service-public.service';
-import { element } from '@angular/core/src/render3/instructions';
+import { element, componentRefresh } from '@angular/core/src/render3/instructions';
+import { BlobsOptions } from 'fine-uploader/lib/core';
 @Component({
   selector: 'app-viewuser',
   templateUrl: './viewuser.component.html',
@@ -14,6 +15,8 @@ import { element } from '@angular/core/src/render3/instructions';
   providers: [NgbModal]
 })
 export class ViewuserComponent implements OnInit {
+  @ViewChild('modal') modal;
+
   userIds = [];
   assignRole = false;
   selectedvalue;
@@ -40,6 +43,8 @@ export class ViewuserComponent implements OnInit {
   orgId: any;
   userDetail: any;
   roleforUser: any;
+  updaterole: any[];
+  ref: HTMLElement;
   constructor(
     public configService: ConfigService,
     public userService: UserService,
@@ -77,7 +82,8 @@ console.log('else', this.selectedOrgUserRolesNew);
       this.selectedOrgUserRolesNew.splice(this.selectedOrgUserRolesNew.indexOf(role));
       console.log('else else', this.selectedOrgUserRolesNew);
     }
-  }console.log('ceßßß', this.selectedOrgUserRoles);
+  } this.updaterole = this.selectedOrgUserRoles;
+  console.log('ceßßß', this.selectedOrgUserRoles, this.updaterole);
  }
  }
  );
@@ -141,11 +147,16 @@ console.log('else', this.selectedOrgUserRolesNew);
     });
   }
 
-  updateRoles(roles, userIds) {
-
+  updateRoles(roles, userIds, userRoles) {
+const rolesUnique = _.uniqWith(roles, _.isEqual);
+console.log('unique', rolesUnique, this.selectedOrgUserRoles, this.updaterole);
     if (this.selectedOrgUserRolesNew) {
       this.selectedOrgUserRolesNew.forEach((Newroles) => {
-        roles.push(Newroles);
+        this.selectedOrgUserRoles.forEach(user => {
+          if (userIds === user.id) {
+            user.roles.push(Newroles);
+          }
+        });
       });
       const mainRole = [];
       const mainRolesCollections = _.clone(this.roles);
@@ -153,21 +164,33 @@ console.log('else', this.selectedOrgUserRolesNew);
         mainRole.push(value.name);
       });
 
-roles.forEach(element1 => {
-  console.log('role', roles, 'id', userIds, 'lenth', this.selectedOrgUserRoles.length,
-   this.selectedOrgUserRoles, 'element length', roles.length, this.existingUserRoles.lenth);
-  console.log('elemetid', element1.id , 'user id', userIds);
+      this.selectedOrgUserRoles.forEach(element1 => {
+  console.log('role', rolesUnique, 'id', userIds, 'lenth', this.selectedOrgUserRoles.length,
+   this.selectedOrgUserRoles, 'element length', rolesUnique.length, this.existingUserRoles.lenth);
+  console.log('elemetid', element1.id , 'user id', userIds, 'userroles', userRoles);
   if (element1.id === userIds ) {
-    console.log('in]side check if');
-this.roleforUser = element1.roles;
-  } else if (element1.length > this.selectedOrgUserRoles.length) {
-   this.roleforUser.push(element1, 'PUBLIC');
-  }
+    element1.roles.forEach(oldRole => {
+      if (userRoles.includes(oldRole)) {
+        console.log('in]side check if', oldRole);
+        if (oldRole !== 'PUBLIC') {
+          this.roleforUser.push(oldRole);
+console.log('1', this.roleforUser);
+        } else {
+          this.roleforUser.push(oldRole);
+          console.log('2', this.roleforUser);
+        }
+      }
+    }); }
+  // } else if (element1.length > this.selectedOrgUserRoles.length) {
+  //   console.log('second if');
+  //  this.roleforUser.push(element1, 'PUBLIC');
+  // }
 });
 this.roleforUser = Array.from(new Set(this.roleforUser));
 console.log('new role', this.roleforUser);
       const option = { userId: userIds , orgId: this.orgId, roles: this.roleforUser };
       console.log('user Id in update', option);
+      // this.updateRoles(roles, userIds, userRoles);
       this.userSearchService.updateRoles(option).subscribe(
         (apiResponse: ServerResponse) => {
           console.log(' in update', apiResponse);
@@ -212,21 +235,26 @@ this.userIds = [];
 
   openLg(content) {
     console.log(content);
-  this.modalRef = this.modalService.open(content, { size: 'lg' });
+  this.modalRef = this.modalService.open(content, { size: 'sm' , centered: true});
   console.log(this.modalRef);
   }
+
   goToUsers() {
+    console.log('cancel');
 setTimeout(() => {
-  this.router.navigate(['/viewuser']);
-this.ngOnInit();
+  this.userIds = [];
+      this.router.navigate(['/viewuser']);
+      this.ngOnInit();
 }, 500);
   }
   gottoCancel() {
-    this.modalRef.close();
+
     setTimeout(() => {
+      this.userIds = [];
       this.router.navigate(['/viewuser']);
       this.ngOnInit();
-    }, 4000);
+    }, 2000);
+    this.modalRef.close();
   }
 
 }

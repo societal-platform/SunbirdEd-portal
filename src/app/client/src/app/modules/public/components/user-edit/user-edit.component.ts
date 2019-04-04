@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResourceService, ToasterService, RouterNavigationService, ServerResponse } from '@sunbird/shared';
-import { UserSearchService } from '../../../search/services';
+import { UserSearchServicePublicService } from '../../services/searchService/user-search-service-public.service';
 import * as _ from 'lodash';
 import { SearchService, UserService, PermissionService, RolesAndPermissions } from '@sunbird/core';
 import { IInteractEventObject, IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
@@ -17,13 +17,20 @@ import { IInteractEventObject, IInteractEventEdata, IImpressionEventInput } from
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit, OnDestroy {
-  @ViewChild('modal') modal;
+  @Input() model;
+  @Input() userid;
   /**
 	 * Contains unique announcement id
 	 */
   userId: string;
 
-  allRoles: Array<RolesAndPermissions>;
+  // allRoles: Array<RolesAndPermissions>;
+  allRoles = [
+    { role: 'CONTENT_CREATOR'},
+    { role: 'BOOK_CREATOR' },
+    { role: 'CONTENT_REVIEWER' },
+    { role: 'TEACHER_BADGE_ISSUER' }
+  ];
 
   selectedOrgName: string;
   selectedOrgId: string;
@@ -40,7 +47,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
    * To make get announcement by id
    */
   private searchService: SearchService;
-  private userSearchService: UserSearchService;
+  private userSearchService: UserSearchServicePublicService;
 
   /**
    * To send activatedRoute.snapshot to routerNavigationService
@@ -80,7 +87,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
    * @param {ToasterService} toasterService Reference of ToasterService
    * @param {RouterNavigationService} routerNavigationService Reference of routerNavigationService
 	 */
-  constructor(userSearchService: UserSearchService, searchService: SearchService,
+  constructor(userSearchService: UserSearchServicePublicService, searchService: SearchService,
     activatedRoute: ActivatedRoute, permissionService: PermissionService,
     resourceService: ResourceService, public route: Router,
     toasterService: ToasterService,
@@ -100,7 +107,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
 	 *
 	 */
   redirect(): void {
-    this.route.navigate(['../../'], { relativeTo: this.activatedRoute });
+    this.route.navigate(['/viewuser'], { relativeTo: this.activatedRoute });
+    this.model.close();
   }
 
   populateOrgName() {
@@ -172,10 +180,11 @@ export class UserEditComponent implements OnInit, OnDestroy {
         mainRole.push(value.role);
       });
       const option = { userId: this.userId, orgId: this.selectedOrgId, roles: roles };
+      console.log('option', option);
       this.userSearchService.updateRoles(option).subscribe(
         (apiResponse: ServerResponse) => {
           this.toasterService.success(this.resourceService.messages.smsg.m0028);
-          this.redirect();
+          // this.redirect();
         },
         err => {
           this.selectedOrgUserRoles = _.difference(this.selectedOrgUserRoles, this.selectedOrgUserRolesNew);
@@ -191,38 +200,39 @@ export class UserEditComponent implements OnInit, OnDestroy {
    * activated route
 	 */
   ngOnInit() {
+    console.log('userid view', this.userid);
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params.userId;
+      this.userId = this.userid;
       this.settelemetryData();
     });
     this.populateUserDetails();
-    this.permissionService.permissionAvailable$.subscribe(params => {
-      if (params === 'success') {
-        this.allRoles = this.permissionService.allRoles;
-      }
-      this.allRoles = _.filter(this.allRoles, (role) => {
-        return role.role !== 'ORG_ADMIN' && role.role !== 'SYSTEM_ADMINISTRATION' && role.role !== 'ADMIN';
-      });
-    });
-    _.remove(this.allRoles, { role: 'PUBLIC' });
+    // this.permissionService.permissionAvailable$.subscribe(params => {
+    //   if (params === 'success') {
+    //     this.allRoles = this.permissionService.allRoles;
+    //   }
+    //   this.allRoles = _.filter(this.allRoles, (role) => {
+    //     return role.role !== 'ORG_ADMIN' && role.role !== 'SYSTEM_ADMINISTRATION' && role.role !== 'ADMIN';
+    //   });
+    // });
+    // _.remove(this.allRoles, { role: 'PUBLIC' });
   }
   settelemetryData() {
-    this.telemetryImpression = {
-      context: {
-        env: this.activatedRoute.snapshot.data.telemetry.env
-      },
-      object: {
-        id: this.userId,
-        type: 'user',
-        ver: '1.0'
-      },
-      edata: {
-        type: this.activatedRoute.snapshot.data.telemetry.type,
-        pageid: this.activatedRoute.snapshot.data.telemetry.pageid,
-        uri: this.route.url,
-        subtype: this.activatedRoute.snapshot.data.telemetry.subtype
-      }
-    };
+    // this.telemetryImpression = {
+    //   context: {
+    //     env: this.activatedRoute.snapshot.data.telemetry.env
+    //   },
+    //   object: {
+    //     id: this.userId,
+    //     type: 'user',
+    //     ver: '1.0'
+    //   },
+    //   edata: {
+    //     type: this.activatedRoute.snapshot.data.telemetry.type,
+    //     pageid: this.activatedRoute.snapshot.data.telemetry.pageid,
+    //     uri: this.route.url,
+    //     subtype: this.activatedRoute.snapshot.data.telemetry.subtype
+    //   }
+    // };
     this.organizationIntractEdata = {
       id: 'organization-dropdown',
       type: 'click',
@@ -240,6 +250,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
     };
   }
   ngOnDestroy() {
-    this.modal.deny();
+    // this.modal.deny();
   }
 }
