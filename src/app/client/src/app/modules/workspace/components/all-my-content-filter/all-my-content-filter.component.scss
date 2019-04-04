@@ -60,4 +60,8 @@
         border-radius: .28571429rem;
     }
 
-    
+    @media not all and (min-width: 765px) {
+        .pad{
+            margin-right: 1rem;
+        } 
+    }

@@ -258,3 +258,12 @@ background: #007b5e;
     width: 101vw !important;  
   }
 }
+
+@media not all and (min-width: 375px) {
+  .avatar-container {
+    margin-right: 5rem !important;
+  }
+.dropdown {
+  margin-right: 5rem !important;
+}
+}
