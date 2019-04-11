@@ -148,7 +148,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
     this.frameworkService = frameworkService;
     this.formService = formService;
     this.contentType = 'studymaterial';
-    console.log('content type', this.contentType);
+
     this.resourceType = this.configService.appConfig.resourceType[this.contentType];
     this.creationFormLable = this.configService.appConfig.contentCreateTypeLable[this.contentType];
     this.name = this.configService.appConfig.contentName[this.contentType] ?
@@ -159,7 +159,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 
 
   ngOnInit() {
-    console.log('this.activated ', this.activatedRoute);
+
     this.checkForPreviousRouteForRedirect();
 
     /**
@@ -175,7 +175,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
           this.userProfile = user.userProfile;
         }
       });
-    console.log('user profil', this.userProfile);
+
     this.telemetryImpression = {
       context: {
         env: this.activatedRoute.snapshot.data.telemetry.env
@@ -200,14 +200,15 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
   fetchFrameworkMetaData() {
 
     this.frameworkService.frameworkData$.subscribe((frameworkData: Framework) => {
-      console.log('frame', frameworkData);
+
       if (!frameworkData.err) {
         this.categoryMasterList = _.cloneDeep(frameworkData.frameworkdata['defaultFramework'].categories);
         this.framework = frameworkData.frameworkdata['defaultFramework'].code;
         /**
   * isCachedDataExists will check data is exists in cache or not. If exists should not call
   * form api otherwise call form api and get form data
-  */     console.log('cata', this.categoryMasterList);
+  */
+
         this.isCachedDataExists = this._cacheService.exists(this.contentType + this.formAction);
         if (this.isCachedDataExists) {
           const data: any | null = this._cacheService.get(this.contentType + this.formAction);
@@ -221,7 +222,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
           };
           this.formService.getFormConfig(formServiceInputParams).subscribe(
             (data: ServerResponse) => {
-              console.log('data');
+
               this.formFieldProperties = data;
               this.getFormConfig();
             },
@@ -270,7 +271,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 * requestBody is returned of type object
 */
   generateData(data) {
-    console.log('dat form', data);
+
     this.showLoader = true;
     const requestData = _.cloneDeep(data);
     requestData.name = data.name ? data.name : this.name,
@@ -310,7 +311,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
     const data = _.pickBy(this.formData.formInputData);
     if (!!data.name && !!data.description && !!data.board && !!data.keywords
       && !!data.creators && !!data.version && !!data.gradeLevel && !!data.link) {
-      console.log('hii');
+
       this.uploadSuccess = true;
       this.createContent();
     } else {
@@ -339,7 +340,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 
     if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
       this.editorService.create(requestData).subscribe(res => {
-        console.log('res', res);
+
 
         this.contentId = res.result.content_id;
         this.toasterService.success('Asset created successfully');
@@ -359,7 +360,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 
     if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
       this.editorService.create(requestData).subscribe(res => {
-        console.log('res', res);
+
 
         this.contentId = res.result.content_id;
         this.toasterService.success('Asset created successfully');
@@ -396,20 +397,20 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
   }
 
   uploadFileEvent() {
-    console.log('fileList', this.fileList);
+
     const data = {
       fileName: this.fileList.name
     };
     const request = {
       content: data
     };
-    console.log('request in upload file', request);
+
     this.editorService.uploadUrl(request, this.contentId).subscribe(res => {
       this.toasterService.success('uploaded successfully');
       const pdfurl = res.result.pre_signed_url.substring(0, res.result.pre_signed_url.lastIndexOf('?'));
       this.workSpaceService.uploadPreSigned(res.result.pre_signed_url, this.fileList).subscribe(ress => {
         this.editorService.upload(pdfurl, this.contentId).subscribe(response => {
-          console.log('ress', response);
+
 
         });
         this.goToCreate();
@@ -448,7 +449,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 
 
     this.workSpaceService.lockContent(requestData).subscribe(res => {
-      console.log('suc', res);
+
     });
   }
 

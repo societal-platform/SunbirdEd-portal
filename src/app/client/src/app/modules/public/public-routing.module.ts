@@ -18,10 +18,13 @@ import { ExploreAssetComponent } from './components/explore-asset/explore-asset.
 import { CoreComponent } from './components/core/core.component';
 import { ExploreThinkingComponent } from './components/explore-thinking/explore-thinking.component';
 import { FrameworkComponent } from './components/framework/framework.component';
-import { AdduserComponent } from './components/adduser/adduser.component';
+// import { AdduserComponent } from './components/adduser/adduser.component';
 import { ViewuserComponent } from './components/viewuser/viewuser.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { ExplorePdfViewComponent } from './components/explore-pdf-view/explore-pdf-view.component';
+import { OrganizationUploadComponent, UserUploadComponent, StatusComponent } from '../org-management';
+import { AdduserComponent } from './components/adduser/adduser.component';
+import { WorkspaceComponent } from './components/workspace/workspace.component';
 
 const routes: Routes = [
   {
@@ -111,20 +114,50 @@ const routes: Routes = [
     path: 'framework', component: FrameworkComponent
   },
   {
-    path: 'addUser', component: AdduserComponent
-  },
-  {
-    path: 'viewuser', component: ViewuserComponent
-    , children : [
-{
-    path: 'edit/:userId', component: UserEditComponent, data: {
-      telemetry: {
-        env: 'profile', pageid: 'user-edit', type: 'edit', subtype: 'paginate'
-      }
-    }
-  },
+    path: 'Workspace', component: WorkspaceComponent,
+
+    children: [
+      {
+        path: 'addUser', component: AdduserComponent,
+        data: {
+          redirectUrl: 'Workspace/addUser'
+        }
+      },
+      {
+        path: 'addOrganisation/:pageNumber', component: OrganizationUploadComponent,
+        data: {
+          redirectUrl: 'Workspace/addUser'
+        }
+      },
+      {
+        path: 'addMultipleUsers/:pageNumber', component: UserUploadComponent,
+        data: {
+          redirectUrl: 'Workspace/addUser'
+        }
+      },
+      {
+        path: 'checkUploadStatus/:pageNumber', component: StatusComponent,
+        data: {
+          redirectUrl: 'Workspace/addUser'
+        }
+      }, {
+        path: 'viewuser', component: ViewuserComponent,
+        data: {
+          redirectUrl: 'Workspace/addUser'
+        }
+        , children : [
+    {
+        path: 'edit/:userId', component: UserEditComponent, data: {
+          telemetry: {
+            env: 'profile', pageid: 'user-edit', type: 'edit', subtype: 'paginate'
+          }
+        }
+      },
+        ]
+      },
     ]
   },
+
 
 ];
 @NgModule({

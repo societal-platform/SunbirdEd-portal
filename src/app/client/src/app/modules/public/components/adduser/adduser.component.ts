@@ -10,6 +10,8 @@ import {
   PublicDataService,
 } from '@sunbird/core';
 import { SignupService } from '../../../public/module/signup/services';
+import { Subscription } from 'rxjs';
+import { IUserData, IUserProfile } from '@sunbird/shared';
 
 @Component({
   selector: 'app-adduser',
@@ -34,6 +36,8 @@ export class AdduserComponent implements OnInit {
   userId: any;
   success = false;
   orgId: any;
+  userDataSubscription: Subscription;
+ userProfile: IUserProfile;
   constructor(
     public configService: ConfigService,
     public userService: UserService,
@@ -47,7 +51,14 @@ export class AdduserComponent implements OnInit {
     this.route = route;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userDataSubscription = this.userService.userData$.subscribe(
+      (user: IUserData) => {
+        if (user && !user.err) {
+          this.userProfile = user.userProfile;
+        }
+      });
+  }
   disableViewUser(event) {
     if (event.target.name === 'adduser') {
       this.enableadduser = true;
@@ -59,13 +70,11 @@ export class AdduserComponent implements OnInit {
     if (event.target.name === 'bulk') {
       this.showbulkupload = !this.showbulkupload;
     }
-    console.log('inside func', event.target.name);
   }
   addSingleUser() {
     this.singleUser = !this.singleUser;
   }
   submit() {
-    console.log('in submit');
     const valid = this.validate();
     if (valid) {
       const option = {
@@ -76,11 +85,9 @@ export class AdduserComponent implements OnInit {
           }
         }
       };
-      console.log('option', option);
       this.learnerService.post(option).subscribe(
         data => {
           this.orgId = data.result.response.id;
-          console.log('ps', data, this.orgId);
           const channel = data.result.response.channel;
           const option1 = {
             request: {
@@ -92,20 +99,16 @@ export class AdduserComponent implements OnInit {
               emailVerified: true
             }
           };
-          console.log(option1, 'in submit');
           // tslint:disable-next-line:no-shadowed-variable
           this.signupService.createUser1(option1).subscribe(data => {
-            console.log('service', data);
             this.userId = data.result.userId;
             this.success = true;
-            console.log('userid', this.userId, this.success);
             this.userDetails(this.userId);
             this.addmemeber(this.orgId , this.userId);
 
             this.toasterService.success('user created successfully');
           }, (err) => {
             this.toasterService.error(err.error.params.errmsg);
-            console.log('err', err);
           });
         }, (err) => {
           this.toasterService.error(err.error.params.errmsg);
@@ -176,10 +179,11 @@ export class AdduserComponent implements OnInit {
     return this.validdetails;
   }
   goBackToCoursePage() {
-    this.route.navigate(['viewuser']);
+    if (this.userProfile.rootOrgAdmin) {
+      this.route.navigate(['/Workspace/viewuser']);
+    }
   }
   userDetails(userId) {
-    console.log('inside user func', userId);
     const option = {
       url: `${this.configService.urlConFig.URLS.USER.GET_PROFILE}${userId}`,
       data: {
@@ -187,10 +191,8 @@ export class AdduserComponent implements OnInit {
         }
       }
     };
-    console.log(option);
     this.learnerService.get(option).subscribe(
       data => {
-        console.log('member data', data);
         if (data.responseCode === 'OK') {
           this.updateUser(this.userId, 'CONTENT_CREATOR', this.orgId);
         }
@@ -199,7 +201,6 @@ export class AdduserComponent implements OnInit {
       });
   }
   addmemeber(orgId , userId) {
-    console.log('inside member func', userId, orgId);
     const option = {
       url: this.configService.urlConFig.URLS.ADMIN.ADD_MEMBER,
       data: {
@@ -209,10 +210,8 @@ export class AdduserComponent implements OnInit {
         }
       }
     };
-    console.log(option);
     this.learnerService.post(option).subscribe(
       data => {
-        console.log('member data', data);
         if (data.responseCode === 'OK') {
           this.updateUser(this.userId, 'CONTENT_CREATOR', this.orgId);
         }
@@ -220,11 +219,9 @@ export class AdduserComponent implements OnInit {
        );
   }
   updateUser(user, role, orgId) {
-    console.log('inside update', user, role, orgId);
     _.forEach(role.value, (value, key) => {
       if (value) {
         this.userroles.push(key);
-        console.log('key', value);
       }
     });
     const option = {
@@ -237,7 +234,6 @@ export class AdduserComponent implements OnInit {
         }
       }
     };
-    console.log('public', option);
     this.learnerService.post(option).subscribe(
       data => {
         // this.toasterService.success('user role updated successfully');

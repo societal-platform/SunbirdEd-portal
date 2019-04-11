@@ -46,7 +46,6 @@ export class ContactUsComponent implements OnInit {
         this.userName = this.user.firstName;
         this.userEmail = this.user.email;
         this.orgName = this.user.rootOrg.orgName;
-        console.log('user info', this.userServie.loggedIn);
       });
     this.registerForm = this.formBuilder.group({
       userName: ['', Validators.required],
@@ -61,7 +60,6 @@ export class ContactUsComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log('fomr datas in submit', this.registerForm);
     this.name = this.registerForm.value.userName;
     this.email = this.registerForm.value.email;
     this.org = this.registerForm.value.org;
@@ -76,7 +74,6 @@ export class ContactUsComponent implements OnInit {
 
   }
   sendNotification() {
-    console.log('in func', this.name, this.email, this.org, this.country, this.message);
     this.userData = 'Name: ' + this.name + '<br>' + 'Email Id: ' + this.email + '<br>' +
       'Organization Name: ' + this.org + '<br>' + 'Country: ' + this.country + '<br>' + 'Message: ' + this.message;
     const body = {

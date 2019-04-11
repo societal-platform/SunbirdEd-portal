@@ -303,24 +303,19 @@ this.userService.userData$.subscribe(
    (user: IUserData) => {
      if (user && !user.err) {
        this.userRole = user.userProfile.userRoles;
-       console.log('userprofile', this.userRole);
      }
    });
    this.getContent();
 
 }
 getContent() {
- console.log(this.userRole, this.contents);
  this.userRole.forEach(element => {
-   console.log(element);
     // tslint:disable-next-line:max-line-length
          if (element === 'CONTENT_CREATOR' || element === 'CONTENT_REVIEWER' || element === 'ORG_ADMIN' || element === 'TEACHER_BADGE_ISSUER') {
            _.forEach(this.contents, content => {
              if (element === content.role) {
-               console.log(content.role);
                this.userContents.push(content.data);
              }
-             console.log(this.userContents);
            });
          }
        });

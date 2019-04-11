@@ -96,14 +96,14 @@ export class AssetDetailPageComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log('content', this.contentId);
+
     if (this.route.url.indexOf('review/detail') > -1 ) {
       this.visible = true;
     } else {
       this.visible = false;
     }
     this.activatedRoute.url.subscribe(url => {
-      console.log('urls', url);
+
       this.path = url[2].path;
     });
     if (this.path === 'Draft' || this.path === 'Review') {
@@ -111,27 +111,27 @@ export class AssetDetailPageComponent implements OnInit {
         url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}/?mode=edit`,
       };
       this.contentService.get(req).subscribe(data => {
-        console.log('read content', data);
+
         this.assetDetail = data.result.content;
         this.showLoader = false;
         this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
         data.result.content.artifactUrl.lastIndexOf('pdf'));
 
       });
-      console.log('this', this.assetDetail);
+
     } else {
       const req = {
         url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
       };
       this.contentService.get(req).subscribe(data => {
-        console.log('read content', data);
+
         this.assetDetail = data.result.content;
         this.showLoader = false;
         this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
         data.result.content.artifactUrl.lastIndexOf('pdf'));
 
       });
-      console.log('this', this.assetDetail);
+
     }
 
     this.userService.userData$.subscribe(
@@ -139,11 +139,11 @@ export class AssetDetailPageComponent implements OnInit {
         this.user = user.userProfile.userRoles;
         this.orgId = user.userProfile.rootOrgId;
         this.userId = this.userService.userid;
-      console.log('user info', this.orgId);
+
       this.user.forEach(element => {
         if (element === 'TEACHER_BADGE_ISSUER') {
           this.role = element;
-          console.log('role', element);
+
         }
       });
     });
@@ -158,13 +158,13 @@ export class AssetDetailPageComponent implements OnInit {
       }
     };
     this.badgeService.getAllBadgeList(request).subscribe((data) => {
-      console.log('data for badge', data);
+
       this.badgeList = data.result.badges;
     });
 
   }
   assignBadge(issuerId, badgeId) {
-    console.log('ids', issuerId, badgeId);
+
     this.success = true;
     const req = {
       request: {
@@ -176,7 +176,7 @@ export class AssetDetailPageComponent implements OnInit {
 
     };
     this.badgeService.createAssertion(req).subscribe((data) => {
-      console.log('aser', data);
+
     });
     this.callAlert();
   }
@@ -208,7 +208,7 @@ export class AssetDetailPageComponent implements OnInit {
 
         };
         this.badgeService.createAssertion(req).subscribe((data) => {
-          console.log('aser', data);
+
              this.showLoader = false;
              this.verified = !true;
              this.toasterService.success('Badge Added successfully');
@@ -231,8 +231,7 @@ export class AssetDetailPageComponent implements OnInit {
      this.contentService.post(option).subscribe(
       (data: ServerResponse) => {
         this.showLoader = false;
-        console.log('server response for asset reject is ');
-        console.log(data);
+
         // this.resourceService.messages.smsg.m0004
         this.toasterService.success('Asset has been rejected successfully');
         setTimeout(() => {
@@ -270,7 +269,6 @@ export class AssetDetailPageComponent implements OnInit {
               }
             }
           };
-          console.log(this.configService.urlConFig.URLS.CONTENT.PUBLISH, ' is the prefixer', requestBody);
           const option = {
             url: `${this.configService.urlConFig.URLS.CONTENT.PUBLISH}/${contentId}`,
             data: requestBody
@@ -278,17 +276,14 @@ export class AssetDetailPageComponent implements OnInit {
           this.contentService.post(option).subscribe(
             (data: ServerResponse) => {
               this.showLoader = false;
-              console.log('server response for asset publish is ');
-              console.log(data);
-              // this.resourceService.messages.smsg.m0004
+
               this.toasterService.success('Asset has been sucessfully published');
               setTimeout(() => {
                 this.route.navigate(['upForReview']);
                 this.ngOnInit();
               }, 1800);
             }, ( err ) => {
-              console.log('error occured while sending asset to publish');
-              console.log(err);
+
               this.showLoader = false;
               this.toasterService.error('An error occured while publishing the asset.');
             });

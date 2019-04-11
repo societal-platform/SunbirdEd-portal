@@ -70,14 +70,12 @@ export class LandingPageComponent implements OnInit {
 
 this.getUserRoles();
 // this.userRole = this.userService.userProfile.userRoles;
-   console.log('log in ', this.userService.loggedIn);
   }
 getUserRoles() {
  this.userService.userData$.subscribe(
     (user: IUserData) => {
       if (user && !user.err) {
         this.userRole = user.userProfile.userRoles;
-        console.log('userprofile', this.userRole);
       }
     });
 

@@ -83,6 +83,7 @@ export class OrganizationUploadComponent implements OnInit, OnDestroy {
   ngOnInit() {
     document.body.classList.add('no-scroll'); // This is a workaround  we need to remove it when library add support to remove body scroll
     this.activatedRoute.data.subscribe(data => {
+      console.log('route', data);
       if (data.redirectUrl) {
         this.redirectUrl = data.redirectUrl;
       } else {
@@ -114,17 +115,17 @@ export class OrganizationUploadComponent implements OnInit, OnDestroy {
         ]
       }
     ];
-    this.telemetryImpression = {
-      context: {
-        env: this.activatedRoute.snapshot.data.telemetry.env
-      },
-      edata: {
-        type: this.activatedRoute.snapshot.data.telemetry.type,
-        pageid: 'profile-bulk-upload-organization-upload',
-        subtype: this.activatedRoute.snapshot.data.telemetry.subtype,
-        uri: this.router.url
-      }
-    };
+    // this.telemetryImpression = {
+    //   context: {
+    //     env: this.activatedRoute.snapshot.data.telemetry.env
+    //   },
+    //   edata: {
+    //     type: this.activatedRoute.snapshot.data.telemetry.type,
+    //     pageid: 'profile-bulk-upload-organization-upload',
+    //     subtype: this.activatedRoute.snapshot.data.telemetry.subtype,
+    //     uri: this.router.url
+    //   }
+    // };
     this.setInteractEventData();
   }
   /**
@@ -134,6 +135,7 @@ export class OrganizationUploadComponent implements OnInit, OnDestroy {
   public redirect() {
     this.fileName = '';
     this.processId = '';
+    console.log('url', this.redirectUrl);
     this.router.navigate([this.redirectUrl]);
   }
   /**

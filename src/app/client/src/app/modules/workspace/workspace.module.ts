@@ -27,7 +27,7 @@ import { UpdateResoureFormComponent } from './components/update-resoure-form/upd
 import { MyassestPageComponent } from './components/myassest-page/myassest-page.component';
 import { AssetDetailPageComponent } from './components/asset-detail-page/asset-detail-page.component';
 import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
-
+// import { AdduserComponent } from './components/adduser/adduser.component';
 @NgModule({
   imports: [
     CommonModule,

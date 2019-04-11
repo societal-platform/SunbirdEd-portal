@@ -107,7 +107,6 @@ export class SearchComponent implements OnInit {
         });
     });
   } else {
-    console.log('hii');
     this.searchDropdownValues.push('Users');
     this.setFilters();
   //   this.route.events.pipe(

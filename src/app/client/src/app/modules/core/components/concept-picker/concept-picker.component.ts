@@ -67,7 +67,7 @@ export class ConceptPickerComponent implements OnInit {
     }
     $('.tree-pickers').val(this.pickerMessage);
     setTimeout(() => {
-      console.log('selected data : ', this.contentConcepts);
+
       $('.tree-pickers').treePicker({
         data: this.conceptData,
         name: 'sector',
@@ -96,7 +96,7 @@ export class ConceptPickerComponent implements OnInit {
    * calls conceptPickerService and initConceptBrowser
    */
   ngOnInit() {
-    console.log('concept picker', this.selectedConcepts);
+
     this.conceptData = this.loadDomains(this.category);
     if (this.selectedConcepts) {
     const selectedTopics = _.reduce(this.selectedConcepts, (collector, element) => {
@@ -114,9 +114,6 @@ export class ConceptPickerComponent implements OnInit {
 
     if (this.conceptData) {
       this.showLoader = false;
-          console.log('our ', this.category);
-          console.log('this.node', this.conceptData);
-
           this.initConceptBrowser();
         } else {
           this.showLoader = false;
@@ -154,7 +151,6 @@ export class ConceptPickerComponent implements OnInit {
             domain['nodes'] = this.getChild(value.identifier, value.children);
             domains.push(domain);
           });
-          console.log('no', domains);
         }
         return domains;
       }

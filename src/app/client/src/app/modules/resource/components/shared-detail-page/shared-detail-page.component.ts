@@ -84,17 +84,17 @@ export class SharedDetailPageComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log('content', this.contentId);
+
     const req = {
       url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
     };
     this.contentService.get(req).subscribe(data => {
-      console.log('read content', data);
+
       this.assetDetail = data.result.content;
       this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
       data.result.content.artifactUrl.lastIndexOf('pdf'));
     });
-    console.log('this', this.assetDetail);
+
 
     const request = {
       request: {
@@ -107,17 +107,17 @@ export class SharedDetailPageComponent implements OnInit {
       }
     };
     this.badgeService.getAllBadgeList(request).subscribe((data) => {
-      console.log('data for badge', data);
+
       this.badgeList = data.result.badges;
     });
     this.userService.userData$.subscribe(
       (user: IUserData) => {
         this.user = user.userProfile.userRoles;
-      console.log('user info', this.user);
+
     });
   }
   assignBadge(issuerId, badgeId) {
-    console.log('ids', issuerId, badgeId);
+
     this.success = true;
     const req = {
       request: {
@@ -129,7 +129,7 @@ export class SharedDetailPageComponent implements OnInit {
 
     };
     this.badgeService.createAssertion(req).subscribe((data) => {
-      console.log('aser', data);
+
     });
     this.callAlert();
   }
@@ -158,7 +158,7 @@ export class SharedDetailPageComponent implements OnInit {
 
         };
         this.badgeService.createAssertion(req).subscribe((data) => {
-          console.log('aser', data);
+
              this.showLoader = false;
              this.toasterService.success('Badge Added successfully');
            },

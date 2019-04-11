@@ -2,11 +2,12 @@
 	<!-- <a class="item" appTelemetryInteract [telemetryInteractEdata]="homeMenuIntractEdata" [class.active]="router.isActive('/search/All') || router.isActive('/home')" routerLink="/home">
 		{{resourceService?.frmelmnts?.tab?.home}}
 	</a> -->
-	<a class="item link" appTelemetryInteract [telemetryInteractEdata]="libraryMenuIntractEdata" routerLink="/contactUs">
+	<a class="item link" appTelemetryInteract [telemetryInteractEdata]="libraryMenuIntractEdata" routerLink="/contactUs"
+	routerLinkActive="active">
 		<!-- {{resourceService?.frmelmnts?.tab?.resources}} -->
 		Contact
 	</a>
-	<a class="item text" (click)="openSm(content)">Feedback</a>
+	<a class="item " (click)="openSm(content)">Feedback</a>
 	<div>
 			<ng-template #content let-d="dismiss">
 					<div class="modal-header">

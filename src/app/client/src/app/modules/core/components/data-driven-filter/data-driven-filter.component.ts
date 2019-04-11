@@ -221,7 +221,7 @@ export class DataDrivenFilterComponent implements OnInit, OnChanges {
     this.hardRefreshFilter();
   }
   public handleTopicChange(topicsSelected) {
-    console.log('topic', topicsSelected);
+
     this.formInputData['topic'] = [];
     _.forEach(topicsSelected, (value, index) => {
       this.formInputData['topic'].push(value.name);
@@ -229,7 +229,7 @@ export class DataDrivenFilterComponent implements OnInit, OnChanges {
     this.cdr.detectChanges();
   }
   public handleGradeLevel(topicsSelected) {
-    console.log('topic', topicsSelected);
+
     this.formInputData['gradeLevel'] = [];
     _.forEach(topicsSelected, (value, index) => {
       this.formInputData['gradeLevel'].push(value.name);

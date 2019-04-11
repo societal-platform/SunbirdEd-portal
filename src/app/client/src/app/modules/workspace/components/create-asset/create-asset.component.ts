@@ -147,10 +147,10 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
     this.formService = formService;
     this.activatedRoute.url.subscribe(url => {
       // this.contentType = url[0].path;
-      console.log('content type', this.contentType, url[0].path);
+
 
     });
-    console.log('content type', this.contentType);
+
     this.contentService = contentservice;
     this.resourceType = this.configService.appConfig.resourceType[this.contentType];
     this.creationFormLable = this.configService.appConfig.contentCreateTypeLable[this.contentType];
@@ -162,7 +162,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
 
 
   ngOnInit() {
-    console.log('this.activated ', this.activatedRoute.snapshot.params.contentId);
+
 
     /**
      * fetchFrameworkMetaData is called to config the form data and framework data
@@ -188,11 +188,11 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
   * fetchFrameworkMetaData is gives form config data
   */
   fetchFrameworkMetaData() {
-    console.log('hiis');
+
     this.frameworkService.frameworkData$.subscribe((frameworkData: Framework) => {
-      console.log('frame', frameworkData);
+
       if (!frameworkData.err) {
-        console.log('error framework');
+
         this.categoryMasterList = _.cloneDeep(frameworkData.frameworkdata['defaultFramework'].categories);
         this.framework = frameworkData.frameworkdata['defaultFramework'].code;
         /**
@@ -212,7 +212,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
           };
           this.formService.getFormConfig(formServiceInputParams).subscribe(
             (data: ServerResponse) => {
-              console.log('data');
+
               this.formFieldProperties = data;
               this.getFormConfig();
             },
@@ -229,7 +229,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
       url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
     };
     this.contentService.get(req).subscribe(data => {
-      console.log('read content', data);
+
       if (data.result.content.mimeType === 'application/pdf') {
         this.enabled = true;
         this.pdf = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
@@ -274,7 +274,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
 * requestBody is returned of type object
 */
   generateData(data) {
-    console.log('dat form', data);
+
     this.showLoader = true;
     const requestData = _.cloneDeep(data);
     requestData.name = data.name ? data.name : this.name,
@@ -306,11 +306,11 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
     return requestData;
   }
   checkFields() {
-    console.log('formData', this.formData);
+
     const data = _.pickBy(this.formData.formInputData);
     if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators &&
       !!data.version && !!data.gradeLevel && !!data.link) {
-      console.log('hii');
+
       this.uploadSuccess = true;
       this.updateContent();
     } else {
@@ -341,14 +341,14 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
   }
 
   updateContentFile() {
-    console.log('in update content', this.generateData(_.pickBy(this.formData.formInputData)));
+
     const requestData = {
       content: this.generateData(_.pickBy(this.formData.formInputData)),
     };
-    console.log('form data', this.formData.formInputData, requestData);
+
     if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
       this.editorService.update(requestData, this.activatedRoute.snapshot.params.contentId).subscribe(res => {
-        console.log('res', res);
+
         this.contentId = res.result.content_id;
         this.uploadFileEvent();
 
@@ -362,14 +362,14 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
     }
   }
   updateContent() {
-    console.log('in update content', this.generateData(_.pickBy(this.formData.formInputData)));
+
     const requestData = {
       content: this.generateData(_.pickBy(this.formData.formInputData)),
     };
-    console.log('form data', this.formData.formInputData, requestData);
+
     if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
       this.editorService.update(requestData, this.activatedRoute.snapshot.params.contentId).subscribe(res => {
-        console.log('res', res);
+
         this.toasterService.success('Asset updated Successfully');
         this.goToCreate();
       }, err => {
@@ -386,20 +386,20 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
   }
 
   uploadFileEvent() {
-    console.log('fileList', this.fileList);
+
     const data = {
       fileName: this.fileList.name
     };
     const request = {
       content: data
     };
-    console.log('request in upload file', request);
+
     this.editorService.uploadUrl(request, this.contentId).subscribe(res => {
       this.toasterService.success('uploaded successfully');
       const pdfurl = res.result.pre_signed_url.substring(0, res.result.pre_signed_url.lastIndexOf('?'));
       this.workSpaceService.uploadPreSigned(res.result.pre_signed_url, this.fileList).subscribe(ress => {
         this.editorService.upload(pdfurl, this.contentId).subscribe(response => {
-          console.log('ress', response);
+
 
         });
         this.goToCreate();
@@ -427,7 +427,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
   */
   checkForPreviousRouteForRedirect() {
     const previousUrlObj = this.navigationHelperService.getPreviousUrl();
-    console.log('pre', previousUrlObj);
+
     if (previousUrlObj && previousUrlObj.url && (previousUrlObj.url !== '/myassets')) {
       this.redirect();
     }

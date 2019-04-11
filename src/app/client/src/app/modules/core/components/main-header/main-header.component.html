@@ -49,24 +49,6 @@
     </div>
         <ng-template #showLoginBtn>
             <div class="primary-nav-item d-flex ml-auto computer only pr-30 ">
-                <!-- <button *ngIf="router.isActive('', true) && exploreButtonVisibility==='true'" 
-                    class="ui explore blue button flex-as-center mr-20"
-                    tabindex="0" routerLink="/explore">
-                    {{resourceService.frmelmnts?.lbl?.explore}} {{resourceService.instance}}
-                </button> -->
-                 <!-- <a class="item" *ngIf="!router.isActive('', true)" routerLink="explore" [class.active]="router.isActive('/search/explore') || router.isActive('/explore')">
-                    {{resourceService?.frmelmnts?.tab?.resources}}
-                </a> -->
-                <!-- <a class="item" *ngIf="!router.isActive('', true)" routerLink="explore" [class.active]="router.isActive('/search/explore') || router.isActive('/explore')">
-                    {{resourceService?.frmelmnts?.tab?.resources}}
-                </a>
-                <a class="item pr-0" *ngIf="!router.isActive('', true)" routerLink="explore-course" [class.active]="router.isActive('/search/explore-course') || router.isActive('/explore-course')">
-                    {{resourceService?.frmelmnts?.tab?.courses}}
-                </a>
-                <a class="item divider"></a>
-                <a href="/resources" class="sunblogin item font-weight-bold primary-color pl-5 ml-auto pr-0">
-                    {{resourceService.frmelmnts?.btn?.signin}}
-                </a> --> 
                 <a (click)="navigateToHome()" class="item" id="a" >Home</a>
                 <a  class="item" id="a" (click)="gotoContact('contact')">Contact</a>
                 <!-- <a  class="item" id="a" (click)="gotoContact('blog')">Blog</a> -->
@@ -93,55 +75,24 @@
                                              <a class="nav-item nav-link p-15 text" id="nav-contact-tab" data-toggle="tab" *ngIf='permissionService.permissionAvailable' appPermission
                                              [permission]='upForReviewRole'  routerLink="/upForReview" [class.active]="router.isActive('/upForReview')" role="tab" aria-controls="nav-contact" aria-selected="false">Up For Review</a>
                                              
+                                             <a class="nav-item nav-link p-15 text"  *ngIf='permissionService.permissionAvailable' appPermission
+                                             [permission]='adminDashboard' routerLink="/Workspace/addUser">
+                                                 {{resourceService?.frmelmnts?.tab?.workspace}}
+                                             </a>
                                              <!-- <a class="nav-item nav-link p-15 text"id="nav-contact-tab" data-toggle="tab"  *ngIf='permissionService.permissionAvailable' [class.active]="router.isActive('/upForReview/')"
                                              [routerLink]="['myassets/upForReview/'+1]" appPermission [permission]='workSpaceRole'>
                                             upForReview
                                            </a> -->
 
-                                            <a class="nav-item nav-link p-15 text" id="nav-about-tab" data-toggle="tab" routerLink="/addUser" *ngIf='permissionService.permissionAvailable' appPermission
+                                            <!-- <a class="nav-item nav-link p-15 text" id="nav-about-tab" data-toggle="tab" routerLink="/addUser" *ngIf='permissionService.permissionAvailable' appPermission
                                             [permission]='adminDashboard' role="tab" aria-controls="nav-about" [class.active]="router.isActive('/addUser')" aria-selected="false">Add User</a>
                                             <a class="nav-item nav-link p-15 text" id="nav-about-tab" data-toggle="tab" routerLink="/viewuser" *ngIf='permissionService.permissionAvailable && userProfile?.rootOrgAdmin' appPermission  
-                                            [permission]='adminDashboard' role="tab" aria-controls="nav-about" [class.active]="router.isActive('/viewuser')" aria-selected="false">Role Assign</a>
+                                            [permission]='adminDashboard' role="tab" aria-controls="nav-about" [class.active]="router.isActive('/viewuser')" aria-selected="false">Role Assign</a> -->
                                         </div>
                                     </nav>
                                     </div>
                                 </div>
+    </div>
+    </div>
 
-                                
-                           
-        <!-- <a class="item i active" href="#" >
-            Home
-		</a>
-		<a class="item i" >
-			Shared Assets
-		</a>
-		<a class="item" *ngIf='permissionService.permissionAvailable' appPermission [permission]='workSpaceRole'  routerLink="/myassets" [class.active]="router.isActive('/myassets')">
-            My Assets
-        </a>
-		<a class="item fixed-logout-btn i" >
-                My Favorites
-        </a> -->
-    </div>
-    </div>
-    <!-- <div class="p-10 mobile only" *ngIf="showExploreHeader || userService.loggedIn">
-        <div class="ui mobile-view container d-flex flex-jc-space-between mx-0">
-            <button class="ui basic d-flex button qr-code-btn" (click)="showQrmodal = true;">
-                <i class="qrcode icon d-flex flex-ai-center"></i>
-                <span class="d-flex flex-ai-center">{{resourceService.frmelmnts?.lbl?.enterQrCode}}</span>
-            </button>
-            <app-language-dropdown *ngIf="!router.isActive('workspace', false)"></app-language-dropdown>
-            <a class="item i" href="#" >
-                    Home
-                </a>
-                <a class="item i" >
-                    Shared Assets
-                </a>
-                <a class="item" *ngIf='permissionService.permissionAvailable' appPermission [permission]='workSpaceRole'  routerLink="/myassests" [class.active]="router.isActive('/myassests')">
-                    my assets
-                </a>
-                <a class="item fixed-logout-btn i" >
-                        My Favorites
-                </a>
-        </div>
-    </div> -->
 </div>

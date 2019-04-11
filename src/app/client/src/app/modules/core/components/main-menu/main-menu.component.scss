@@ -40,6 +40,12 @@
   .item{
     color: #585858 !important;
   }
+  .item:hover {
+    color: black !important;
+  }
+.item:active {
+  color: black !important;
+}
 .sign-in {
   color: $link-color;
   font-weight: bold;

@@ -129,7 +129,6 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
             this.queryParams[key] = [value];
           }
         });
-        console.log('params', params);
       });
   }
 
@@ -246,7 +245,6 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
 
     if (_.isEqual(this.formInputData, this.queryParams)) {
       this.isFiltered = true;
-       console.log('query', this.queryParams);
 
     } else {
       this.isFiltered = false;
@@ -263,7 +261,6 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
           queryParams[key] = this.populateChannelData(formatedValue);
         }
     });
-    console.log('query', this.queryParams);
     queryParams['appliedFilters'] = true;
     this.router.navigate([], { relativeTo: this.activatedRoute.parent, queryParams: queryParams });
     }

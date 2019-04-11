@@ -32,7 +32,6 @@ this.padding = true;
 }
   }
   gotoContact(value) {
-    console.log('inside function', value);
     if ( value === 'contact') {
     this.router.navigate(['contactUs']);
     }

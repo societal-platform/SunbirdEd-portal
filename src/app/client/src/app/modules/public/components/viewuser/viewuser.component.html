@@ -68,7 +68,7 @@
                   </ul>
               </div>
           </div> -->
-          <app-user-edit [userid]="user.id" [model]="modalRef" ></app-user-edit>
+          <app-user-edit [userid]="user.id" [model]="modalRef" (messageEvent)="receiveMessage($event)"></app-user-edit>
          
           <!-- <div class="row pb-15">
               <div class="col-9 text-align-right">

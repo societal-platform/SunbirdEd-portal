@@ -99,17 +99,17 @@ export class StatusComponent implements OnInit, OnDestroy {
     this.statusForm = this.sbFormBuilder.group({
       processId: ['', null]
     });
-    this.telemetryImpression = {
-      context: {
-        env: this.activatedRoute.snapshot.data.telemetry.env
-      },
-      edata: {
-        type: this.activatedRoute.snapshot.data.telemetry.type,
-        pageid: 'profile-bulk-upload-check-status',
-        subtype: this.activatedRoute.snapshot.data.telemetry.subtype,
-        uri: this.router.url
-      }
-    };
+    // this.telemetryImpression = {
+    //   context: {
+    //     env: this.activatedRoute.snapshot.data.telemetry.env
+    //   },
+    //   edata: {
+    //     type: this.activatedRoute.snapshot.data.telemetry.type,
+    //     pageid: 'profile-bulk-upload-check-status',
+    //     subtype: this.activatedRoute.snapshot.data.telemetry.subtype,
+    //     uri: this.router.url
+    //   }
+    // };
     this.setInteractEventData();
   }
   /**

@@ -236,7 +236,6 @@ export class SearchService {
   */
   contentSearch(requestParam: SearchParam, addDefaultContentTypesInRequest: boolean = true):
     Observable<ServerResponse> {
-      console.log('request param', requestParam);
     const option = {
       url: this.config.urlConFig.URLS.CONTENT.SEARCH,
       param: { ...requestParam.params },

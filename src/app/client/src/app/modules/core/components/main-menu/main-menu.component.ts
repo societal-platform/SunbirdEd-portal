@@ -16,7 +16,7 @@ import { ConfigureService } from '../../services/configure/configure.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Subscription } from 'rxjs';
 /**
  * Main menu component
  */
@@ -43,6 +43,7 @@ loading: any;
   /**
    * Workspace access roles
    */
+  adminDashboard: Array<string>;
   workSpaceRole: Array<string>;
   /**
    * reference of resourceService service.
@@ -72,6 +73,7 @@ loading: any;
   learnMenuIntractEdata: IInteractEventEdata;
   libraryMenuIntractEdata: IInteractEventEdata;
   workspaceMenuIntractEdata: IInteractEventEdata;
+  userDataSubscription: Subscription;
   exploreRoutingUrl: string;
   showExploreHeader = false;
   add = false;
@@ -100,7 +102,7 @@ loading: any;
   }
 
   ngOnInit() {
-
+    this.adminDashboard = this.config.rolesConfig.headerDropdownRoles.adminDashboard;
     try {
       this.helpLinkVisibility = (<HTMLInputElement>document.getElementById('helpLinkVisibility')).value;
     } catch (error) {
@@ -120,12 +122,17 @@ loading: any;
         email: ['', [Validators.required, Validators.email]],
         message: ['', [ Validators.required]]
     });
+    this.userDataSubscription = this.userService.userData$.subscribe(
+      (user: IUserData) => {
+        if (user && !user.err) {
+          this.userProfile = user.userProfile;
+        }
+      });
   }
   get f() { return this.registerForm1.controls; }
 
     onSubmit() {
         this.submitted = true;
-console.log('fomr datas in submit', this.registerForm1);
    this.email = this.registerForm1.value.email;
    this.message = this.registerForm1.value.message;
 
@@ -193,15 +200,15 @@ console.log('fomr datas in submit', this.registerForm1);
 
   navigateToWorkspace() {
     const authroles = this.permissionService.getWorkspaceAuthRoles();
-    console.log('authrole', authroles);
     if (authroles) {
+      console.log('inside if');
       this.router.navigate([authroles.url]);
     }
   }
 
+
   sendNotification() {
     this.success = !this.success;
-    console.log('in func', this.name);
     this.userData = 'Name: ' + this.userName + '<br>' + 'Email Id: ' + this.email + '<br>' +
     'Organization Name: ' + this.orgName + '<br>' + 'Message: ' + this.message;
 
@@ -236,7 +243,7 @@ console.log('fomr datas in submit', this.registerForm1);
         });
     }
   openSm(content) {
-    this.modalRef = this.modalService.open(content);
+    this.modalRef = this.modalService.open(content,  {centered: true});
   }
 
 }

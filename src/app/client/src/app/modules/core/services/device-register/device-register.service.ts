@@ -27,7 +27,6 @@ export class DeviceRegisterService {
     && (<HTMLInputElement>document.getElementById('deviceRegisterApi')).value;
   }
   registerDevice(channel: string, deviceId?: string) {
-    console.log('calling registerDevice');
     this.deviceId = (<HTMLInputElement>document.getElementById('deviceId'))
     && (<HTMLInputElement>document.getElementById('deviceId')).value;
     const data = {
@@ -49,7 +48,6 @@ export class DeviceRegisterService {
     this.http.post(this.deviceRegisterApi + this.deviceId, data, httpOptions)
     .subscribe(() => {
     }, (err) => {
-      console.log('called device', err);
     });
   }
 }

@@ -12,6 +12,7 @@ import { AuthGuard } from '../core/guard/auth-gard.service';
 import { MyassestPageComponent } from './components/myassest-page/myassest-page.component';
 import { AssetDetailPageComponent } from './components/asset-detail-page/asset-detail-page.component';
 import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
+// import { OrganizationUploadComponent, UserUploadComponent, StatusComponent } from '../org-management';
 const telemetryEnv = 'workspace';
 const objectType = 'workspace';
 const routes: Routes = [
@@ -182,6 +183,7 @@ const routes: Routes = [
       //     breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
       //   }
       // },
+
       {
         path: 'limited-publish/:pageNumber', component: LimitedPublishedComponent, canActivate: [AuthGuard],
         data: {
@@ -244,6 +246,7 @@ const routes: Routes = [
       },
     ]
   },
+
   {
     path: 'content/upForReview/content/:contentId', component: UpforreviewContentplayerComponent, canActivate: [AuthGuard],
     data: {

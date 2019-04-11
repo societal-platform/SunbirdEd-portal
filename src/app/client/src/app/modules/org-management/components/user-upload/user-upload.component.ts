@@ -138,17 +138,17 @@ export class UserUploadComponent implements OnInit, OnDestroy {
         ]
       }];
     this.showLoader = false;
-    this.telemetryImpression = {
-      context: {
-        env: this.activatedRoute.snapshot.data.telemetry.env
-      },
-      edata: {
-        type: this.activatedRoute.snapshot.data.telemetry.type,
-        pageid: 'profile-bulk-upload-user-upload',
-        subtype: this.activatedRoute.snapshot.data.telemetry.subtype,
-        uri: this.router.url
-      }
-    };
+    // this.telemetryImpression = {
+    //   context: {
+    //     env: this.activatedRoute.snapshot.data.telemetry.env
+    //   },
+    //   edata: {
+    //     type: this.activatedRoute.snapshot.data.telemetry.type,
+    //     pageid: 'profile-bulk-upload-user-upload',
+    //     subtype: this.activatedRoute.snapshot.data.telemetry.subtype,
+    //     uri: this.router.url
+    //   }
+    // };
     this.setInteractEventData();
   }
   /**

@@ -77,10 +77,8 @@ export class DataService {
       headers: requestParam.header ? this.getHeader(requestParam.header) : this.getHeader(),
       params: requestParam.param
     };
-    console.log('complete request created as ', this.baseUrl + requestParam.url);
     return this.http.post(this.baseUrl + requestParam.url, requestParam.data, httpOptions).pipe(
       mergeMap((data: ServerResponse) => {
-        console.log(`recieved data for ${requestParam.url} : `, data);
         if (data.responseCode !== 'OK') {
           return observableThrowError(data);
         }
@@ -91,11 +89,9 @@ export class DataService {
     const httpOptions: HttpOptions = {
       headers: requestParam.header ? this.getHeaderForm(requestParam.header) : this.getHeaderForm(),
       params: requestParam.param
-    }; console.log('base url', this.baseUrl);
-
+    };
     return this.http.post(this.baseUrl + requestParam.url, formdata, ).pipe(
       mergeMap((data: ServerResponse) => {
-        console.log('data ', data);
         if (data.responseCode !== 'OK') {
           return observableThrowError(data);
         }
@@ -113,11 +109,8 @@ export class DataService {
         headers: requestParam.header ? this.getHeader(requestParam.header) : this.getHeader(),
         params: requestParam.param
       };
-      console.log('complete request created as ', this.baseUrl + requestParam.url);
       return this.http.patch(this.baseUrl + requestParam.url, requestParam.data, httpOptions).pipe(
         mergeMap((data: ServerResponse) => {
-
-          console.log(`recieved data for ${requestParam.url} : `, data);
           if (data.responseCode !== 'OK') {
             return observableThrowError(data);
           }
@@ -144,7 +137,6 @@ export class DataService {
       }));
   }
 put(requestParam): Observable<ServerResponse> {
-  console.log('put', requestParam);
   const httpOptions: HttpOptions = {
     headers: requestParam.header ? requestParam.header : this.getHeaderFormUrl(),
     params: requestParam.param,

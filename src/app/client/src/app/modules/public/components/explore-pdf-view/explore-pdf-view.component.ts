@@ -44,7 +44,6 @@ export class ExplorePdfViewComponent implements OnInit {
       url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
     };
     this.contentService.get(req).subscribe(data => {
-      console.log('read contents', data);
       this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(data.result.content.artifactUrl);
       this.showLoader = false;
     });
@@ -52,14 +51,12 @@ export class ExplorePdfViewComponent implements OnInit {
   }
   checkForPreviousRouteForRedirect() {
     const previousUrlObj = this.navigationHelperService.getPreviousUrl();
-    console.log('pre', previousUrlObj);
     if (previousUrlObj && previousUrlObj.url && (previousUrlObj.url !== '/myassets')) {
       // this.redirect();
     }
   }
 
   navigateToDetailsPage() {
-    console.log('params', this.activatedRoute);
     this.activatedRoute.url.subscribe(url => {
 
         this.contentId = url[2].path;

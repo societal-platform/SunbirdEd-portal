@@ -170,7 +170,6 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       (user: IUserData) => {
         if (user && !user.err) {
           this.userProfile = user.userProfile;
-          console.log('userprofile', this.userProfile);
         }
       });
     this.setInteractEventData();
@@ -268,26 +267,12 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     jQuery('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
   }
   gotoContact(value) {
-    console.log('inside function', value);
     if ( value === 'about') {
-      console.log('inside about', value);
     this.router.navigate(['aboutUs']);
     }
     if ( value === 'contact') {
     this.router.navigate(['contactUs']);
     }
 }
-// selectToGo() {
-//   console.log('this.userProfile.userRoles', this.userProfile);
-//   for ( let i = this.userProfile; i < this.userProfile; i++  ) {
-//     if (i === 'TEACHER_BADGE_ISSUER' && i === 'ORG_ADMIN') {
-//       this.router.navigate(['/resources']);
-//     }
-//     if (i === 'CONTENT_CREATOR') {
-//       this.router.navigate(['/myassets']);
-//     }
-//   }
-
-// }
 }
 

@@ -50,7 +50,6 @@ export class LearnPageComponent implements OnInit, OnDestroy {
     this.filterType = this.configService.appConfig.courses.filterType;
     this.sortingOptions = this.configService.dropDownConfig.FILTER.RESOURCES.sortingOptions;
     this.permissionService = permissionService;
-    console.log('permission', this.permissionService);
 
     this.setTelemetryData();
   }

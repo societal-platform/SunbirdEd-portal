@@ -294,7 +294,7 @@ modalMessage = '';
   * This method sets the make an api call to get all UpForReviewContent with page No and offset
   */
   fecthAllContent(limit: number, pageNumber: number, bothParams) {
-    console.log('fetch all');
+
     this.showLoader = true;
     if (bothParams.queryParams.sort_by) {
       const sort_by = bothParams.queryParams.sort_by;
@@ -327,8 +327,8 @@ modalMessage = '';
     this.orgDetailsUnsubscribe = this.searchContentWithLockStatus(searchParams)
       .subscribe(
         (data: ServerResponse) => {
-          console.log('USER USER', this.userDetails);
-          console.log('data here ', data);
+
+
 
           if (this.route.url === '/upForReview' ) {
             if (this.route.url === '/upForReview' ) {
@@ -346,7 +346,7 @@ modalMessage = '';
                 sort_by: {me_averageRating: 'desc'}
               };
               this.contentService.getupForReviewData(option).subscribe(response => {
-                // console.log('ALERT CHANGE', response)
+
                 if (response.result.count > 0) {
                   this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
                   if (this.upForReviewContent.length <= 0) {
@@ -362,7 +362,7 @@ modalMessage = '';
                   }
 
                   this.allContent = this.upForReviewContent;
-                // console.log('the all content for upforreview is ', this.allContent);
+
                 } else {
                   this.showLoader = false;
                   // set the no results template if no assets is present
@@ -377,7 +377,7 @@ modalMessage = '';
             if (data.result.count && data.result.content.length > 0) {
             // this is the tem area
             this.allContent = data.result.content;
-            console.log('this is allContent', this.allContent);
+
             this.totalCount = data.result.count;
             this.pager = this.paginationService.getPager(data.result.count, pageNumber, limit);
             this.showLoader = false;
@@ -460,19 +460,17 @@ modalMessage = '';
           url: `${this.config.urlConFig.URLS.CONTENT.REVIEW}/${contentIds}`,
           data: requestBody
         };
-        console.log(this.config.urlConFig.URLS.CONTENT);
+
         this.contentService.post(option).subscribe(
           (data: ServerResponse) => {
-            console.log('server response for asset review is ');
-            console.log(data);
+
+
             this.toasterService.success('Your Asset has been sucessfully sent for review');
             setTimeout(() => {
               this.showLoader = false;
               this.ngOnInit();
             }, 2000);
           }, (err) => {
-            console.log('error occured while sending asset for review');
-            console.log(err);
             this.showLoader = false;
             this.toasterService.error('An error occured while sending your asset for review.');
           });
@@ -612,7 +610,6 @@ modalMessage = '';
     });
   }
   ngOnDestroy() {
-    console.log('destroy');
     if (this.orgDetailsUnsubscribe) {
       this.orgDetailsUnsubscribe.unsubscribe();
     }

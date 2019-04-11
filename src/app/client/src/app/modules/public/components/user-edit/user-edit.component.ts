@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResourceService, ToasterService, RouterNavigationService, ServerResponse } from '@sunbird/shared';
 import { UserSearchServicePublicService } from '../../services/searchService/user-search-service-public.service';
@@ -19,10 +19,12 @@ import { IInteractEventObject, IInteractEventEdata, IImpressionEventInput } from
 export class UserEditComponent implements OnInit, OnDestroy {
   @Input() model;
   @Input() userid;
+  @Output() messageEvent = new EventEmitter<string>();
   /**
 	 * Contains unique announcement id
 	 */
   userId: string;
+  update = 'false';
 
   // allRoles: Array<RolesAndPermissions>;
   allRoles = [
@@ -107,7 +109,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 	 *
 	 */
   redirect(): void {
-    this.route.navigate(['/viewuser'], { relativeTo: this.activatedRoute });
+    // this.route.navigate(['/Workspace/viewuser']);
     this.model.close();
   }
 
@@ -180,11 +182,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
         mainRole.push(value.role);
       });
       const option = { userId: this.userId, orgId: this.selectedOrgId, roles: roles };
-      console.log('option', option);
       this.userSearchService.updateRoles(option).subscribe(
         (apiResponse: ServerResponse) => {
           this.toasterService.success(this.resourceService.messages.smsg.m0028);
-          // this.redirect();
+          this.update = 'true';
+          this.messageEvent.emit(this.update);
+          this.redirect();
         },
         err => {
           this.selectedOrgUserRoles = _.difference(this.selectedOrgUserRoles, this.selectedOrgUserRolesNew);
@@ -200,39 +203,14 @@ export class UserEditComponent implements OnInit, OnDestroy {
    * activated route
 	 */
   ngOnInit() {
-    console.log('userid view', this.userid);
     this.activatedRoute.params.subscribe(params => {
       this.userId = this.userid;
       this.settelemetryData();
     });
     this.populateUserDetails();
-    // this.permissionService.permissionAvailable$.subscribe(params => {
-    //   if (params === 'success') {
-    //     this.allRoles = this.permissionService.allRoles;
-    //   }
-    //   this.allRoles = _.filter(this.allRoles, (role) => {
-    //     return role.role !== 'ORG_ADMIN' && role.role !== 'SYSTEM_ADMINISTRATION' && role.role !== 'ADMIN';
-    //   });
-    // });
-    // _.remove(this.allRoles, { role: 'PUBLIC' });
   }
   settelemetryData() {
-    // this.telemetryImpression = {
-    //   context: {
-    //     env: this.activatedRoute.snapshot.data.telemetry.env
-    //   },
-    //   object: {
-    //     id: this.userId,
-    //     type: 'user',
-    //     ver: '1.0'
-    //   },
-    //   edata: {
-    //     type: this.activatedRoute.snapshot.data.telemetry.type,
-    //     pageid: this.activatedRoute.snapshot.data.telemetry.pageid,
-    //     uri: this.route.url,
-    //     subtype: this.activatedRoute.snapshot.data.telemetry.subtype
-    //   }
-    // };
+
     this.organizationIntractEdata = {
       id: 'organization-dropdown',
       type: 'click',

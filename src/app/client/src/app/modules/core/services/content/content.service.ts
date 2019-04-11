@@ -50,7 +50,6 @@ export class ContentService extends DataService {
     }
     };
     // send the actual request
-    console.log('sending upForReview api request with ', option);
     return this.publicService.post(option);
   }
 

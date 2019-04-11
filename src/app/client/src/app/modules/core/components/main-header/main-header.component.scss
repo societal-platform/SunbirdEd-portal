@@ -29,6 +29,16 @@
 .ui.basic.button.qr-code-btn.disabled {
   opacity: 0.7 !important;
 }
+.item1 {
+color: black!important;
+box-shadow: none;
+-ms-grid-row-align: center;
+align-self: center;
+margin: 0 0;
+padding: .35714286em .5em;
+font-weight: 400;
+transition: opacity .1s ease;
+}
 #buttonS{
   display: block;
     width: 115px;
@@ -72,7 +82,9 @@
 section {
   padding: 60px 0;
 }
-
+.link {
+  cursor: pointer;
+}
 section .section-title {
   text-align: center;
   color: #007b5e;
