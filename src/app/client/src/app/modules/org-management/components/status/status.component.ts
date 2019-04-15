@@ -8,6 +8,7 @@ import { IInteractEventInput, IImpressionEventInput, IInteractEventEdata, IInter
 import { UserService } from '@sunbird/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ConfigService } from '../../../shared/services';
 
 /**
  * This component helps to display the success/failure response given by the api based on the process id entered
@@ -69,6 +70,7 @@ export class StatusComponent implements OnInit, OnDestroy {
   checkStatusInteractEdata: IInteractEventEdata;
   telemetryInteractObject: IInteractEventObject;
   public unsubscribe$ = new Subject<void>();
+  orgId = [];
 
   /**
 * Constructor to create injected service(s) object
@@ -77,7 +79,7 @@ export class StatusComponent implements OnInit, OnDestroy {
 *
 * @param {ResourceService} resourceService To call resource service which helps to use language constant
 */
-  constructor(orgManagementService: OrgManagementService, private router: Router, formBuilder: FormBuilder,
+  constructor(orgManagementService: OrgManagementService, private router: Router, formBuilder: FormBuilder, public config: ConfigService,
     toasterService: ToasterService, resourceService: ResourceService, activatedRoute: ActivatedRoute, public userService: UserService) {
     this.resourceService = resourceService;
     this.sbFormBuilder = formBuilder;
@@ -130,13 +132,33 @@ export class StatusComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$))
         .subscribe(
           (apiResponse: ServerResponse) => {
+            console.log('status', apiResponse);
             this.showLoader = false;
             this.statusResponse = apiResponse.result.response[0];
             if (this.statusResponse.status && (this.statusResponse.status === 'COMPLETED')) {
+              apiResponse.result.response.forEach(res => {
+                res.failureResult.forEach(data => {
+                console.log(' id', data);
+                  if (data.id) {
+                  this.orgId.push(data.id, data.orgName);
+            //  console.log('id', this.config.appConfig.Library.orgId.push(data.id));
+                  }
+                  console.log(' if org id', this.orgId, data.id);
+                });
+              });
+
               this.isProcessCompleted = true;
               this.processId = this.statusResponse.processId;
               this.toasterService.success(this.resourceService.messages.smsg.m0032);
             } else {
+              apiResponse.result.response.forEach(res => {
+                res.failureResult.forEach(data => {
+                  if (data.id) {
+                  this.orgId.push(data.id, data.orgName);
+                  }
+                  console.log(' else org id', this.orgId);
+                });
+              });
               this.isProcessCompleted = false;
               this.toasterService.info(this.resourceService.messages.imsg.m0040);
             }

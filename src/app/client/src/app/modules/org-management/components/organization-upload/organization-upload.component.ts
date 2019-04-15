@@ -174,6 +174,7 @@ export class OrganizationUploadComponent implements OnInit, OnDestroy {
             this.processId = apiResponse.result.processId;
             this.toasterService.success(this.resourceService.messages.smsg.m0031);
             this.fileName = file[0].name;
+            console.log('api res', apiResponse);
           },
           err => {
             this.showLoader = false;

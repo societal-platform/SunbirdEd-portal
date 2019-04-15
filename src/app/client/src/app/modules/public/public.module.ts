@@ -34,6 +34,8 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UserSearchServicePublicService } from './services/searchService/user-search-service-public.service';
 import { ExplorePdfViewComponent } from './components/explore-pdf-view/explore-pdf-view.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
+import { from } from 'rxjs';
+import { OrgManagementModule } from '../org-management';
  @NgModule({
   imports: [
     CommonModule,
@@ -48,6 +50,7 @@ import { WorkspaceComponent } from './components/workspace/workspace.component';
     NgInviewModule,
     DeviceDetectorModule,
     BadgingModule,
+    OrgManagementModule
   ],
   declarations: [LandingPageComponent, GetComponent, DialCodeComponent,
      ViewuserComponent, UserEditComponent,
