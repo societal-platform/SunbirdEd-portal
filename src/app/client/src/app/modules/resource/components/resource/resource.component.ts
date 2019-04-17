@@ -47,36 +47,36 @@ export class ResourceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.userService.userData$.subscribe(userData => {
       if (userData && !userData.err) {
-          this.frameworkData = _.get(userData.userProfile, 'framework');
+        this.frameworkData = _.get(userData.userProfile, 'framework');
       }
     });
     this.initFilters = true;
     this.hashTagId = this.userService.hashTagId;
     this.dataDrivenFilterEvent.pipe(first()
     ).subscribe((filters: any) => {
-        this.dataDrivenFilters = filters;
-        this.fetchContentOnParamChange();
-        this.setNoResultMessage();
-      });
+      this.dataDrivenFilters = filters;
+      this.fetchContentOnParamChange();
+      this.setNoResultMessage();
+    });
   }
   public getFilters(filters) {
+    console.log('filters', filters);
     const defaultFilters = _.reduce(filters, (collector: any, element) => {
-        if (element.code === 'board') {
-          collector.board = _.get(_.orderBy(element.range, ['index'], ['asc']), '[0].name') || '';
-        }
-        return collector;
-      }, {});
+      if (element.code === 'board') {
+        collector.board = _.get(_.orderBy(element.range, ['index'], ['asc']), '[0].name') || '';
+      }
+      return collector;
+    }, {});
     this.dataDrivenFilterEvent.emit(defaultFilters);
   }
   private fetchContentOnParamChange() {
     combineLatest(this.activatedRoute.params, this.activatedRoute.queryParams)
-    .pipe(map((result) => ({params: result[0], queryParams: result[1]})),
-        filter(({queryParams}) => !_.isEqual(this.queryParams, queryParams)), // fetch data if queryParams changed
+      .pipe(map((result) => ({ params: result[0], queryParams: result[1] })),
+        filter(({ queryParams }) => !_.isEqual(this.queryParams, queryParams)), // fetch data if queryParams changed
         takeUntil(this.unsubscribe$))
-      .subscribe(({params, queryParams}) => {
+      .subscribe(({ params, queryParams }) => {
         this.showLoader = true;
         this.queryParams = { ...queryParams };
         this.carouselData = [];
@@ -91,26 +91,28 @@ export class ResourceComponent implements OnInit, OnDestroy {
       return value.length;
     });
     const softConstraintData = {
-      filters: {channel: this.userService.hashTagId,
-      board: [this.dataDrivenFilters.board]},
+      filters: {
+        channel: this.userService.hashTagId,
+        board: [this.dataDrivenFilters.board]
+      },
       softConstraints: _.get(this.activatedRoute.snapshot, 'data.softConstraints'),
       mode: 'soft'
     };
-    const manipulatedData = this.utilService.manipulateSoftConstraint( _.get(this.queryParams, 'appliedFilters'),
-    softConstraintData, this.frameworkData );
+    const manipulatedData = this.utilService.manipulateSoftConstraint(_.get(this.queryParams, 'appliedFilters'),
+      softConstraintData, this.frameworkData);
     const option: any = {
       source: 'web',
       name: 'Resource',
-      filters: _.get(this.queryParams, 'appliedFilters') ?  filters : _.get(manipulatedData, 'filters'),
+      filters: _.get(this.queryParams, 'appliedFilters') ? filters : _.get(manipulatedData, 'filters'),
       mode: _.get(manipulatedData, 'mode'),
       exists: [],
-      params : this.configService.appConfig.Library.contentApiQueryParams
+      params: this.configService.appConfig.Library.contentApiQueryParams
     };
     if (_.get(manipulatedData, 'filters')) {
       option.softConstraints = _.get(manipulatedData, 'softConstraints');
     }
     if (this.queryParams.sort_by) {
-      option.sort_by = {[this.queryParams.sort_by]: this.queryParams.sortType  };
+      option.sort_by = { [this.queryParams.sort_by]: this.queryParams.sortType };
     }
     this.pageApiService.getPageData(option)
       .subscribe(data => {
@@ -122,7 +124,7 @@ export class ResourceComponent implements OnInit, OnDestroy {
         this.showLoader = false;
         this.carouselData = [];
         this.toasterService.error(this.resourceService.messages.fmsg.m0004);
-    });
+      });
   }
   private prepareCarouselData(sections = []) {
     const { constantData, metaData, dynamicFields, slickSize } = this.configService.appConfig.Library;
@@ -157,16 +159,16 @@ export class ResourceComponent implements OnInit, OnDestroy {
   public viewAll(event) {
     const searchQuery = JSON.parse(event.searchQuery);
     const softConstraintsFilter = {
-      board : [this.dataDrivenFilters.board],
+      board: [this.dataDrivenFilters.board],
       channel: this.hashTagId,
     };
     searchQuery.request.filters.softConstraintsFilter = JSON.stringify(softConstraintsFilter);
     searchQuery.request.filters.defaultSortBy = JSON.stringify(searchQuery.request.sort_by);
     searchQuery.request.filters.exists = searchQuery.request.exists;
     this.cacheService.set('viewAllQuery', searchQuery.request.filters, { maxAge: this.browserCacheTtlService.browserCacheTtl });
-    const queryParams = { ...searchQuery.request.filters, ...this.queryParams}; // , ...this.queryParams
+    const queryParams = { ...searchQuery.request.filters, ...this.queryParams }; // , ...this.queryParams
     const sectionUrl = 'resources/view-all/' + event.name.replace(/\s/g, '-');
-    this.router.navigate([sectionUrl, 1], {queryParams: queryParams});
+    this.router.navigate([sectionUrl, 1], { queryParams: queryParams });
   }
   ngOnDestroy() {
     this.unsubscribe$.next();

@@ -309,7 +309,7 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
     if (itemIndex !== -1) {
       this.queryParams[filterType].splice(itemIndex, 1);
     }
-    this.router.navigate(['/resources'], { queryParams: this.queryParams  });
+          this.router.navigate(['/resources'], { queryParams: this.queryParams  });
   }
   ngOnDestroy() {
     if (this.frameworkDataSubscription) {

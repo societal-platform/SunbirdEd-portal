@@ -23,8 +23,8 @@
                         <div *ngIf="contentStatus !== 'Unlisted'" class="row  pt-0">
                             <div class="twelve wide column">
                                 <div class="player-badge-alignment">
-                                    <sui-rating [ngClass]="{'course-header-divider': badgeData}" class="courseHeader-rating ui star rating pt-5" [isReadonly]="true"
-                                        [ngModel]="contentData.me_averageRating || 0" [maximum]="5"></sui-rating>&nbsp;&nbsp;
+                                    <!-- <sui-rating [ngClass]="{'course-header-divider': badgeData}" class="courseHeader-rating ui star rating pt-5" [isReadonly]="true"
+                                        [ngModel]="contentData.me_averageRating || 0" [maximum]="5"></sui-rating>&nbsp;&nbsp; -->
                                     <app-content-badge [data]="badgeData" class="ml-20 m-responsive-cp-badge-ml"></app-content-badge>
                                     <span class="ml-auto">
                                         <!-- Temporarily disable flagging-->
@@ -36,11 +36,11 @@
                                             <i class="cursor-pointer large blue share alternate icon"></i>
                                             {{resourceService?.frmelmnts?.lbl?.share}}
                                         </a>
-                                        <span *ngIf='permissionService.permissionAvailable' appPermission [permission]="['CONTENT_CREATOR', 'CONTENT_REVIEWER']"
+                                        <!-- <span *ngIf='permissionService.permissionAvailable' appPermission [permission]="['CONTENT_CREATOR', 'CONTENT_REVIEWER']"
                                             (click)="copyContent(contentData)" class="ui mouse-pointer content-font ml-10 blue-text-color-sunbird">
                                             <i class="ui large blue clone outline icon"></i>
                                             {{resourceService?.frmelmnts?.lbl?.copy}}
-                                        </span>
+                                        </span> -->
                                     </span>
                                 </div>
                             </div>

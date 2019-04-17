@@ -31,9 +31,23 @@
             </div>
         </div>
         <div class="item p-0 mb-5">
+                <div class="ui grid stackable m-0">
+                    <div class="three wide column">
+                        <div class="content content-detail">
+                            Version
+                        </div>
+                    </div>
+                    <div class="nine wide column">
+                        <div class="content overflow-word-wrap" *ngIf="metadata.version">
+                            {{metadata.version}}.0
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="item p-0 mb-5" *ngIf="metadata.owner">
             <div class="ui grid stackable m-0">
                 <div class="three wide column">
-                    <div class="content content-detail">
+                    <div class="content content-detail" *ngIf="metadata.owner">
                         {{resourceService.frmelmnts.lbl.ownership}}
                     </div>
                 </div>
@@ -83,7 +97,10 @@
                     </div>
                 </div>
                 <div class="nine wide column">
-                    <div class="content" *ngIf="metadata.medium">
+                    <div class="content" *ngIf="metadata.topic">
+                            <li *ngFor="let hero of metadata.topic; let first = first;let last = last">
+                                    {{ hero | titlecase}} <span *ngIf="!last && metadata.topic.length!=1"> ,</span>
+                                </li>
                         {{metadata.medium}}
                     </div>
                 </div>
@@ -128,10 +145,10 @@
             </div>
         </div>
 
-        <div class="item p-0 mb-5">
+        <div class="item p-0 mb-5" *ngIf="metadata.subject">
             <div class="ui grid stackable m-0">
                 <div class="three wide column">
-                    <div class="content content-detail">
+                    <div class="content content-detail" *ngIf="metadata.subject">
                         {{resourceService.frmelmnts.lbl.subject}}
                     </div>
                 </div>
@@ -171,7 +188,7 @@
                 </div>
             </div>
         </div>
-        <div class="item p-0 mb-5">
+        <div class="item p-0 mb-5" *ngIf="metadata.concepts && metadata.concepts.length > 0">
             <div class="ui grid stackable m-0">
                 <div class="three wide column">
                     <div class="content content-detail overflow-word-wrap">
@@ -199,7 +216,7 @@
                 </div>
             </div>
         </div>
-        <div class="item p-0 mb-5">
+        <!-- <div class="item p-0 mb-5">
             <div class="ui grid stackable m-0">
                 <div class="three wide column">
                     <div class="content content-detail">
@@ -212,7 +229,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="item p-0 mb-5" *ngIf="metadata.status === 'Flagged' && metadata.flagReasons">
             <div class="ui grid stackable m-0">
                 <div class="three wide column">

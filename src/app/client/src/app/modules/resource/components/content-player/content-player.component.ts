@@ -143,12 +143,14 @@ export class ContentPlayerComponent implements OnInit {
     this.playerService.getContent(this.contentId, option).subscribe(
       (response) => {
         if (response.result.content.status === 'Live' || response.result.content.status === 'Unlisted') {
+          console.log('content', response.result.content );
           const contentDetails = {
             contentId: this.contentId,
             contentData: response.result.content
           };
           this.playerConfig = this.playerService.getConfig(contentDetails);
           this.contentData = response.result.content;
+
           if (this.contentData.mimeType === this.configService.appConfig.PLAYER_CONFIG.MIME_TYPE.xUrl) {
             setTimeout(() => {
               this.showExtContentMsg = true;
@@ -182,7 +184,7 @@ export class ContentPlayerComponent implements OnInit {
    * @memberof ContentPlayerComponent
    */
   close() {
-    this.navigationHelperService.navigateToResource('/resources');
+    this.navigationHelperService.navigateToPreviousUrl('/resources');
   }
 
   /**

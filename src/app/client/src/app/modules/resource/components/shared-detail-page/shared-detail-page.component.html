@@ -45,16 +45,16 @@
                     </div>
                 </div>
             </div>
-            <p *ngIf="assetDetail?.board" class="card-text">AssetType : {{assetDetail?.board}}
+            <p *ngIf="assetDetail?.board" class="card-text">Asset Type : {{assetDetail?.board}}
             </p>
             <p class="card-text" *ngIf="assetDetail?.topic">Category : <span>
                     <li *ngFor="let hero of assetDetail?.topic; let first = first;let last = last">
                         {{ hero }}<span *ngIf="!last">,</span>
                     </li>
                 </span></p>
-            <p class="card-text" *ngIf="assetDetail?.keywords; let first = first;let last = last">Keywords : <span>
-                    <li *ngFor="let hero of assetDetail?.keywords">
-                        {{ hero }}<span *ngIf="!last && assetDetail?.keywords.length!=1">,</span>
+            <p class="card-text" *ngIf="assetDetail?.keywords">Keywords : <span>
+                    <li *ngFor="let hero of assetDetail?.keywords;  let first = first;let last = last">
+                        {{ hero | titlecase}}<span *ngIf="!last && assetDetail?.keywords.length!=1">,</span>
                     </li>
                 </span>
             </p>
@@ -63,7 +63,7 @@
                     href="{{assetDetail?.link}}" target="_blank">{{assetDetail?.link}} </a></p>
             <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'">
                 <p>
-                    File : <span routerLink="view" class="pdfStyle">{{pdfs | slice: 1}}pdf</span>
+                    File : <span routerLink="view" class="pdfStyle">{{pdfs | titlecase  | slice: 1}}pdf</span>
                 </p>
 
             </div>
@@ -87,26 +87,27 @@
                 </div>
             </div>
 
-            <ng-template let-context let-modal="modal" #modalTemplate>
-                <div class="header"> Mark as 'VERIFIED ASSET'</div>
-                <div class="content">
-                    <p>Are you sure you want to issue the badge to this content?</p>
-                </div>
-                <div class="actions">
-                    <button class="btn btn-purple" (click)="modal.approve('approved')" autofocus>Yes</button>
-                    <button class="btn btn-lightgrey ml-10" (click)="modal.deny('denied')">No</button>
-
-                </div>
-            </ng-template>
+          
 
         </div>
         <div class="card-footer text-muted pt-30 pb-0">
             <p><span *ngIf="assetDetail?.version"></span> Version : {{assetDetail?.version}}.0 <span
                     *ngIf="assetDetail?.creators"></span> | Created By :
                 {{assetDetail?.creators | titlecase}} <span *ngIf="assetDetail?.since"> | Created Year :
-                    {{assetDetail?.year}} </span> <span *ngIf="assetDetail?.region"> | Where :
+                    {{assetDetail?.year}} </span> <span *ngIf="assetDetail?.region"> | Region(Geography of Re-usability) :
                     {{assetDetail?.region | titlecase}}</span> </p>
             <p class="float-right"></p>
         </div>
     </div>
 </div>
+<ng-template let-context let-modal="modal" #modalTemplate>
+        <div class="header"> Mark as 'VERIFIED ASSET'</div>
+        <div class="content">
+            <p>Are you sure you want to issue the badge to this content?</p>
+        </div>
+        <div class="actions">
+            <button class="btn btn-purple" (click)="modal.approve('approved')" autofocus>Yes</button>
+            <button class="btn btn-lightgrey ml-10" (click)="modal.deny('denied')">No</button>
+
+        </div>
+    </ng-template>

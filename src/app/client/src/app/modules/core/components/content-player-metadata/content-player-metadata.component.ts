@@ -24,6 +24,7 @@ export class ContentPlayerMetadataComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.metadata = { ...this.contentData };
+    console.log('metadata', this.metadata);
     this.validateContent();
     this.getConceptsNames();
   }

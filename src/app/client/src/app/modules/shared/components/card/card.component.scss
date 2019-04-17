@@ -1,10 +1,6 @@
 @import '../../../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-i.fas.fa-database.fa-lg {
-  padding: 0.6em 0em;
-  font-size: 2em;
-}
-  .thick-green-border {
+  .thick-gray-border {
     border-color: gray;
     border-width: 5px;
     border-style: solid;
@@ -60,9 +56,11 @@ background-color: #585858;
  .card {
    height: auto;
    width: 350px;
+   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+   font-family: 'Muli', sans-serif;
+ }
+ .card-header {
    cursor: pointer;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  font-family: 'Muli', sans-serif;
  }
  .col-sm-8 {
    height: fit-content;
@@ -143,12 +141,8 @@ background-color: #585858;
   text-transform: capitalize !important;
 }
 
-.cardsdist{
-  margin:1.2em;
-}
-
 .creator {
-  display: block;
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -165,4 +159,9 @@ background-color: #585858;
     // text-align: center;
     width: 13rem !important;
   }
+}
+
+hr {
+  margin-bottom: 2px;
+  margin-top: 2px;
 }

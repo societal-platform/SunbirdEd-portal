@@ -64,7 +64,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'play/content/:contentId/:contentStatus', component: ResourceViewerComponent,
+    path: 'play/content/:contentId/:contentStatus', component: ContentPlayerComponent,
     data: {
       breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Library', url: '' }],
       telemetry: { env: telemetryEnv, pageid: 'content-player-unlisted', type: 'play' }

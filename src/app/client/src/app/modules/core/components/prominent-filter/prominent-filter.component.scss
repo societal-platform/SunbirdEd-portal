@@ -30,3 +30,8 @@
         right: -12rem !important;
     }
 }
+@media not all and (min-width: 766px) {
+    #search {
+       text-align: center;
+    }
+    }

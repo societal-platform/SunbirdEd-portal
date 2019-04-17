@@ -49,14 +49,14 @@ const routes: Routes = [
     }
   },
   {
-    path: 'play/content/:contentId', component: ExploreDetailPageComponent, data: {
+    path: 'play/:contentId', component: ExploreDetailPageComponent, data: {
       telemetry: {
         env: 'public', pageid: 'play-content', type: 'view', subtype: 'paginate'
       }
     }
   },
   {
-    path: 'play/content/:contentId/view', component: ExplorePdfViewComponent
+    path: 'play/:contentId/view', component: PublicContentPlayerComponent
   },
   {
     path: 'play/collection/:collectionId', component: PublicCollectionPlayerComponent, data: {

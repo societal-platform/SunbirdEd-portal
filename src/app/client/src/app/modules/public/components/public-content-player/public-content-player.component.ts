@@ -65,8 +65,9 @@ export class PublicContentPlayerComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
+      console.log('params', params);
       this.contentId = params.contentId;
-      this.setTelemetryData();
+      // this.setTelemetryData();
       this.getContent();
       this.deviceDetector();
     });
@@ -135,7 +136,7 @@ export class PublicContentPlayerComponent implements OnInit, OnDestroy {
    * @memberof ContentPlayerComponent
    */
   close() {
-    this.navigationHelperService.navigateToResource('/explore');
+    this.navigationHelperService.navigateToPreviousUrl('/explore');
   }
 
   deviceDetector() {

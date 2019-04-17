@@ -104,7 +104,7 @@ export class PublicPlayerService {
           this.router.navigate(['play/collection', event.data.metaData.identifier]);
         }
       } else {
-        this.router.navigate(['play/content', event.data.metaData.identifier]);
+        this.router.navigate(['play', event.data.metaData.identifier]);
       }
     }, 0);
   }

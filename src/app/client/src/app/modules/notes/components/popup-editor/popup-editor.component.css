@@ -85,3 +85,7 @@
   border: 1px solid #999;
   background-color: #F5F5F5;
 }
+
+.scroll {
+	height: fit-content !important;
+}

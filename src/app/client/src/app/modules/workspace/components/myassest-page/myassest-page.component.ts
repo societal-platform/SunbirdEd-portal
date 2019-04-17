@@ -351,6 +351,7 @@ modalMessage = '';
                   this.upForReviewContent = response.result.content.filter(content => content.createdBy !== this.userId);
                   if (this.upForReviewContent.length <= 0) {
                     this.noResultsForReview = true;
+                    this.showLoader = false;
                     this.noResultMessage = {
                       'messageText': 'No assets available to review for now.'
                     };
@@ -481,64 +482,6 @@ modalMessage = '';
       .onDeny(result => {
       });
   }
-
-  /* public publishConfirmModal(contentId){
-    const config2 = new TemplateModalConfig<{ data: string }, string, string>(this.modalTemplate);
-    config2.isClosable = true;
-    config2.size = 'mini';
-    config2.context = {data: 'Review'};
-    this.modalServices
-      .open(config2)
-      .onApprove(result => {
-        this.showLoader = true;
-        this.loaderMessage = {
-          'loaderMessage': this.resourceService.messages.stmsg.m0034,
-        };
-        this.reasons = ['Content plays correctly',
-          'Can see the content clearly on Desktop and App',
-          'No Hate speech, Abuse, Violence, Profanity',
-          'No Sexual content, Nudity or Vulgarity',
-          'Relevant Keywords',
-          'Appropriate tags such as Resource Type, Concepts',
-          'Correct Board, Grade, Subject, Medium',
-          'Appropriate Title, Description',
-          'No Discrimination or Defamation',
-          'Is suitable for children',
-          'Audio (if any) is clear and easy to understand',
-          'No Spelling mistakes in the text',
-          'Language is simple to understand'];
-         const requestBody = {
-          request: {
-            content: {
-              publishChecklist: this.reasons,
-              lastPublishedBy: this.userId
-            }
-          }
-        };
-        const option = {
-          url: `${this.config.urlConFig.URLS.CONTENT.PUBLISH}/${contentId}`,
-          data: requestBody
-        };
-        console.log(this.config.urlConFig.URLS.CONTENT);
-        this.contentService.post(option).subscribe(
-          (data: ServerResponse) => {
-            this.showLoader = false;
-            console.log("server response for asset review is ");
-            console.log(data);
-            //this.resourceService.messages.smsg.m0004
-            this.toasterService.success('You Asset has been sucessfully sent for review');
-            window.location.reload();
-          }, (err) => {
-            console.log('error occured while sending asset for review');
-            console.log(err);
-            this.showLoader = false;
-            this.toasterService.error('An error occured while sending your asset for review.');
-          });
-      })
-
-      .onDeny(result => {
-      });
-  } */
 
   /**
    * This method helps to navigate to different pages.

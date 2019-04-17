@@ -112,7 +112,7 @@ console.log('else', this.selectedOrgUserRolesNew);
             // console.log('user Detail', user);
             this.userDetail = user;
             _.forEach(user.organisations, (userorg: any) => {
-// debugger;
+
               this.existingUserRoles = userorg.roles;
               userorgid = userorg.organisationId;
               // console.log('org detail', this.existingUserRoles);
