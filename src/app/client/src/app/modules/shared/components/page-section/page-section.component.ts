@@ -122,7 +122,6 @@ export class PageSectionComponent implements OnInit {
   }
   playContent(event) {
     this.playEvent.emit(event);
-    console.log('event', event);
     // this.route.navigate(['/play/content', data.identifier]);
   }
   ngOnInit() {

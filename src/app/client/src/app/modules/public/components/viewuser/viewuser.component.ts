@@ -62,7 +62,6 @@ export class ViewuserComponent implements OnInit {
   ) {}
   receiveMessage($event) {
     this.update = $event;
-    console.log('update', this.update);
     if (this.update) {
       this.gottoCancel();
     }
@@ -249,12 +248,14 @@ setTimeout(() => {
 }, 500);
   }
   gottoCancel() {
-
     setTimeout(() => {
       this.userIds = [];
       this.router.navigate(['/Workspace/viewuser']);
       this.ngOnInit();
     }, 2000);
+    this.modalRef.close();
+  }
+  cancel() {
     this.modalRef.close();
   }
 

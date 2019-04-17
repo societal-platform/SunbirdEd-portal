@@ -103,9 +103,6 @@ export class DefaultTemplateComponent implements OnInit, AfterViewInit {
   private editorService: EditorService;
   orgname: string;
 
-
-
-
   constructor(
     formService: FormService,
     private _cacheService: CacheService,
@@ -157,11 +154,23 @@ export class DefaultTemplateComponent implements OnInit, AfterViewInit {
     this.setFormConfig();
     this.userService.userData$.subscribe(
       (user: IUserData) => {
-        console.log('use', user);
+        console.log('user', user);
         if (user && !user.err) {
           this.userProfile = user.userProfile;
-          this.orgname = user.userProfile.organisations[0].orgName;
-          this.formInputData['creators'] = user.userProfile.organisations[0].orgName;
+          // this.orgname = user.userProfile.organisations[0].orgName;
+          user.userProfile.organisations.forEach(element => {
+            console.log('org info', element.locationIds.length);
+            if (element.locationIds.length > 0) {
+              console.log('if', element.orgName);
+              this.formInputData['creators'] =  element.orgName;
+            } else {
+              console.log('else', element.orgName);
+              this.formInputData['creators'] = element.orgName;
+            }
+          });
+
+
+          // this.formInputData['creators'] = user.userProfile.organisations[0].orgName;
         }
         //  else if (user && !user.err && user.userProfile.organisationNames.length === 1) {
         //   this.userProfile = user.userProfile;
@@ -179,7 +188,6 @@ export class DefaultTemplateComponent implements OnInit, AfterViewInit {
 */
   concepts(events) {
     // this.formInputData['concepts'] = events;
-    console.log('events', events);
     const sector = [];
     _.forEach(events, (field) => {
       sector.push(field.name);
@@ -190,7 +198,6 @@ export class DefaultTemplateComponent implements OnInit, AfterViewInit {
 
   conceptspFramework(events) {
     // this.formInputData['topic'] = events;
-    console.log('events', events);
     const spFramework = [];
 
     _.forEach(events, (field) => {

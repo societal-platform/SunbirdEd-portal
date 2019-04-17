@@ -22,7 +22,6 @@ export class UtilService {
   }
 
   processContent(data, staticData, dynamicFields, metaData) {
-    console.log('data, dynamic', data, staticData, dynamicFields, metaData);
     let fieldValue: any;
     const content = {
       name: data.name || data.courseName,

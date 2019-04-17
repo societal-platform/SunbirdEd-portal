@@ -102,6 +102,9 @@
       "GET_BATCHS": "course/v1/batch/list"
     },
     "ADMIN": {
+      "PAGE":"data/v1/page/section/create",
+      "UPDATE_PAGE":"data/v1/page/update",
+      "UPDATE_PAGE_SECTION":"data/v1/page/section/update",
       "GET_ORG": "org/v1/read",
       "REMOVE_USER": "org/v1/member/remove",
       "USER_SEARCH": "user/v1/search",

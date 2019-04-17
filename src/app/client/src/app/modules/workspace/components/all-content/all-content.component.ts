@@ -265,7 +265,6 @@ export class AllContentComponent extends WorkSpace implements OnInit {
     };
     this.searchContentWithLockStatus(searchParams).subscribe(
       (data: ServerResponse) => {
-        console.log('data', data);
         if (data.result.count && data.result.content.length > 0) {
           this.allContent = data.result.content;
           this.totalCount = data.result.count;

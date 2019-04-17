@@ -39,6 +39,8 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
     public redirectUrl;
     public frameworkData: object;
     public closeIntractEdata;
+    orgId = [];
+    orgName = [];
 
     constructor(public searchService: SearchService, public router: Router, private playerService: PlayerService,
         public activatedRoute: ActivatedRoute, public paginationService: PaginationService,
@@ -53,7 +55,15 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
         this.setTelemetryData();
     }
     ngOnInit() {
-        console.log('config', this.configService);
+        this.activatedRoute.data.subscribe( (data) => {
+            console.log('Data in library:', data);
+            data.orgid.result.response.content.forEach(element => {
+                // console.log('element', element);
+                this.orgId.push(element.id);
+                this.orgName.push(element.orgName);
+            });
+        });
+        console.log('orgid', this.orgId, 'orgname', this.orgName);
         this.userService.userData$.subscribe(userData => {
             if (userData && !userData.err) {
                 this.frameworkData = _.get(userData.userProfile, 'framework');
@@ -114,8 +124,8 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
         };
         option.filters.contentType = filters.contentType ||
         ['Resource'];
-        option.filters.channel = this.configService.appConfig.Library.orgId;
-        option.filters.organisation = this.configService.appConfig.Library.orgName;
+        option.filters.channel = this.orgId;
+        option.filters.organisation = this.orgName;
 
         if (_.get(manipulatedData, 'filters')) {
             option['softConstraints'] = _.get(manipulatedData, 'softConstraints');
@@ -127,7 +137,6 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
         });
         this.searchService.contentSearch(option)
             .subscribe(data => {
-                console.log('seacrch data', data);
                 this.showLoader = false;
                 this.facetsList = this.searchService.processFilterData(_.get(data, 'result.facets'));
                 this.paginationDetails = this.paginationService.getPager(data.result.count, this.paginationDetails.currentPage,

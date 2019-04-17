@@ -9,7 +9,8 @@ import { UserService } from '@sunbird/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ConfigService } from '../../../shared/services';
-
+import { PageSectionService } from '../../services/pageSection/page-section.service';
+import { NgbDatepickerNavigationSelect } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 /**
  * This component helps to display the success/failure response given by the api based on the process id entered
  *
@@ -71,7 +72,8 @@ export class StatusComponent implements OnInit, OnDestroy {
   telemetryInteractObject: IInteractEventObject;
   public unsubscribe$ = new Subject<void>();
   orgId = [];
-
+  orgName = [];
+  sectionId: any;
   /**
 * Constructor to create injected service(s) object
 *
@@ -80,7 +82,8 @@ export class StatusComponent implements OnInit, OnDestroy {
 * @param {ResourceService} resourceService To call resource service which helps to use language constant
 */
   constructor(orgManagementService: OrgManagementService, private router: Router, formBuilder: FormBuilder, public config: ConfigService,
-    toasterService: ToasterService, resourceService: ResourceService, activatedRoute: ActivatedRoute, public userService: UserService) {
+    toasterService: ToasterService, resourceService: ResourceService, activatedRoute: ActivatedRoute, public userService: UserService,
+    public page: PageSectionService) {
     this.resourceService = resourceService;
     this.sbFormBuilder = formBuilder;
     this.orgManagementService = orgManagementService;
@@ -132,33 +135,33 @@ export class StatusComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$))
         .subscribe(
           (apiResponse: ServerResponse) => {
-            console.log('status', apiResponse);
+            console.log(apiResponse);
             this.showLoader = false;
             this.statusResponse = apiResponse.result.response[0];
             if (this.statusResponse.status && (this.statusResponse.status === 'COMPLETED')) {
               apiResponse.result.response.forEach(res => {
-                res.failureResult.forEach(data => {
-                console.log(' id', data);
+                res.successResult.forEach(data => {
+                  console.log('data', data);
                   if (data.id) {
-                  this.orgId.push(data.id, data.orgName);
-            //  console.log('id', this.config.appConfig.Library.orgId.push(data.id));
+                  this.orgId.push(data.id);
+                  this.orgName.push(data.orgName);
                   }
-                  console.log(' if org id', this.orgId, data.id);
                 });
               });
-
+              console.log(this.orgId);
+              console.log(this.orgName);
               this.isProcessCompleted = true;
               this.processId = this.statusResponse.processId;
               this.toasterService.success(this.resourceService.messages.smsg.m0032);
+              this.pageSection();
             } else {
-              apiResponse.result.response.forEach(res => {
-                res.failureResult.forEach(data => {
-                  if (data.id) {
-                  this.orgId.push(data.id, data.orgName);
-                  }
-                  console.log(' else org id', this.orgId);
-                });
-              });
+              // apiResponse.result.response.forEach(res => {
+              //   res.successResult.forEach(data => {
+              //     if (data.id) {
+              //     this.orgId.push(data.id, data.orgName);
+              //     }
+              //   });
+              // });
               this.isProcessCompleted = false;
               this.toasterService.info(this.resourceService.messages.imsg.m0040);
             }
@@ -175,6 +178,77 @@ export class StatusComponent implements OnInit, OnDestroy {
   /**
  * This method helps to get the status result from the api
  */
+pageSection() {
+  console.log('inside fubnc');
+  const id = this.config.appConfig.Library.orgId;
+  const name = this.config.appConfig.Library.orgName;
+  id.forEach(identifier => {
+    console.log('id', identifier);
+    this.orgId.push(identifier);
+  });
+  name.forEach(na => {
+    console.log('id', na);
+    this.orgName.push(na);
+  });
+  console.log(this.orgId , this.orgName);
+ const req = {
+    'request': {
+        'id': '01269009341042688043',
+        'searchQuery': {
+                   'request':
+                   {
+                       'query': '',
+                       'filters':
+                       {
+                           'language': ['English'],
+                           'contentType': ['Resource'],
+                           'status': ['Live'],
+                           'channel': this.orgId,
+                           'organisation': this.orgName
+                       },
+                       'sort_by': {'me_averageRating': 'desc'},
+                       'limit': 10
+                       }
+                       }
+    }
+};
+  this.page.updatePageSection(req).subscribe((data) => {
+    console.log('data res', data);
+    this.sectionId = data.result.sectionId;
+  }, err => {
+    console.log('err', err);
+    this.toasterService.error(err);
+  });
+}
+// updatePage() {
+//   const req = {
+//     'request': {
+//       'name': 'Resource',
+//       'id': '0122838911932661768',
+//       'portalMap': [
+//           {
+//               'id': this.sectionId,
+//               'index': 1,
+//               'group': 1
+//           }
+//       ],
+//       'appMap': [
+//           {
+//               'id': this.sectionId,
+//               'index': 1,
+//               'group': 1
+//           }
+//       ]
+//   }
+//   };
+//   console.log('req upadte', req);
+//     this.page.updatePageSection(req).subscribe((apiResponse) => {
+// console.log('response', apiResponse);
+//   }, err => {
+//     console.log('err', err);
+//     this.toasterService.error(err);
+//   });
+// }
   getStatusResult(status) {
     return status;
   }

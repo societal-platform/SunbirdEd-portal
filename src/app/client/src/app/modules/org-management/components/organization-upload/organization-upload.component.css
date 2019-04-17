@@ -1,0 +1,8 @@
+@media screen and (max-width:651px) {
+    .btn-purple {
+        height: 51px !important;
+    }
+    .btn-lightgrey {
+        height: 51px !important;
+    }
+  }

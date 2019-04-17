@@ -41,18 +41,14 @@ export class ResourceViewerComponent implements OnInit {
       url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
     };
     this.contentService.get(req).subscribe(data => {
-      console.log('read contents', data);
       this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(data.result.content.artifactUrl);
       this.showLoader = false;
     });
   }
   navigateToDetailsPage() {
-    console.log('params', this.activatedRoute);
     this.activatedRoute.url.subscribe(url => {
-      console.log('url', url);
       this.path = url[2].path;
       });
-      console.log('path', this.path);
       this.route.navigate(['resources/play/content', this.path]);
   }
 

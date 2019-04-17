@@ -83,7 +83,7 @@ export class OrganizationUploadComponent implements OnInit, OnDestroy {
   ngOnInit() {
     document.body.classList.add('no-scroll'); // This is a workaround  we need to remove it when library add support to remove body scroll
     this.activatedRoute.data.subscribe(data => {
-      console.log('route', data);
+
       if (data.redirectUrl) {
         this.redirectUrl = data.redirectUrl;
       } else {
@@ -135,7 +135,6 @@ export class OrganizationUploadComponent implements OnInit, OnDestroy {
   public redirect() {
     this.fileName = '';
     this.processId = '';
-    console.log('url', this.redirectUrl);
     this.router.navigate([this.redirectUrl]);
   }
   /**
@@ -174,7 +173,6 @@ export class OrganizationUploadComponent implements OnInit, OnDestroy {
             this.processId = apiResponse.result.processId;
             this.toasterService.success(this.resourceService.messages.smsg.m0031);
             this.fileName = file[0].name;
-            console.log('api res', apiResponse);
           },
           err => {
             this.showLoader = false;

@@ -124,6 +124,7 @@ export interface IOrganization {
     orgjoindate: string;
     orgLeftDate: string;
     hashTagId?: string;
+    locationIds: Array<any>;
 }
 export interface IEducation {
     updatedBy: string;

@@ -176,7 +176,6 @@ export class BatchListComponent extends WorkSpace implements OnInit {
     };
     this.batchService.updateEvent
       .subscribe((data) => {
-        console.log('update event in list');
         this.fetchBatchList();
     });
   }

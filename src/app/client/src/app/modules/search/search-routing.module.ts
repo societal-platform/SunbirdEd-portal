@@ -6,6 +6,7 @@ import {
   UserDeleteComponent, OrgSearchComponent, CourseSearchComponent, LibrarySearchComponent
 } from './components';
 import { AuthGuard } from '../core/guard/auth-gard.service';
+import { ResolverService } from './services/resolver/resolver.service';
 
 const routes: Routes = [
   {
@@ -29,7 +30,9 @@ const routes: Routes = [
 
   },
   {
-    path: 'Library/:pageNumber', component: LibrarySearchComponent,
+    path: 'Library/:pageNumber', component: LibrarySearchComponent, resolve: {
+      orgid: ResolverService
+      },
     data: {
       breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Search', url: '' }],
       telemetry: {

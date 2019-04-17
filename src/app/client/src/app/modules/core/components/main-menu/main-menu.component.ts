@@ -201,7 +201,6 @@ loading: any;
   navigateToWorkspace() {
     const authroles = this.permissionService.getWorkspaceAuthRoles();
     if (authroles) {
-      console.log('inside if');
       this.router.navigate([authroles.url]);
     }
   }

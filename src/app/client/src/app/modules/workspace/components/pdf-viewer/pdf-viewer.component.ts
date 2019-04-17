@@ -43,7 +43,6 @@ export class PdfViewerComponent implements OnInit {
       url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
     };
     this.contentService.get(req).subscribe(data => {
-      console.log('read contents', data);
       this.assetDetail = this.sanitizer.bypassSecurityTrustResourceUrl(data.result.content.artifactUrl);
       this.showLoader = false;
     });
@@ -51,16 +50,13 @@ export class PdfViewerComponent implements OnInit {
   }
   checkForPreviousRouteForRedirect() {
     const previousUrlObj = this.navigationHelperService.getPreviousUrl();
-    console.log('pre', previousUrlObj);
     if (previousUrlObj && previousUrlObj.url && (previousUrlObj.url !== '/myassets')) {
       // this.redirect();
     }
   }
 
   navigateToDetailsPage() {
-    console.log('params', this.activatedRoute);
     this.activatedRoute.url.subscribe(url => {
-      console.log('urls', url);
       this.path = url[0].path;
       this.status = url[2].path;
       if (this.path === 'review') {
@@ -69,7 +65,6 @@ export class PdfViewerComponent implements OnInit {
         this.contentId = url[1].path;
       }
 
-      console.log('this.', this.path, this.contentId);
     });
     if (this.path === 'review') {
       this.route.navigate(['upForReview/review/detail', this.contentId]);
