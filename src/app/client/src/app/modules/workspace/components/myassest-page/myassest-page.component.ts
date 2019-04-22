@@ -613,7 +613,6 @@ modalMessage = '';
     if (this.orgDetailsUnsubscribe) {
       this.orgDetailsUnsubscribe.unsubscribe();
     }
-
   }
   navigateToEditPage(contentId: string, status: string) {
     this.route.navigate(['myassets/update', contentId, status]);
