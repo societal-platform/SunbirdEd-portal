@@ -125,7 +125,7 @@ export class UserUploadComponent implements OnInit, OnDestroy {
         if (user && !user.err) {
           this.userProfile = user.userProfile;
           this.value =  this.userProfile.organisationIds[1];
-          console.log(this.userProfile, 'profile', this.userProfile.organisationIds[1]);
+          // console.log(this.userProfile, 'profile', this.userProfile.organisationIds[1]);
         }
       });
 
