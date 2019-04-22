@@ -197,17 +197,17 @@ pageSection() {
         'searchQuery': {
                    'request':
                    {
-                       'query':'',
+                       'query': '',
                        'filters':
                        {
                            'language': ['English'],
-                           'contentType':['Resource'],
-                           'status':['Live'],
-                           'channel':this.orgId,
-                           'organisation':this.orgName
+                           'contentType': ['Resource'],
+                           'status': ['Live'],
+                           'channel': this.orgId,
+                           'organisation': this.orgName
                        },
-                       'sort_by':{'me_averageRating':'desc'},
-                       'limit':10
+                       'sort_by': {'me_averageRating': 'desc'},
+                       'limit': 10
                        }
                        }
     }

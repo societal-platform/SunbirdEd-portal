@@ -9,6 +9,8 @@ import { UserService } from '@sunbird/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import * as _ from 'lodash';
+import { Subscription } from 'rxjs';
+import { IUserData, IUserProfile} from '@sunbird/shared';
 /**
  * This component helps to upload bulk users data (csv file)
  *
@@ -22,6 +24,10 @@ import * as _ from 'lodash';
 export class UserUploadComponent implements OnInit, OnDestroy {
   @ViewChild('inputbtn') inputbtn: ElementRef;
   @ViewChild('modal') modal;
+  value: any;
+  private variable = true;
+  userDataSubscription: Subscription;
+  userProfile: IUserProfile;
   /**
 * reference for ActivatedRoute
 */
@@ -114,6 +120,15 @@ export class UserUploadComponent implements OnInit, OnDestroy {
  * also defines array of instructions to be displayed
  */
   ngOnInit() {
+    this.userDataSubscription = this.userService.userData$.subscribe(
+      (user: IUserData) => {
+        if (user && !user.err) {
+          this.userProfile = user.userProfile;
+          this.value =  this.userProfile.organisationIds[1];
+          console.log(this.userProfile, 'profile', this.userProfile.organisationIds[1]);
+        }
+      });
+
     document.body.classList.add('no-scroll'); // This is a workaround  we need to remove it when library add support to remove body scroll
     this.activatedRoute.data.subscribe(data => {
       if (data.redirectUrl) {
@@ -212,7 +227,7 @@ export class UserUploadComponent implements OnInit, OnDestroy {
           this.showLoader = false;
           const errorMsg =  _.get(err, 'error.params.errmsg') ? _.get(err, 'error.params.errmsg').split(/\../).join('.<br/>') :
            this.resourceService.messages.fmsg.m0051;
-           console.log('err',err);
+           console.log('err', err);
           this.toasterService.error(errorMsg);
         });
     } else if (file[0] && !(file[0].name.match(/.(csv)$/i))) {

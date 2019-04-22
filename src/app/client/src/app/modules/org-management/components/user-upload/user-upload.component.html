@@ -36,7 +36,7 @@
           <div class="one field">
             <div class=" required field">
               <label>{{resourceService?.frmelmnts?.lbl?.orgid}}</label>
-              <input formControlName="organisationId" type="text" placeholder="OrgId">
+              <input formControlName="organisationId" type="text" placeholder="OrgId" [(ngModel)]="value" readonly="{{ variable }}">
             </div>
           </div>
         </div>

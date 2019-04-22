@@ -8,7 +8,7 @@
     routerLinkActive="active">
   Add User
   </a>
-  <a class="item" routerLink="viewuser"  *ngIf='userProfile?.rootOrgAdmin' routerLinkActive="active" >
+  <a class="item" routerLink="viewuser"  *ngIf='userProfile?.rootOrgAdmin || !(userProfile?.rootOrgAdmin)' routerLinkActive="active" >
       View User
       </a>
   <a class="item" [routerLink]= "['addOrganisation', 1]"  *ngIf='userProfile?.rootOrgAdmin' routerLinkActive="active"
