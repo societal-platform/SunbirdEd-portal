@@ -1,4 +1,4 @@
-@import '../../../../../../node_modules//bootstrap//dist//css/bootstrap.min.css';
+// @import '../../../../../../node_modules//bootstrap//dist//css/bootstrap.min.css';
 
 .ui.dropdown:not(.button) .default.text {
     color: #cdcccc;
@@ -10,7 +10,14 @@
     font-size: 13px;
 }
 .ui.selection.dropdown {
-    border: 1px solid #e4e4e4;
+    border: 1px solid #e4e4e4 !important;
+    background: #f6f6f6;
+    border-radius: 7px;
+    height: 42px;
+    cursor: pointer;
+}
+.ui.search.dropdown {
+    border: 1px solid #e4e4e4 !important;
     background: #f6f6f6;
     border-radius: 7px;
     height: 42px;
@@ -74,3 +81,12 @@ sui-select {
                     .ui.column.grid>[class*="four wide"].column, .ui.grid>.column.row>[class*="four wide"].column, .ui.grid>.row>[class*="four wide"].column, .ui.grid>[class*="four wide"].column {        width: 91vw !important;;
                     }
                    }
+
+
+#region {
+    border: 1px solid #e4e4e4;
+    background: #f6f6f6;
+    border-radius: 7px;
+    height: 42px;
+    cursor: pointer;
+}

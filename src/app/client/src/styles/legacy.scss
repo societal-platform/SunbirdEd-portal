@@ -443,9 +443,10 @@ i.large.icon.limitedPublishingLinkIcon {
 }
 
 .ui.selection.dropdown {
-  border: 0;
-  border-bottom: 1px solid #e4e4e4;
-  border-radius: 0;
+  border: 1px solid #e4e4e4 !important;
+  background: #f6f6f6;
+  border-radius: 7px;
+  
 }
 .ui.dropdown.genderSelectionDropDown {
   border: 0;

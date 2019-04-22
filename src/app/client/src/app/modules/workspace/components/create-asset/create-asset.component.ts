@@ -14,6 +14,7 @@ import { IInteractEventInput, IImpressionEventInput } from '@sunbird/telemetry';
 import { WorkSpace } from '../../classes/workspace';
 import { WorkSpaceService } from '../../services';
 import { publish } from 'rxjs/operators';
+import { s } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-create-asset',
@@ -112,6 +113,8 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
   public formUpdateData: any;
   uploadSuccess = false;
   showMessage = false;
+  lockPopupData: object;
+  showLockedContentModal = false;
   /**
 	* telemetryImpression
 	*/
@@ -120,6 +123,10 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
   pdf: any;
   fileList: any;
   contentId: string;
+  content: any;
+  state: string;
+  enableContent = false;
+  enableLink = false;
   constructor(
     public searchService: SearchService,
     public workSpaceService: WorkSpaceService,
@@ -158,6 +165,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
       this.configService.appConfig.contentName[this.contentType] : 'Untitled';
     this.description = this.configService.appConfig.contentDescription[this.contentType] ?
       this.configService.appConfig.contentDescription[this.contentType] : 'Untitled';
+      this.state = 'allcontent';
   }
 
 
@@ -177,7 +185,25 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
           this.userProfile = user.userProfile;
         }
       });
+      const req = {
+        url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
+      };
+      this.contentService.get(req).subscribe(data => {
+        console.log('read content', data);
+        this.content = data.result.content;
+        if (data.result.content.mimeType === 'application/pdf') {
+          this.enabled = true;
+          this.pdf = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
+            data.result.content.artifactUrl.lastIndexOf('pdf'));
 
+        } else if (data.result.content.mimeType === 'application/vnd.ekstep.ecml-archive') {
+        this.enableContent = true;
+               } else {
+         this.enableLink = true;
+               }
+        // this.formInputData['gradeLevel'] = this.mutateData(data.result.content.gradeLevel)
+        // this.formInputData['versionKey'] = data.result.content.versionKey;
+      });
   }
   ngOnDestroy() {
     if (this.modal && this.modal.deny) {
@@ -225,20 +251,7 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
         this.toasterService.error(this.resourceService.messages.emsg.m0005);
       }
     });
-    const req = {
-      url: `${this.configService.urlConFig.URLS.CONTENT.GET}/${this.activatedRoute.snapshot.params.contentId}`,
-    };
-    this.contentService.get(req).subscribe(data => {
-      console.log('read content', data);
-      if (data.result.content.mimeType === 'application/pdf') {
-        this.enabled = true;
-        this.pdf = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
-          data.result.content.artifactUrl.lastIndexOf('pdf'));
 
-      }
-      // this.formInputData['gradeLevel'] = this.mutateData(data.result.content.gradeLevel)
-      // this.formInputData['versionKey'] = data.result.content.versionKey;
-    });
   }
 
   /**
@@ -292,6 +305,8 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
       requestData.mimeType = 'text/x-url';
       requestData['artifactUrl'] = data.link;
       // requestData.mimeType = 'application/pdf'
+    } else if (this.enableContent) {
+      requestData.mimeType = 'application/vnd.ekstep.ecml-archive';
     } else {
       requestData.mimeType = 'application/pdf';
     }
@@ -323,17 +338,17 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
     if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators &&
       !!data.version && !!data.gradeLevel) {
       this.uploadSuccess = true;
-      if (this.fileList) {
-        if (this.fileList.size < 50000000) {
-          this.updateContentFile();
+      // if (this.fileList) {
+      //   if (this.fileList.size < 50000000) {
+      //     this.updateContentFile();
 
-        } else {
-          this.toasterService.error('File size should be less than 50MB');
-        }
-      } else {
+      //   } else {
+      //     this.toasterService.error('File size should be less than 50MB');
+      //   }
+      // } else {
         this.updateContent();
 
-      }
+      // }
 
     } else {
       this.toasterService.error('Asset creation failed please provide required fields');
@@ -435,5 +450,21 @@ export class CreateAssetComponent extends WorkSpace implements OnInit, OnDestroy
   redirect() {
     this.router.navigate(['/myassets/update', this.contentID]);
 
+  }
+  contentClick() {
+    if (_.size(this.content.lockInfo)) {
+        this.lockPopupData = this.content;
+        this.showLockedContentModal = true;
+    } else {
+      const status = this.content.status.toLowerCase();
+      if (status === 'processing') {
+        return;
+      }
+      if (status === 'draft') { // only draft state contents need to be locked
+        this.workSpaceService.navigateToContent(this.content, this.state);
+      } else {
+        this.workSpaceService.navigateToContent(this.content, this.state);
+      }
+    }
   }
 }

@@ -113,6 +113,9 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    // this.formInputData['language']=this.configService.countryConfig.languages;
+    // this.formInputData['country']=this.configService.countryConfig.countries;
     this.frameworkService.initialize(this.frameworkName, this.hashTagId);
     this.getFormatedFilterDetails().subscribe((formFieldProperties) => {
       this.formFieldProperties = formFieldProperties;
@@ -160,7 +163,23 @@ export class ProminentFilterComponent implements OnInit, OnDestroy {
               name: value.orgName,
             };
             });
-          } else {
+          } else if (formFieldCategory.code === 'languages') {
+           let id = 1;
+            formFieldCategory.range = _.map(this.configService.countryConfig.languages, (value) => {
+              return {category: 'languages',
+              identifier: id++,
+              name: value,
+            };
+          });
+          } else if (formFieldCategory.code === 'country') {
+            let id = 1;
+             formFieldCategory.range = _.map(this.configService.countryConfig.countries, (value) => {
+               return {category: 'country',
+               identifier: id++,
+               name: value,
+             };
+           });
+           } else {
           const frameworkTerms = _.get(_.find(this.categoryMasterList, { code : formFieldCategory.code}), 'terms');
           formFieldCategory.range = _.union(formFieldCategory.range, frameworkTerms);
           }

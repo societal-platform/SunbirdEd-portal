@@ -25,6 +25,15 @@ i.fas.fa-database.fa-lg {
   cursor: pointer;
   background: #585858
 }
+.creator {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #686F7A;
+  padding-bottom: 6px;
+}
  #style {
    border-radius: 50%;
     background: gainsboro;
@@ -155,11 +164,14 @@ i.fas.fa-database.fa-lg {
   font-weight: 600;
   font-size: 15px;
   color: #686F7A;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   line-clamp: 2;
   line-height: 2rem;
   height: 3.5rem
   
+}
+.card-body {
+  height: 17rem;
 }
 .btn-sec {
   background-color: #a8abe3 !important;

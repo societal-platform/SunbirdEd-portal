@@ -40,6 +40,8 @@ export class DefaultTemplateComponent implements OnInit, AfterViewInit {
     * any data
     */
   showLoader = true;
+  countryList: any;
+  langugaes: any;
 
   /**
 * To show toaster(error, success etc) after any API calls
@@ -147,13 +149,18 @@ export class DefaultTemplateComponent implements OnInit, AfterViewInit {
         delimiter: 13
       }
     });
+    $('#region').dropdown();
   }
   ngOnInit() {
     /***
  * Call User service to get user data
  */
+    this.categoryList['languages'] = this.configService.countryConfig.languages;
+    this.categoryList['region'] = this.configService.countryConfig.countries;
 
-
+this.countryList = this.configService.countryConfig.countries;
+this.langugaes = this.configService.countryConfig.languages;
+console.log('country list', this.configService.countryConfig.countries );
     this.setFormConfig();
     this.userService.userData$.subscribe(
       (user: IUserData) => {

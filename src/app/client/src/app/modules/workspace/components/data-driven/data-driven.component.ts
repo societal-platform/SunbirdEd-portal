@@ -14,6 +14,7 @@ import { IInteractEventInput, IImpressionEventInput } from '@sunbird/telemetry';
 import { WorkSpace } from '../../classes/workspace';
 import { WorkSpaceService } from '../../services';
 import { publish } from 'rxjs/operators';
+import { DraftComponent } from '../draft/draft.component';
 
 @Component({
   selector: 'app-data-driven',
@@ -121,7 +122,11 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
   enabled: any;
   fileList: any;
   contentId: string;
-
+  status = 'draft';
+  frameworks = 'societal_platform';
+  uploadFile = false;
+  uploadContent = false;
+  uploadLink: string;
 
   constructor(
     public searchService: SearchService,
@@ -155,12 +160,13 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
       this.configService.appConfig.contentName[this.contentType] : 'Untitled';
     this.description = this.configService.appConfig.contentDescription[this.contentType] ?
       this.configService.appConfig.contentDescription[this.contentType] : 'Untitled';
+    this.uploadLink = 'link';
   }
 
 
   ngOnInit() {
     console.log('this.activated ', this.activatedRoute);
-    this.checkForPreviousRouteForRedirect();
+    // this.checkForPreviousRouteForRedirect();
 
     /**
      * fetchFrameworkMetaData is called to config the form data and framework data
@@ -282,11 +288,12 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
       requestData.framework = this.framework;
     requestData.version = parseFloat(requestData.version);
 
-    if (this.contentType === 'studymaterial' && data.link) {
+    if (!!data.link && this.uploadLink === 'link') {
       requestData.mimeType = 'text/x-url';
       requestData['artifactUrl'] = data.link;
-      // requestData.mimeType = 'application/pdf'
-    } else {
+    } else if (this.contentType === 'studymaterial' && this.uploadLink === 'uploadContent') {
+      requestData.mimeType = this.configService.appConfig.CONTENT_CONST.CREATE_LESSON;
+    } else if (this.uploadLink === 'uploadFile') {
       requestData.mimeType = 'application/pdf';
     }
     if (this.resourceType) {
@@ -303,56 +310,63 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 
 
   isDisabled(event) {
-    this.enabled = !this.enabled;
+    console.log('event', event);
+    this.uploadLink = event.target.value;
+    if (event.target.value === 'uploadContent') {
+      this.uploadContent = true;
+    } else {
+      this.enabled = !this.enabled;
+      this.uploadContent = false;
+    }
   }
   checkFields() {
     this.formData.formInputData['link'] = this.link;
     const data = _.pickBy(this.formData.formInputData);
     if (!!data.name && !!data.description && !!data.board && !!data.keywords
-      && !!data.creators && !!data.version && !!data.gradeLevel && !!data.link) {
-      console.log('hii');
+      && !!data.creators && !!data.version && !!data.gradeLevel) {
       this.uploadSuccess = true;
       this.createContent();
     } else {
       this.toasterService.error('Asset creation failed please provide required fields');
     }
   }
-  checkFieldofFile() {
-    const data = _.pickBy(this.formData.formInputData);
-    if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators
-      && !!data.version && !!data.gradeLevel && !!this.fileList) {
-      this.uploadSuccess = true;
-      if (this.fileList.size < 50000000 ) {
-        this.createContentFile();
-      } else {
-        this.toasterService.error('File size should be less than 50MB');
-      }
-    } else {
-      this.toasterService.error('Asset creation failed please provide required fields');
-    }
-  }
+  // checkFieldofFile() {
+  //   const data = _.pickBy(this.formData.formInputData);
+  //   if (!!data.name && !!data.description && !!data.board && !!data.keywords && !!data.creators
+  //     && !!data.version && !!data.gradeLevel && !!this.fileList) {
+  //     this.uploadSuccess = true;
+  //     if (this.fileList.size < 50000000 ) {
+  //       this.createContentFile();
+  //     } else {
+  //       this.toasterService.error('File size should be less than 50MB');
+  //     }
+  //   } else {
+  //     this.toasterService.error('Asset creation failed please provide required fields');
+  //   }
+  // }
 
-  createContentFile() {
-    const requestData = {
-      content: this.generateData(_.pickBy(this.formData.formInputData))
-    };
+  // createContentFile() {
+  //   const requestData = {
+  //     content: this.generateData(_.pickBy(this.formData.formInputData))
+  //   };
 
-    if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
-      this.editorService.create(requestData).subscribe(res => {
-        console.log('res', res);
+  //   if (this.contentType === 'studymaterial' && this.uploadSuccess === true) {
+  //     this.editorService.create(requestData).subscribe(res => {
+  //       console.log('res', res);
 
-        this.contentId = res.result.content_id;
-        this.toasterService.success('Asset created successfully');
-        this.uploadFileEvent();
-      }, err => {
-        this.toasterService.error('asset creation failed');
-      });
-    } else {
-      this.toasterService.error('asset creation failed');
-    }
+  //       this.contentId = res.result.content_id;
+  //       this.toasterService.success('Asset created successfully');
+  //       this.uploadFileEvent();
+  //     }, err => {
+  //       this.toasterService.error('asset creation failed');
+  //     });
+  //   } else {
+  //     this.toasterService.error('asset creation failed');
+  //   }
 
-  }
+  // }
   createContent() {
+
     const requestData = {
       content: this.generateData(_.pickBy(this.formData.formInputData))
     };
@@ -363,93 +377,118 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 
         this.contentId = res.result.content_id;
         this.toasterService.success('Asset created successfully');
+        if (this.uploadLink === 'uploadFile') {
+          this.routetoediter();
+        } else if (this.uploadLink === 'uploadContent') {
+          this.routeToContentEditor({ identifier: res.result.content_id });
+        } else {
+          this.goToCreate();
+        }
       }, err => {
         this.toasterService.error('asset creation failed');
       });
     } else {
       this.toasterService.error('asset creation failed');
     }
-    this.goToCreate();
+    // this.goToCreate();
   }
-
+  routeToContentEditor(content) {
+    setTimeout(() => {
+      this.router.navigate(['myassets']);
+    }, 1700);
+    setTimeout(() => {
+      this.createLockAndNavigateToEditor(content);
+    }, 1800);
+  }
   createLockAndNavigateToEditor(content) {
     const state = 'draft';
     const framework = this.framework;
+    //  this.goToCreate();
+    this.router.navigate(['myassets/edit/content', content.identifier, state, framework, 'Draft']);
   }
 
   /**
     * Issue #SB-1448,  If previous url is not from create page, redirect current page to 'workspace/content/create'
   */
-  checkForPreviousRouteForRedirect() {
-    const previousUrlObj = this.navigationHelperService.getPreviousUrl();
-    if (previousUrlObj && previousUrlObj.url && (previousUrlObj.url !== '/myassets/create')) {
-      this.redirect();
-    }
-  }
+  // checkForPreviousRouteForRedirect() {
+  //   const previousUrlObj = this.navigationHelperService.getPreviousUrl();
+  //   if (previousUrlObj && previousUrlObj.url && (previousUrlObj.url !== '/myassets/create')) {
+  //     this.redirect();
+  //   }
+  // }
 
   redirect() {
     this.router.navigate(['/myassets/create']);
   }
 
-  basicUploadFile(event) {
-     this.fileList = event.target.files[0];
+  // basicUploadFile(event) {
+  //    this.fileList = event.target.files[0];
+  // }
+
+  // uploadFileEvent() {
+  //   console.log('fileList', this.fileList);
+  //   const data = {
+  //     fileName: this.fileList.name
+  //   };
+  //   const request = {
+  //     content: data
+  //   };
+  //   console.log('request in upload file', request);
+  //   this.editorService.uploadUrl(request, this.contentId).subscribe(res => {
+  //     this.toasterService.success('uploaded successfully');
+  //     const pdfurl = res.result.pre_signed_url.substring(0, res.result.pre_signed_url.lastIndexOf('?'));
+  //     this.workSpaceService.uploadPreSigned(res.result.pre_signed_url, this.fileList).subscribe(ress => {
+  //       this.editorService.upload(pdfurl, this.contentId).subscribe(response => {
+  //         console.log('ress', response);
+
+  //       });
+  //       this.goToCreate();
+
+  //     }, err => {
+  //       this.toasterService.error('asset creation failed');
+  //     }
+
+  //     );
+
+  //     // this.editorService.upload()
+  //   }, err => {
+  //     this.toasterService.error('asset creation failed');
+  //   });
+
+  // }
+  routetoediter() {
+    // edit/generic/:contentId/:state/:framework/:contentStatus
+    setTimeout(() => {
+      this.router.navigate(['myassets']);
+    }, 1700);
+    setTimeout(() => {
+    this.router.navigate(['myassets/edit/generic', this.contentId, this.status, this.frameworks, 'Draft']);
+  }, 1800);
   }
 
-  uploadFileEvent() {
-    console.log('fileList', this.fileList);
-    const data = {
-      fileName: this.fileList.name
-    };
-    const request = {
-      content: data
-    };
-    console.log('request in upload file', request);
-    this.editorService.uploadUrl(request, this.contentId).subscribe(res => {
-      this.toasterService.success('uploaded successfully');
-      const pdfurl = res.result.pre_signed_url.substring(0, res.result.pre_signed_url.lastIndexOf('?'));
-      this.workSpaceService.uploadPreSigned(res.result.pre_signed_url, this.fileList).subscribe(ress => {
-        this.editorService.upload(pdfurl, this.contentId).subscribe(response => {
-          console.log('ress', response);
-
-        });
-        this.goToCreate();
-
-      }, err => {
-        this.toasterService.error('asset creation failed');
-      }
-
-      );
-
-      // this.editorService.upload()
-    }, err => {
-      this.toasterService.error('asset creation failed');
-    });
-
-  }
-
-  locking(id) {
-    const requestData = {};
-    const info = {
-      'identifier': id,
-      'mimetype': 'application/pdf',
-      'framework': this.framework,
-      'contentType': this.configService.appConfig.contentCreateTypeForEditors[this.contentType],
-    };
+  // locking(id) {
+  //   const requestData = {};
+  //   const info = {
+  //     'identifier': id,
+  //     'mimetype': 'application/pdf',
+  //     'framework': this.framework,
+  //     'contentType': this.configService.appConfig.contentCreateTypeForEditors[this.contentType],
+  //   };
 
 
-    requestData['resourceId'] = id;
-    requestData['createdBy'] = this.userProfile.id;
-    requestData['resourceInfo'] = JSON.stringify(info);
-    requestData['creatorInfo'] = JSON.stringify({
-      'name': this.userProfile.firstName,
-      'id': this.userProfile.id
-    });
-    requestData['resourceType'] = 'Content';
+  //   requestData['resourceId'] = id;
+  //   requestData['createdBy'] = this.userProfile.id;
+  //   requestData['resourceInfo'] = JSON.stringify(info);
+  //   requestData['creatorInfo'] = JSON.stringify({
+  //     'name': this.userProfile.firstName,
+  //     'id': this.userProfile.id
+  //   });
+  //   requestData['resourceType'] = 'Content';
 
 
-    this.workSpaceService.lockContent(requestData).subscribe(res => {
-      console.log('suc', res);
-    });
-  }
+  //   this.workSpaceService.lockContent(requestData).subscribe(res => {
+  //     console.log('suc', res);
+  //   });
+  // }
 
 }

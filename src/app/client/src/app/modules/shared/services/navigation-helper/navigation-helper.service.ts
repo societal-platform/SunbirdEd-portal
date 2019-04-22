@@ -79,6 +79,7 @@ export class NavigationHelperService {
         this.router.navigate([this._workspaceCloseUrl.url], {queryParams: this._workspaceCloseUrl.queryParams});
         this._workspaceCloseUrl = undefined;
       } else {
+        // this.router.navigateByUrl(this._workspaceCloseUrl.url, { skipLocationChange: true });
         this.router.navigate([this._workspaceCloseUrl.url]);
         this._workspaceCloseUrl = undefined;
       }

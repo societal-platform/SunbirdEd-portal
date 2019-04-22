@@ -93,6 +93,8 @@ export class UpdateResoureFormComponent implements OnInit, AfterViewInit {
    */
   public years: any;
   domains = [];
+  countryList: any;
+  langugaes: any;
 
   /**
  * To make content editor service API calls
@@ -154,7 +156,7 @@ export class UpdateResoureFormComponent implements OnInit, AfterViewInit {
         delimiter: 13
       }
     });
-
+    $('#region').dropdown();
     //   $(function(){
     //     var defaultValue = $("#keywords").val();
     //     $("#reset").click(function () {
@@ -183,6 +185,11 @@ export class UpdateResoureFormComponent implements OnInit, AfterViewInit {
     /***
  * Call User service to get user data
  */
+
+ this.categoryList['languages'] = this.configService.countryConfig.languages;
+ this.categoryList['region'] = this.configService.countryConfig.countries;
+ this.countryList = this.configService.countryConfig.countries;
+this.langugaes = this.configService.countryConfig.languages;
 this.activatedRoute.url.subscribe(url => {
   console.log('urls', url);
   this.path = url[2].path;

@@ -21,18 +21,29 @@
                 </div>
                 <div class="col">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="field-value" id="uploadFile"
+                       <input class="form-check-input" type="radio" name="field-value" id="uploadFile"
                             value="uploadFile" (change)="isDisabled($event)" />
                         <label class="form-check-label" for="uploadFile">
                             Upload File
                         </label>
+                        <!-- <button (click)="checkFields()">upload</button> -->
                     </div>
                 </div>
+                <div class="col">
+                        <div class="form-check">
+                                <input class="form-check-input" type="radio" name="field-value" id="uploadContent"
+                                value="uploadContent" (change)="isDisabled($event)" />
+                            <label class="form-check-label" for="uploadContent">
+                                Upload content
+                            </label>
+                        </div>
+                    </div>
             </div>
-
-            <div *ngIf="!enabled">
+<!-- <button (click)="checkFields()">upload</button> -->
+<!-- <button  routerLink="../edit/generic/">upload</button> -->
+            <div *ngIf="uploadLink==='link'">
                 <div *ngFor="let fields of formFieldProperties;let i = index">
-                    <div *ngIf="fields.inputType==='text' && fields.code==='link' && !enabled" class="required field"
+                    <div *ngIf="fields.inputType==='text' && fields.code==='link'" class="required field"
                         [ngClass]="{ 'disabled':!fields.editable}">
 
                         <div class="field required">
@@ -48,32 +59,45 @@
                 <div class="actions mt-10">
                     <p class="text-align-center pt-20">
                         <button class="btn btn-default btn-sec mr-5 btn-lg text-light" id="res-btn" (click)="checkFields()"
-                            type="button">Save</button>
+                            type="button">Save Asset</button>
                         <button type="button" class="btn btn-outline btn-lg" (click)="goToCreate()">Cancel</button>
 
                     </p>
 
                 </div>
             </div>
-            <div *ngIf="enabled">
-                <div class="form-group" *ngIf="enabled">
+            <div *ngIf="uploadLink==='uploadFile'">
+                <!-- <div class="form-group" *ngIf="enabled">
                     <label for="exampleInputFile"></label>
                     <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
                         accept="application/pdf" (change)="basicUploadFile($event)">
                     <small id="fileHelp" class="form-text text-muted">File accepted - pdf, Max file size - 50 Mb</small>
-                </div>
+                </div> -->
                 <div class="actions mt-10">
                     <p class="text-align-center pt-20">
                         <button class="btn btn-default btn-sec mr-5 btn-lg text-light" 
-                            type="button" (click)="checkFieldofFile()">Save</button>
+                            type="button" (click)="checkFields()">Upload File</button>
                         <button type="button" class="btn btn-outline btn-lg" (click)="goToCreate()">Cancel</button>
 
                     </p>
 
                 </div>
             </div>
-
+            <div *ngIf="uploadLink==='uploadContent'">  
+                    <div class="actions mt-10">
+                        <p class="text-align-center pt-20">
+                            <button class="btn btn-default btn-sec mr-5 btn-lg text-light" 
+                                type="button" (click)="checkFields()">Create Content</button>
+                            <button type="button" class="btn btn-outline btn-lg" (click)="goToCreate()">Cancel</button>
+    
+                        </p>
+    
+                    </div>
+                </div>
+    
 
         </div>
     </form>
 </div>
+
+<router-outlet></router-outlet>

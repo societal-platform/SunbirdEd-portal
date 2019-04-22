@@ -9,6 +9,8 @@ import {
   ToasterService, ServerResponse ,
   ResourceService, IUserData
 } from '@sunbird/shared';
+import { WorkSpaceService } from '../../services';
+import * as _ from 'lodash';
 
 export interface IassessDetail {
   name: string;
@@ -41,6 +43,8 @@ export class AssetDetailPageComponent implements OnInit {
   add = false;
   success = false;
   user: any;
+  state: string;
+
   public userService: UserService;
   public activatedRoute: ActivatedRoute;
   public configService: ConfigService;
@@ -79,9 +83,17 @@ export class AssetDetailPageComponent implements OnInit {
 
   pdfs: string;
   path: string;
+  lockPopupData: object;
+
+  /**
+   * To show content locked modal
+  */
+  showLockedContentModal = false;
+  content: any;
   constructor(activated: ActivatedRoute, public modalServices: SuiModalService , public modalService: SuiModalService,
     badgeService: BadgesService,  toasterService: ToasterService, resourceService: ResourceService, userService: UserService,
-    config: ConfigService, contentServe: ContentService , rout: Router, private location: Location) {
+    config: ConfigService, contentServe: ContentService , rout: Router, private location: Location,
+      public workSpaceService: WorkSpaceService) {
     this.activatedRoute = activated;
     this.activatedRoute.url.subscribe(url => {
       this.contentId = url[1].path;
@@ -93,6 +105,7 @@ export class AssetDetailPageComponent implements OnInit {
     this.toasterService = toasterService;
     this.resourceService = resourceService;
     this.userService = userService;
+    this.state = 'allcontent';
    }
 
   ngOnInit() {
@@ -112,6 +125,7 @@ export class AssetDetailPageComponent implements OnInit {
       };
       this.contentService.get(req).subscribe(data => {
         console.log('read content', data);
+        this.content = data.result.content;
         this.assetDetail = data.result.content;
         this.showLoader = false;
         this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
@@ -126,6 +140,7 @@ export class AssetDetailPageComponent implements OnInit {
       this.contentService.get(req).subscribe(data => {
         console.log('read content', data);
         this.assetDetail = data.result.content;
+        this.content = data.result.content;
         this.showLoader = false;
         this.pdfs = data.result.content.artifactUrl.substring(data.result.content.artifactUrl.lastIndexOf('/'),
         data.result.content.artifactUrl.lastIndexOf('pdf'));
@@ -296,4 +311,21 @@ export class AssetDetailPageComponent implements OnInit {
    navigateToplay() {
     this.route.navigate(['play']);
    }
+
+   contentClick() {
+    if (_.size(this.content.lockInfo)) {
+        this.lockPopupData = this.content;
+        this.showLockedContentModal = true;
+    } else {
+      const status = this.content.status.toLowerCase();
+      if (status === 'processing') {
+        return;
+      }
+      if (status === 'draft') { // only draft state contents need to be locked
+        this.workSpaceService.navigateToContent(this.content, this.state);
+      } else {
+        this.workSpaceService.navigateToContent(this.content, this.state);
+      }
+    }
+  }
 }

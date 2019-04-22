@@ -17,7 +17,6 @@ h4 {
      height: 40px;
      font-family: "Muli",sans-serif;
      font-size: 15px;
-     width: 120px;
      text-transform: uppercase;
      font-weight: 700;
      box-shadow: none;
@@ -65,5 +64,6 @@ h4 {
    }
    .pdfStyle {
     cursor: pointer;
-    color: #6e71c3
+    color: #6e71c3;
+    margin-top: 1rem;
   }

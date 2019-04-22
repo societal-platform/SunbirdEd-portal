@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, Input,  EventEmitter, Output, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
+import { SuiModule } from 'ng2-semantic-ui';
 @Component({
   selector: 'app-custom-multi-select',
   templateUrl: './custom-multi-select.component.html',
@@ -52,6 +53,7 @@ export class CustomMultiSelectComponent implements OnInit {
     this.selectedValue.emit(event);
   }
   ngOnInit() {
+  console.log('this.inputData', this.field);
     this.checkBox = {};
     const name = [];
     if (this.inputData) {

@@ -296,7 +296,11 @@ const routes: Routes = [
     path: 'review/detail/:contentId', component: AssetDetailPageComponent
   },
   {
-    path: 'review/detail/:contentId/play', component: PdfViewerComponent
+    path: 'review/detail/:contentId/play', component: UpforreviewContentplayerComponent,
+    children: [
+      { path: 'publish', component: PublishedPopupComponent },
+      { path: 'requestchanges', component: RequestChangesPopupComponent }
+    ]
   },
   {
     path: 'detail/:contentId/:status', component: AssetDetailPageComponent

@@ -317,7 +317,11 @@ modalMessage = '';
         medium: bothParams.queryParams.medium,
         gradeLevel: bothParams.queryParams.gradeLevel,
         resourceType: bothParams.queryParams.resourceType,
-        keywords: bothParams.queryParams.keywords
+        keywords: bothParams.queryParams.keywords,
+        region: bothParams.queryParams.country,
+        creators: bothParams.queryParams.channel,
+        languages: bothParams.queryParams.languages
+
       },
       limit: limit,
       offset: (pageNumber - 1) * (limit),
