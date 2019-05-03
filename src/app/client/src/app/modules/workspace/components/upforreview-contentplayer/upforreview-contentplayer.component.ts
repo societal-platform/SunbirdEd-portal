@@ -183,7 +183,7 @@ export class UpforreviewContentplayerComponent implements OnInit, OnDestroy {
           this.contentData = response.result.content;
           this.setInteractEventData();
           this.showCommentBoxClass = this.contentData.mimeType ===
-          'application/vnd.ekstep.ecml-archive' ? 'eight wide column' : 'twelve wide column';
+          'application/vnd.ekstep.ecml-archive' ? 'col-sm-8' : 'col-sm-12';
           this.showLoader = false;
         } else {
           this.toasterService.warning(this.resourceService.messages.imsg.m0027);
@@ -208,7 +208,7 @@ export class UpforreviewContentplayerComponent implements OnInit, OnDestroy {
   * @memberof ContentPlayerComponent
   */
   close() {
-    this.navigationHelperService.navigateToWorkSpace('/workspace/content/upForReview/1');
+    this.navigationHelperService.navigateToWorkSpace('/upForReview');
   }
 
   setInteractEventData() {

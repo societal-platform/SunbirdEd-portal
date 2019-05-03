@@ -48,7 +48,7 @@ export class DataDrivenFilterComponent implements OnInit, OnChanges {
   public filterIntractEdata: IInteractEventEdata;
 
   public submitIntractEdata: IInteractEventEdata;
-
+  placeholder = ''
   constructor(public configService: ConfigService, public resourceService: ResourceService, public router: Router,
     private activatedRoute: ActivatedRoute, private cacheService: CacheService, private cdr: ChangeDetectorRef,
     public frameworkService: FrameworkService, public formService: FormService,
@@ -288,5 +288,12 @@ export class DataDrivenFilterComponent implements OnInit, OnChanges {
       catchError(err => {
         return [];
       }));
+  }
+
+  selectedOption(event) {
+    console.log('data evenet', event)
+    if(event.length===0)
+    this.placeholder = '';
+    else this.placeholder = 'Selected'
   }
 }

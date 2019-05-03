@@ -1,37 +1,38 @@
-<div class="ui grid">
-  <div class="one wide column"></div>
-  <div class="ten wide column">
+<div class="container">
+    <div class="row">
+  <!-- <div class="col-sm-1"></div> -->
+  <div class="col-sm-12">
     <div class="row" *ngIf="showLoader">
       <app-loader [data]="loaderMessage"></app-loader>
     </div>
 
-    <div class="row mt-10" *ngIf="!showLoader && contentData">
+    <div class="row mt-10 mb-10" *ngIf="!showLoader && contentData">
 
-      <div class="videosegment  ui clearing segment">
-        <div class="ten wide column">
+      <!-- <div class="videosegment  ui clearing segment"> -->
+        <div class="col-sm-10">
           <span class="ui HomeAccordianHeading left floated header">
             {{contentData.name}}
           </span>
         </div>
-        <div class="two wide column">
-          <h5 class="ui right floated basic icon circular button  mouse-pointer" (click)="close()">
+        <div class="col-sm-2">
+          <h5 class="ui right floated basic icon circular button  mouse-pointer mb-10" (click)="close()">
             <i class="ui remove icon" (click)="close()"></i>
           </h5>
         </div>
-      </div>
+      <!-- </div> -->
 
-      <div class="ui grid">
+      <div class="container">
         <div [ngClass]="showCommentBoxClass" >
           <app-player class="content-player" [playerConfig]="playerConfig" (contentProgressEvent)="contentProgressEvent($event)" (sceneChangeEvent)="handleSceneChangeEvent($event)"></app-player>
         </div>
-        <div class="four wide column" *ngIf="contentData.mimeType === 'application/vnd.ekstep.ecml-archive' && stageId">
+        <div class="col-sm-4" *ngIf="contentData.mimeType === 'application/vnd.ekstep.ecml-archive' && stageId">
           <app-review-comments [contentData]="contentData" [playerLoaded]="playerLoaded" [stageId]="stageId" (reviewCommentEvent)="handleReviewCommentEvent($event)"></app-review-comments>
         </div>
       </div>
     </div>
 
     <div class="row mt-10" *ngIf="!showLoader">
-      <div class="mt-20 videosegment ui clearing segment">
+      <div class="mt-20 col-sm-12">
         <div *ngIf="permissionService.permissionAvailable && contentData && 
           (contentData.status === 'Review' || contentData.status === 'FlagReview') && userId !== contentData.createdBy"
           appPermission [permission]="['CONTENT_REVIEWER', 'CONTENT_REVIEW','BOOK_REVIEWER','FLAG_REVIEWER']">
@@ -46,12 +47,14 @@
         </div>
       </div>
     </div>
-    <div class="ui grid" *ngIf="!showLoader && contentData">
-      <div class="eight wide column">
+    <div class="container mt-30" *ngIf="!showLoader && contentData">
+      <div class="row">
+      <div class="col-sm-8">
         <app-content-player-metadata [contentData]="contentData"></app-content-player-metadata>
       </div>
-      <div class="four wide column">
+      <div class="col-sm-4">
       </div>
+    </div>
     </div>
 
     <div *ngIf="showError">
@@ -71,6 +74,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>
 <!-- publish warning modal -->

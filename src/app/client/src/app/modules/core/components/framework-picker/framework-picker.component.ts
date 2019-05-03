@@ -28,6 +28,7 @@ export class FrameworkPickerComponent implements OnInit, AfterViewInit, OnDestro
   constructor() {
   }
   ngOnInit() {
+
     const selectedTopics = _.reduce(this.selectedTopics, (collector, element) => {
       if (typeof element === 'string') {
         collector.unformatted.push(element);

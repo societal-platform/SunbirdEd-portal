@@ -13,3 +13,6 @@ input {
     border-radius: 7px;
     height: 42px;
 }
+::ng-deep .ui.modal {
+    height : auto !important;
+  }

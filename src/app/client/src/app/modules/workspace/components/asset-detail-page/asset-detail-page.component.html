@@ -66,12 +66,18 @@
 
 
             <div *ngIf="assetDetail?.artifactUrl && assetDetail?.mimeType === 'application/pdf'">
-                <!-- <p>
+                <p>
                     File : <span routerLink="play" class="pdfStyle">{{pdfs | titlecase | slice: 1}}pdf</span>
                     
-                </p> -->
-                <p>
+                </p>
+                <!-- <p>
                     File : <span (click)="contentClick()" class="pdfStyle">{{pdfs | titlecase | slice: 1}}pdf</span>
+                    
+                </p> -->
+            </div>
+            <div *ngIf="assetDetail?.mimeType === 'application/vnd.ekstep.ecml-archive'" routerLink="play">
+                 <p>
+                    View Content <span  class="pdfStyle"></span>
                     
                 </p>
             </div>

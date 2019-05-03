@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef, Input,  EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 import { SuiModule } from 'ng2-semantic-ui';
+import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 @Component({
   selector: 'app-custom-multi-select',
   templateUrl: './custom-multi-select.component.html',
@@ -12,9 +13,10 @@ export class CustomMultiSelectComponent implements OnInit {
   checkBox: object;
   selectAllCheckBox = false;
   refresh = true;
+  placeholder = '';
   @Output() selectedValue = new EventEmitter<any>();
 
-  constructor( private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) { }
   checkbox(name) {
     if (this.checkBox[name]) {
       this.checkBox[name] = false;
@@ -24,6 +26,7 @@ export class CustomMultiSelectComponent implements OnInit {
     }
   }
   selectAll(code) {
+    this.placeholder = 'Selected';
     this.inputData = [];
     this.selectAllCheckBox = !this.selectAllCheckBox;
     if (this.selectAllCheckBox) {
@@ -32,17 +35,23 @@ export class CustomMultiSelectComponent implements OnInit {
         this.checkBox[value.name] = true;
       });
     } else {
+      this.placeholder = '';
       this.inputData = [];
       _.forEach(this.field['range'], (value) => {
         this.checkBox[value.name] = false;
       });
     }
-    this.selectedValue.emit( this.inputData);
+    this.selectedValue.emit(this.inputData);
     this.refresh = false;
     this.cdr.detectChanges();
     this.refresh = true;
   }
   selectedOption(event) {
+    console.log('event select', event);
+    this.placeholder = 'Selected';
+    if (event.length === 0) {
+      this.placeholder = '';
+    }
     const fieldName = [];
     _.forEach(this.field['range'], (value, key) => {
       fieldName.push(value.name);
@@ -53,7 +62,7 @@ export class CustomMultiSelectComponent implements OnInit {
     this.selectedValue.emit(event);
   }
   ngOnInit() {
-  console.log('this.inputData', this.field);
+    console.log('this.inputData', this.field);
     this.checkBox = {};
     const name = [];
     if (this.inputData) {

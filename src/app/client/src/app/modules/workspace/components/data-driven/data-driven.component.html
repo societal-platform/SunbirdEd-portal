@@ -34,7 +34,7 @@
                                 <input class="form-check-input" type="radio" name="field-value" id="uploadContent"
                                 value="uploadContent" (change)="isDisabled($event)" />
                             <label class="form-check-label" for="uploadContent">
-                                Upload content
+                                Create content
                             </label>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
             <div *ngIf="uploadLink==='uploadContent'">  
                     <div class="actions mt-10">
                         <p class="text-align-center pt-20">
-                            <button class="btn btn-default btn-sec mr-5 btn-lg text-light" 
+                            <button class="btn btn-default btn-sec btn-lg text-light mr-5" 
                                 type="button" (click)="checkFields()">Create Content</button>
                             <button type="button" class="btn btn-outline btn-lg" (click)="goToCreate()">Cancel</button>
     

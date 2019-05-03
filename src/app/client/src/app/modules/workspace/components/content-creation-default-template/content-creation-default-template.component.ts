@@ -160,7 +160,6 @@ export class DefaultTemplateComponent implements OnInit, AfterViewInit {
 
 this.countryList = this.configService.countryConfig.countries;
 this.langugaes = this.configService.countryConfig.languages;
-console.log('country list', this.configService.countryConfig.countries );
     this.setFormConfig();
     this.userService.userData$.subscribe(
       (user: IUserData) => {

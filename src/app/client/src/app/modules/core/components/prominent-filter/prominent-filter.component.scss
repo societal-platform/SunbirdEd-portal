@@ -25,12 +25,12 @@
         width: 100vw;
     }
 }
-@media screen and (max-width:980px) and (min-width:766px) {
-    #res-searchbtn {
-        right: -12rem !important;
-    }
-}
-@media not all and (min-width: 766px) {
+// @media screen and (max-width:980px) and (min-width:766px) {
+//     #res-searchbtn {
+//         right: -12rem !important;
+//     }
+// }
+@media not all and (min-width: 805px) {
     #search {
        text-align: center;
     }
